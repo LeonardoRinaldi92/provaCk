@@ -21,7 +21,6 @@ return new class extends Migration
             $table->foreign('ingredient_id')->references('id')->on('ingredients')->onDelete('cascade');
             $table->float('quantity');
             $table->timestamps();
-        
         });
     }
 
