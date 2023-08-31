@@ -19,6 +19,7 @@ return new class extends Migration
             $table->text('description');
             $table->text('preparation');
             $table->text('avg_ABV');
+            $table->boolean('official_IBA');
             $table->timestamps();
         });
     }
