@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\alcools;
+use App\Models\Alcool;
 use Illuminate\Http\Request;
 
 class AlcoolsController extends Controller
@@ -41,10 +41,10 @@ class AlcoolsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\alcools  $alcools
+     * @param  \App\Models\Alcool  $alcools
      * @return \Illuminate\Http\Response
      */
-    public function show(alcools $alcools)
+    public function show(Alcool $alcools)
     {
         //
     }
@@ -52,10 +52,10 @@ class AlcoolsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\alcools  $alcools
+     * @param  \App\Models\Alcool  $alcools
      * @return \Illuminate\Http\Response
      */
-    public function edit(alcools $alcools)
+    public function edit(Alcool $alcools)
     {
         //
     }
@@ -64,10 +64,10 @@ class AlcoolsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\alcools  $alcools
+     * @param  \App\Models\Alcool  $alcools
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, alcools $alcools)
+    public function update(Request $request, Alcool $alcools)
     {
         //
     }
@@ -78,7 +78,7 @@ class AlcoolsController extends Controller
      * @param  \App\Models\alcools  $alcools
      * @return \Illuminate\Http\Response
      */
-    public function destroy(alcools $alcools)
+    public function destroy(Alcool $alcools)
     {
         //
     }

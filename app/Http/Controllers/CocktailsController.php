@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\cocktails;
+use App\Models\Cocktail;
 use Illuminate\Http\Request;
 
-class CocktailsController extends Controller
+class CocktailController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class CocktailsController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\cocktails  $cocktails
+     * @param  \App\Models\Cocktail  $cocktails
      * @return \Illuminate\Http\Response
      */
-    public function show(cocktails $cocktails)
+    public function show(Cocktail $cocktails)
     {
         //
     }
@@ -52,10 +52,10 @@ class CocktailsController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\cocktails  $cocktails
+     * @param  \App\Models\Cocktail  $cocktails
      * @return \Illuminate\Http\Response
      */
-    public function edit(cocktails $cocktails)
+    public function edit(Cocktail $cocktails)
     {
         //
     }
@@ -64,10 +64,10 @@ class CocktailsController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\cocktails  $cocktails
+     * @param  \App\Models\Cocktail  $cocktails
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, cocktails $cocktails)
+    public function update(Request $request, Cocktail $cocktails)
     {
         //
     }
@@ -78,7 +78,7 @@ class CocktailsController extends Controller
      * @param  \App\Models\cocktails  $cocktails
      * @return \Illuminate\Http\Response
      */
-    public function destroy(cocktails $cocktails)
+    public function destroy(Cocktail $cocktails)
     {
         //
     }

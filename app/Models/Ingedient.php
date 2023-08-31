@@ -5,11 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class ingedients extends Model
+class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name', 'ingredientable_type', 'ingredientable_id'];
 
     public function recipes()
     {
@@ -20,6 +20,4 @@ class ingedients extends Model
     {
         return $this->morphTo();
     }
-
-    
 }
