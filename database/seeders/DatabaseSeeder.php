@@ -22,5 +22,10 @@ class DatabaseSeeder extends Seeder
         // ]
         $this->call(AlcoolsSeeder::class);
         $this->call(BitterSeeder::class);
+        $this->call(FruitSeeder::class);
+        $this->call(JuiceSeeder::class);
+        $this->call(SodaSeeder::class);
+        $this->call(SugarSeeder::class);
+        $this->call(SyrupSeeder::class);
     }
 }

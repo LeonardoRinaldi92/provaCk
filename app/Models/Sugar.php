@@ -9,6 +9,8 @@ class Sugar extends Model
 {
     use HasFactory;
 
+    protected $table = 'sugars';
+
     protected $fillable = ['name'];
 
     public function ingredient()
