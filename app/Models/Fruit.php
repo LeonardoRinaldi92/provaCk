@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class Fruit extends Model
 {
     use HasFactory;
+
+    protected $fillable = ['name'];
+
+    public function ingredient()
+    {
+        return $this->morphOne(Ingredient::class, 'ingredientable');
+    }
 }

@@ -15,6 +15,9 @@ return new class extends Migration
     {
         Schema::create('ingredients', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->string('ingredientable_type'); // Aggiungi questa colonna
+            $table->unsignedBigInteger('ingredientable_id'); // Aggiungi questa colonna
             $table->timestamps();
         });
     }
