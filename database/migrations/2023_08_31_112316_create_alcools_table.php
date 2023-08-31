@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('alcools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('ABV');
             $table->timestamps();
         });
     }

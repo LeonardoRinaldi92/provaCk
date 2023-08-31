@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->text('preparation');
+            $table->text('avg_ABV');
             $table->timestamps();
         });
     }
