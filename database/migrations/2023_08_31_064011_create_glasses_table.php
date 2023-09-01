@@ -13,16 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('cocktails', function (Blueprint $table) {
+        Schema::create('glasses', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
-            $table->text('preparation');
-            $table->text('avg_ABV');
-            $table->boolean('official_IBA');
-            $table->unsignedBigInteger('glass_id');
-            $table->foreign('glass_id')->references('id')->on('glasses');
-            $table->boolean('straw');
+            $table->text('image');
+            $table->string('description');
             $table->timestamps();
         });
     }
@@ -34,6 +29,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cocktails');
+        Schema::dropIfExists('glasses');
     }
 };

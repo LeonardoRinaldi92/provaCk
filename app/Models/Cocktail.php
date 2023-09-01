@@ -15,4 +15,9 @@ class Cocktail extends Model
     {
         return $this->hasMany(Recipe::class);
     }
+
+    public function glass()
+    {
+        return $this->belongsTo(Glass::class);
+    }
 }
