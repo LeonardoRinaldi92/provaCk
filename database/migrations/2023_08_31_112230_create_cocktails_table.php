@@ -24,6 +24,7 @@ return new class extends Migration
             $table->foreign('glass_id')->references('id')->on('glasses');
             $table->unsignedBigInteger('ice_id');
             $table->foreign('ice_id')->references('id')->on('ices');
+            $table->string('garnish');
             $table->boolean('straw');
             $table->timestamps();
         });
