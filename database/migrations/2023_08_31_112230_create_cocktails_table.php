@@ -22,6 +22,8 @@ return new class extends Migration
             $table->boolean('official_IBA');
             $table->unsignedBigInteger('glass_id');
             $table->foreign('glass_id')->references('id')->on('glasses');
+            $table->unsignedBigInteger('ice_id');
+            $table->foreign('ice_id')->references('id')->on('ices');
             $table->boolean('straw');
             $table->timestamps();
         });
