@@ -21,16 +21,15 @@ class BitterSeeder extends Seeder
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Angostura);
+        // $this->createIngredient($Angostura);
     }
 
-    protected function createIngredient($bitter)
-    {
-        $ingredient = new Ingredient([
-            'name' => $bitter->name,
-            'ingredientable_type' => $bitter->getTable(),
-            'ingredientable_id' => $bitter->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($bitter)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'ingredientable_type' => $bitter->getTable(),
+    //         'ingredientable_id' => $bitter->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }

@@ -11,13 +11,13 @@ class Ingredient extends Model
 
     protected $fillable = ['name', 'ingredientable_type', 'ingredientable_id'];
 
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
-    }
-
     public function ingredientable()
     {
         return $this->morphTo();
+    }
+
+    public function cocktail()
+    {
+        return $this->belongsTo(Cocktail::class, 'cocktail_id');
     }
 }

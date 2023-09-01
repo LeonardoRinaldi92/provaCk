@@ -19,18 +19,18 @@ class SodaSeeder extends Seeder
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Tonica);
-        $this->createIngredient($Lemon);
-        $this->createIngredient($Soda);
+        // $this->createIngredient($Tonica);
+        // $this->createIngredient($Lemon);
+        // $this->createIngredient($Soda);
     }
 
-    protected function createIngredient($soda)
-    {
-        $ingredient = new Ingredient([
-            'name' => $soda->name,
-            'ingredientable_type' => $soda->getTable(),
-            'ingredientable_id' => $soda->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($soda)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'name' => $soda->name,
+    //         'ingredientable_type' => $soda->getTable(),
+    //         'ingredientable_id' => $soda->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }

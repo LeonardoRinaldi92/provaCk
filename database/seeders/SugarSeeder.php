@@ -19,19 +19,19 @@ class SugarSeeder extends Seeder
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Bianco);
-        $this->createIngredient($Canna);
-        $this->createIngredient($Zolletta);
+        // $this->createIngredient($Bianco);
+        // $this->createIngredient($Canna);
+        // $this->createIngredient($Zolletta);
     }
 
-    protected function createIngredient($sugar)
-    {
-        $ingredient = new Ingredient([
-            'name' => $sugar->name,
-            'ingredientable_type' => $sugar->getTable(),
-            'ingredientable_id' => $sugar->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($sugar)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'name' => $sugar->name,
+    //         'ingredientable_type' => $sugar->getTable(),
+    //         'ingredientable_id' => $sugar->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }
 
