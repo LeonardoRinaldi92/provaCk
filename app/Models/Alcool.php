@@ -11,9 +11,9 @@ class Alcool extends Model
 
     protected $fillable = ['name','ABV','description','image'];
 
-    public function ingredient()
+    public function ingredients()
     {
-        return $this->morphOne(Ingredient::class, 'ingredientable');
+        return $this->morphMany(Ingredient::class, 'ingredientable');
     }
 	
 }

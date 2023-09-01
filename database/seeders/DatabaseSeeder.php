@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Ice;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -28,5 +29,9 @@ class DatabaseSeeder extends Seeder
         $this->call(SugarSeeder::class);
         $this->call(SyrupSeeder::class);
         $this->call(OtherSeeder::class);
+        $this->call(GlassSeeder::class);
+        $this->call(EquipementSeeder::class);
+        $this->call(IceSeeder::class);
+        $this->call(CocktailSeeder::class);
     }
 }

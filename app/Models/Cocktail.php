@@ -11,10 +11,6 @@ class Cocktail extends Model
 
     protected $fillable = ['name', 'description', 'preparation', 'avg_ABV', 'official_IBA','straw', 'glass_id', 'ice_id', 'garnish','image'];
 
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
-    }
 
     public function glass()
     {
@@ -29,5 +25,10 @@ class Cocktail extends Model
     public function equipments()
     {
         return $this->belongsToMany(Equipment::class, 'cocktail_equipement', 'cocktail_id', 'equipement_id');
+    }
+
+    public function ingredients()
+    {
+        return $this->hasMany(Ingredient::class);
     }
 }
