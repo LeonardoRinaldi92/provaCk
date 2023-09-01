@@ -9,7 +9,7 @@ class Alcool extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','ABV'];
+    protected $fillable = ['name','ABV','description'];
 
     public function ingredient()
     {
