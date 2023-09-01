@@ -20,20 +20,114 @@
                 </div>
             </div>
         </div>
-        <div class="col-6 mt-5">
+        <div class="col-6 mt-2">
             <div class="card">
-                <div class="card-header">
-                    Aggiungi Ingrediente 
+                <div class="card-header text-center">
+                    Aggiungi Ingredienti
                 </div>
-
+                <div class="card-body row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi un Alcolico
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi un Bitter 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi uno Sciroppo 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi una Soda 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi un Succo 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi uno Zucchero 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi una Frutta 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi "Altro" 
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
-        </div>
-        <div class="col-6 mt-5">
-            <div class="card">
-                <div class="card-header">
-                    Crea Cocktail
-                </div>
 
+        </div>
+        <div class="col-6 mt-2">
+            <div class="card">
+                <div class="card-header text-center">
+                    Aggiungi Preparazione
+                </div>
+                <div class="card-body row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi uno Strumento 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi un tipo di Ghiaccio 
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
+                                Aggiungi un tipo di Bicchiere 
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card mt-2">
+                <div class="card-header text-center">
+                    Aggiungi un Cocktail
+                </div>
+                <div class="card-body row">
+                    <div class="col-6">
+                        <div class="card">
+                            <div class="card-header">
+                                Crea un Cocktail
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
