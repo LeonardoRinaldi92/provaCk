@@ -22,8 +22,15 @@
         </div>
         <div class="col-6 mt-2">
             <div class="card">
-                <div class="card-header text-center">
-                    Aggiungi Ingredienti
+                <div class="card-header d-flex align-items-center">
+                    <div class="col-6">
+                        Ingredienti:
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="btn btn-primary">
+                            Visualizza tutti
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body row">
                     <div class="col-6">
@@ -84,12 +91,18 @@
                     </div>
                 </div>
             </div>
-
         </div>
         <div class="col-6 mt-2">
             <div class="card">
-                <div class="card-header text-center">
-                    Aggiungi Preparazione
+                <div class="card-header d-flex align-items-center">
+                    <div class="col-6">
+                        Preparazioni:
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="btn btn-primary">
+                            Visualizza tutti
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body row">
                     <div class="col-6">
@@ -116,8 +129,15 @@
                 </div>
             </div>
             <div class="card mt-2">
-                <div class="card-header text-center">
-                    Aggiungi un Cocktail
+                <div class="card-header d-flex align-items-center">
+                    <div class="col-6">
+                        Cocktails:
+                    </div>
+                    <div class="col-6 text-center">
+                        <div class="btn btn-primary">
+                            Visualizza tutti
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body row">
                     <div class="col-6">
