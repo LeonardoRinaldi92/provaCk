@@ -20,4 +20,9 @@ class Cocktail extends Model
     {
         return $this->belongsTo(Glass::class);
     }
+
+    public function equipments()
+    {
+        return $this->belongsToMany(Equipment::class, 'cocktail_equipement', 'cocktail_id', 'equipement_id');
+    }
 }
