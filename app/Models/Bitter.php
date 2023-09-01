@@ -9,7 +9,7 @@ class Bitter extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'ABV','description'];
+    protected $fillable = ['name', 'ABV','description','image'];
 
     public function ingredient()
     {

@@ -13,9 +13,9 @@ class AlcoolsSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Gin = Alcool::create(['name' => 'Gin','ABV' => '40','description' =>'Qualunque Gin']);
-        $Campari = Alcool::create(['name' => 'Campari','ABV' => '25', 'description' =>'Famosissimo bitter di casa Campari']);
-        $Vermouth = Alcool::create(['name' => 'Vermouth Rosso','ABV' => '14', 'description' =>'Qualunque Vermouth']);
+        $Gin = Alcool::create(['name' => 'Gin','ABV' => '40','description' =>'Qualunque Gin','image' => 'ciao sono una foto']);
+        $Campari = Alcool::create(['name' => 'Campari','ABV' => '25', 'description' =>'Famosissimo bitter di casa Campari','image' => 'ciao sono una foto']);
+        $Vermouth = Alcool::create(['name' => 'Vermouth Rosso','ABV' => '14', 'description' =>'Qualunque Vermouth','image' => 'ciao sono una foto']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

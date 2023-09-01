@@ -26,6 +26,7 @@ return new class extends Migration
             $table->foreign('ice_id')->references('id')->on('ices');
             $table->string('garnish');
             $table->boolean('straw');
+            $table->text('image');
             $table->timestamps();
         });
     }
