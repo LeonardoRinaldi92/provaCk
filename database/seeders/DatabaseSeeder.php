@@ -27,5 +27,6 @@ class DatabaseSeeder extends Seeder
         $this->call(SodaSeeder::class);
         $this->call(SugarSeeder::class);
         $this->call(SyrupSeeder::class);
+        $this->call(OtherSeeder::class);
     }
 }
