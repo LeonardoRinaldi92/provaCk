@@ -6,7 +6,7 @@
         {{ __('Dashboard') }}
     </h2>
     <div class="row justify-content-center">
-        <div class="col">
+        <div class="col-12">
             <div class="card">
                 <div class="card-header">{{ __('User Dashboard') }}</div>
 
@@ -16,9 +16,24 @@
                         {{ session('status') }}
                     </div>
                     @endif
-
                     {{ __('You are logged in!') }}
                 </div>
+            </div>
+        </div>
+        <div class="col-6 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    Aggiungi Ingrediente 
+                </div>
+
+            </div>
+        </div>
+        <div class="col-6 mt-5">
+            <div class="card">
+                <div class="card-header">
+                    Crea Cocktail
+                </div>
+
             </div>
         </div>
     </div>
