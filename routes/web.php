@@ -41,13 +41,18 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
-    Route::get('/ingredients/alcool', [AlcoolController::class, 'index'])->name('ingredients.alcool');
-    Route::get('/ingredients/aromatic_bitter', [AromaticBitterController::class, 'index'])->name('ingredients.aromatic_bitter');
+    Route::get('/ingredients/alcools', [AlcoolController::class, 'index'])->name('ingredients.alcools');
+    Route::get('/ingredients/alcools/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
+    Route::get('/ingredients/aromatic_bitters', [AromaticBitterController::class, 'index'])->name('ingredients.aromatic_bitters');
+    Route::get('/ingredients/aromatic_bitters/{slug}', [AromaticBitterController::class, 'show'])->name('ingredients.aromatic_bitters.show');
     Route::get('/ingredients/fruit', [FruitController::class, 'index'])->name('ingredients.fruit');
-    Route::get('/ingredients/juice', [JuiceController::class, 'index'])->name('ingredients.juice');
+    Route::get('/ingredients/juices', [JuiceController::class, 'index'])->name('ingredients.juices');
+    Route::get('/ingredients/juices/{slug}', [JuiceController::class, 'show'])->name('ingredients.juices.show');
     Route::get('/ingredients/other', [OtherController::class, 'index'])->name('ingredients.other');
-    Route::get('/ingredients/soda', [SodaController::class, 'index'])->name('ingredients.soda');
-    Route::get('/ingredients/sugar', [SugarController::class, 'index'])->name('ingredients.sugar');
+    Route::get('/ingredients/sodas', [SodaController::class, 'index'])->name('ingredients.sodas');
+    Route::get('/ingredients/sodas/{slug}', [SodaController::class, 'show'])->name('ingredients.sodas.show');
+    Route::get('/ingredients/sugars', [SugarController::class, 'index'])->name('ingredients.sugar');
+    Route::get('/ingredients/sugars/{slug}', [SugarController::class, 'show'])->name('ingredients.sugars.show');
     Route::get('/ingredients/syrup', [SyrupController::class, 'index'])->name('ingredients.syrup');
 });
 

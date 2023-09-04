@@ -6,23 +6,23 @@
             <option value="index"
             @if (Request::path() == 'ingredients') selected @endif
             >Tutti</option>
-            <option value="alcool"
-            @if (Request::path() == 'ingredients/alcool') selected @endif
+            <option value="alcools"
+            @if (Request::path() == 'ingredients/alcools') selected @endif
             >Alcolici</option>
-            <option value="aromatic_bitter"
-            @if (Request::path() == 'ingredients/aromatic_bitter') selected @endif
+            <option value="aromatic_bitters"
+            @if (Request::path() == 'ingredients/aromatic_bitters') selected @endif
             >Bitter Aromatici</option>
             <option value="fruit"
             @if (Request::path() == 'ingredients/fruit') selected @endif
             >Frutta</option>
-            <option value="juice"
-            @if (Request::path() == 'ingredients/juice') selected @endif
+            <option value="juices"
+            @if (Request::path() == 'ingredients/juices') selected @endif
             >Succhi</option>
-            <option value="soda"
-            @if (Request::path() == 'ingredients/soda') selected @endif
+            <option value="sodas"
+            @if (Request::path() == 'ingredients/sodas') selected @endif
             >Sodati</option>
-            <option value="sugar"
-            @if (Request::path() == 'ingredients/sugar') selected @endif
+            <option value="sugars"
+            @if (Request::path() == 'ingredients/sugars') selected @endif
             >Zuccheri</option>
             <option value="syrup"
             @if (Request::path() == 'ingredients/syrup') selected @endif
@@ -35,36 +35,43 @@
     <div class="row mt-3">
         @foreach ($ingredients as $ingredient)
         <div class="col-3">
-            <div class="card">
-                @if (Request::path() == 'ingredients')
-                <div class="card-header">
-                    <div>
-                        {{$ingredient->tables()}}
-                    </div>
-                </div>
-                @endif
-                <div class="card-body">
-                    <div>
-                        <b>
-                            {{$ingredient->name}}
-                        </b>
-                    </div>
-                    @if (isset($ingredient->ABV))
-                    <div class="mt-2">
-                        <b>
-                            Gradazione alcolica: 
-                        </b>
-                        {{$ingredient->getSingleDigitABV()}}
-                    </div>
-                    @endif
-                    @if (isset($ingredient->description))
-                    <div class="mt-2">
-                        {{$ingredient->description}}
 
+            @if (isset($ingredient->slug))
+            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
+        @endif
+                <div class="card">
+                    @if (Request::path() == 'ingredients')
+                    <div class="card-header">
+                        <div>
+                            {{$ingredient->tables()}}
+                        </div>
                     </div>
                     @endif
+                    <div class="card-body">
+                        <div>
+                            <b>
+                                {{$ingredient->name}}
+                            </b>
+                        </div>
+                        @if (isset($ingredient->ABV))
+                        <div class="mt-2">
+                            <b>
+                                Gradazione alcolica: 
+                            </b>
+                            {{$ingredient->getSingleDigitABV()}}
+                        </div>
+                        @endif
+                        @if (isset($ingredient->description))
+                        <div class="mt-2">
+                            {{$ingredient->description}}
+    
+                        </div>
+                        @endif
+                    </div>
                 </div>
-            </div>
+            @if (isset($ingredient->slug))
+            </a>
+            @endif
         </div>
         @endforeach
     </div>
