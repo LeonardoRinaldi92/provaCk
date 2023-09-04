@@ -4,6 +4,7 @@ use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\IngredientController;
+
 use App\Http\Controllers\AllIngredientController;
 use App\Http\Controllers\AlcoolController;
 use App\Http\Controllers\AromaticBitterController;
@@ -14,6 +15,10 @@ use App\Http\Controllers\SodaController;
 use App\Http\Controllers\SugarController;
 use App\Http\Controllers\SyrupController;
 
+use App\Http\Controllers\AllItemsController;
+use App\Http\Controllers\EquipementController;
+use App\Http\Controllers\GlassController;
+use App\Http\Controllers\IceController;
 use App\Models\Alcool;
 
 /*
@@ -65,6 +70,26 @@ Route::middleware('auth')->group(function () {
             });
         }
     });
+
+    Route::prefix('items')->name('items.')->group(function () {
+        Route::get('/', [AllItemsController::class, 'index'])->name('index');
+
+        $itemTypes = [
+            'equipements' => EquipementController::class,
+            'ices' => IceController::class,
+            'glasses' => GlassController::class
+        ];
+
+        foreach ($itemTypes as $type => $controller) {
+            Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
+                Route::get('/', [$controller, 'index'])->name('index');
+                Route::get('/{slug}', [$controller, 'show'])->name('show');
+            });
+        };
+
+    });
+
+
 });
 
 require __DIR__.'/auth.php';
