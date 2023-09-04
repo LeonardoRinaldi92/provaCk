@@ -3,14 +3,15 @@
 <div class="container">
     <div class="text-center mt-3">
         <select name="ingredients" id="ingredients">
-            <option value="Tutti">Tutti</option>
-            <option value="Alcolici">Alcolici</option>
-            <option value="Bitter Aromatici">Bitter Aromatici</option>
-            <option value="Frutta">Frutta</option>
-            <option value="Succhi">Succhi</option>
-            <option value="Sodati">Sodati</option>
-            <option value="Zuccheri">Zuccheri</option>
-            <option value="Altro">Altro</option>
+            <option value="index">Tutti</option>
+            <option value="alcool">Alcolici</option>
+            <option value="aromatic_bitter">Bitter Aromatici</option>
+            <option value="fruit">Frutta</option>
+            <option value="juice">Succhi</option>
+            <option value="soda">Sodati</option>
+            <option value="sugar">Zuccheri</option>
+            <option value="syrup">Sciroppi</option>
+            <option value="other">Altro</option>
           </select>
     </div>
     <div class="row mt-3">
@@ -49,5 +50,10 @@
     </div>
 
 </div>
-
+<script>
+    document.getElementById('ingredients').addEventListener('change', function() {
+        let rotta = this.value;
+        window.location.href = '{{ url("ingredients") }}/' + rotta;
+    });
+</script>
 @endsection
