@@ -13,9 +13,9 @@ class SodaSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Tonica = Soda::create(['name' => 'Acqua Tonica']);
-        $Lemon = Soda::create(['name' => 'Tonica al Limone']);
-        $Soda = Soda::create(['name' => 'Soda']);
+        $Tonica = Soda::create(['name' => 'Acqua Tonica', 'slug' => 'acqua-tonica']);
+        $Lemon = Soda::create(['name' => 'Tonica al Limone', 'slug' => 'tonica-al-limone']);
+        $Soda = Soda::create(['name' => 'Soda', 'slug' => 'soda']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

@@ -19,7 +19,9 @@ return new class extends Migration
             $table->decimal('ABV',3 ,1);
             $table->string('description');
             $table->text('image');
+            $table->string('slug')->unique();
             $table->timestamps();
+            
         });
     }
 

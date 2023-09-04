@@ -13,9 +13,9 @@ class SugarSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Bianco = Sugar::create(['name' => 'Zucchero Bianco']);
-        $Canna = Sugar::create(['name' => 'Zucchero di Canna']);
-        $Zolletta = Sugar::create(['name' => 'Zolletta di zucchero']);
+        $Bianco = Sugar::create(['name' => 'Zucchero Bianco', 'slug' => 'zucchero-bianco']);
+        $Canna = Sugar::create(['name' => 'Zucchero di Canna', 'slug' => 'zucchero-di-canna']);
+        $Zolletta = Sugar::create(['name' => 'Zolletta di zucchero', 'slug' => 'zolletta-di-zucchero']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

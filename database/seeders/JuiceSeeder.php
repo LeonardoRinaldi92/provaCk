@@ -13,9 +13,9 @@ class JuiceSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Arancia = Juice::create(['name' => 'Succo di Arancia']);
-        $Limone = Juice::create(['name' => 'Succo di Limone']);
-        $Pompelmo = Juice::create(['name' => 'Pompelmo']);
+        $Arancia = Juice::create(['name' => 'Succo di Arancia', 'slug' => 'succo-di-arancia']);
+        $Limone = Juice::create(['name' => 'Succo di Limone', 'slug' => 'succo-di-limone']);
+        $Pompelmo = Juice::create(['name' => 'Pompelmo', 'slug' => 'pompelmo']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

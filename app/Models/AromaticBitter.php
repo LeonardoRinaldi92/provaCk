@@ -11,7 +11,7 @@ class AromaticBitter extends Model
 
     protected $table = 'aromatic_bitters';
 
-    protected $fillable = ['name', 'ABV','description','image'];
+    protected $fillable = ['name', 'ABV','description','image', 'slug'];
 
     public function ingredients()
     {
