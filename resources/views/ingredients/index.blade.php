@@ -3,34 +3,21 @@
 <div class="container">
     <div class="text-center mt-3">
         <select name="ingredients" id="ingredients">
-            <option value="index"
-            @if (Request::path() == 'ingredients') selected @endif
-            >Tutti</option>
-            <option value="alcools"
-            @if (Request::path() == 'ingredients/alcools') selected @endif
-            >Alcolici</option>
-            <option value="aromatic_bitters"
-            @if (Request::path() == 'ingredients/aromatic_bitters') selected @endif
-            >Bitter Aromatici</option>
-            <option value="fruits"
-            @if (Request::path() == 'ingredients/fruits') selected @endif
-            >Frutta</option>
-            <option value="juices"
-            @if (Request::path() == 'ingredients/juices') selected @endif
-            >Succhi</option>
-            <option value="sodas"
-            @if (Request::path() == 'ingredients/sodas') selected @endif
-            >Sodati</option>
-            <option value="sugars"
-            @if (Request::path() == 'ingredients/sugars') selected @endif
-            >Zuccheri</option>
-            <option value="syrups"
-            @if (Request::path() == 'ingredients/syrups') selected @endif
-            >Sciroppi</option>
-            <option value="others"
-            @if (Request::path() == 'ingredients/others') selected @endif
-            >Altro</option>
-          </select>
+            @foreach ([
+                'index' => 'Tutti',
+                'alcools' => 'Alcolici',
+                'aromatic_bitters' => 'Bitter Aromatici',
+                'fruits' => 'Frutta',
+                'juices' => 'Succhi',
+                'sodas' => 'Sodati',
+                'sugars' => 'Zuccheri',
+                'syrups' => 'Sciroppi',
+                'others' => 'Altro',
+            ] as $value => $label)
+                <option value="{{ $value }}" @if (Request::is('ingredients/' . $value)) selected @endif>{{ $label }}</option>
+            @endforeach
+        </select>
+        
     </div>
     <div class="row mt-3">
         @foreach ($ingredients as $ingredient)
