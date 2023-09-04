@@ -20,5 +20,21 @@ class Alcool extends Model
     {
         return $this->belongsTo(AlcoolCategory::class, 'alcool_categories_id');
     }
+
+    public function tables()
+    {
+        return 'Alcolici';
+    }
 	
+    public function getSingleDigitABV()
+    {
+        $formattedABV = number_format($this->ABV, 1);
+        
+        if (strpos($formattedABV, '.0') !== false) {
+            return (int)$this->ABV . ' %';
+        }
+    
+        return $formattedABV . ' %';
+    }
+
 }

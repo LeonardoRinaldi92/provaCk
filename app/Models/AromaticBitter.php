@@ -17,4 +17,20 @@ class AromaticBitter extends Model
     {
         return $this->morphMany(Ingredient::class, 'ingredientable');
     }
+
+    public function tables()
+    {
+        return 'Bitter Aromatici';
+    }
+
+    public function getSingleDigitABV()
+    {
+        $formattedABV = number_format($this->ABV, 1);
+        
+        if (strpos($formattedABV, '.0') !== false) {
+            return (int)$this->ABV . ' %';
+        }
+    
+        return $formattedABV . ' %';
+    }
 }

@@ -15,4 +15,9 @@ class Juice extends Model
     {
         return $this->morphMany(Ingredient::class, 'ingredientable');
     }
+
+    public function tables()
+    {
+        return 'Succhi';
+    }
 }
