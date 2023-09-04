@@ -46,9 +46,15 @@ class SugarController extends Controller
      * @param  \App\Models\Sugar  $sugar
      * @return \Illuminate\Http\Response
      */
-    public function show(Sugar $sugar)
+    public function show($slug)
     {
-        //
+        $ingredient = Sugar::where('slug', $slug)->first();
+    
+        if (!$ingredient) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('ingredients.show', compact('ingredient'));
     }
 
     /**

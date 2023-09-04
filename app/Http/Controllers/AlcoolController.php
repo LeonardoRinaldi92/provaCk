@@ -46,9 +46,15 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function show(Alcool $alcool)
+    public function show($slug)
     {
-        //
+        $ingredient = Alcool::where('slug', $slug)->first();
+    
+        if (!$ingredient) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('ingredients.show', compact('ingredient'));
     }
 
     /**

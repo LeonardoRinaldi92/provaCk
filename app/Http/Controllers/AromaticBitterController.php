@@ -46,9 +46,15 @@ class AromaticBitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function show(AromaticBitter $bitter)
+    public function show($slug)
     {
-        //
+        $ingredient = AromaticBitter::where('slug', $slug)->first();
+    
+        if (!$ingredient) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('ingredients.show', compact('ingredient'));
     }
 
     /**

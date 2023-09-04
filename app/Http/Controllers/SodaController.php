@@ -46,11 +46,16 @@ class SodaController extends Controller
      * @param  \App\Models\Soda  $soda
      * @return \Illuminate\Http\Response
      */
-    public function show(Soda $soda)
+    public function show($slug)
     {
-        //
-    }
+        $ingredient = Soda::where('slug', $slug)->first();
+    
+        if (!$ingredient) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
 
+        return view('ingredients.show', compact('ingredient'));
+    }
     /**
      * Show the form for editing the specified resource.
      *
