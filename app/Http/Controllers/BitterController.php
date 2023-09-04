@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bitter;
+use App\Models\AromaticBitter;
 use Illuminate\Http\Request;
 
-class BitterController extends Controller
+class AromaticBitterController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -44,7 +44,7 @@ class BitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function show(Bitter $bitter)
+    public function show(AromaticBitter $bitter)
     {
         //
     }
@@ -55,7 +55,7 @@ class BitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bitter $bitter)
+    public function edit(AromaticBitter $bitter)
     {
         //
     }
@@ -67,7 +67,7 @@ class BitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bitter $bitter)
+    public function update(Request $request, AromaticBitter $bitter)
     {
         //
     }
@@ -78,7 +78,7 @@ class BitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bitter $bitter)
+    public function destroy(AromaticBitter $bitter)
     {
         //
     }
