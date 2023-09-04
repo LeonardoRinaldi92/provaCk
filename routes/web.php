@@ -40,20 +40,28 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('/ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
-    Route::get('/ingredients/alcools', [AlcoolController::class, 'index'])->name('ingredients.alcools');
-    Route::get('/ingredients/alcools/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
-    Route::get('/ingredients/aromatic_bitters', [AromaticBitterController::class, 'index'])->name('ingredients.aromatic_bitters');
-    Route::get('/ingredients/aromatic_bitters/{slug}', [AromaticBitterController::class, 'show'])->name('ingredients.aromatic_bitters.show');
-    Route::get('/ingredients/fruit', [FruitController::class, 'index'])->name('ingredients.fruit');
-    Route::get('/ingredients/juices', [JuiceController::class, 'index'])->name('ingredients.juices');
-    Route::get('/ingredients/juices/{slug}', [JuiceController::class, 'show'])->name('ingredients.juices.show');
-    Route::get('/ingredients/other', [OtherController::class, 'index'])->name('ingredients.other');
-    Route::get('/ingredients/sodas', [SodaController::class, 'index'])->name('ingredients.sodas');
-    Route::get('/ingredients/sodas/{slug}', [SodaController::class, 'show'])->name('ingredients.sodas.show');
-    Route::get('/ingredients/sugars', [SugarController::class, 'index'])->name('ingredients.sugar');
-    Route::get('/ingredients/sugars/{slug}', [SugarController::class, 'show'])->name('ingredients.sugars.show');
-    Route::get('/ingredients/syrup', [SyrupController::class, 'index'])->name('ingredients.syrup');
+    Route::prefix('ingredients')->name('ingredients.')->group(function () {
+        Route::get('/', [AllIngredientController::class, 'index'])->name('index');
+        
+        // Rotte per i tipi di ingredienti specifici
+        $ingredientTypes = [
+            'alcools' => AlcoolController::class,
+            'aromatic_bitters' => AromaticBitterController::class,
+            'fruits' => FruitController::class,
+            'juices' => JuiceController::class,
+            'others' => OtherController::class,
+            'sodas' => SodaController::class,
+            'sugars' => SugarController::class,
+            'syrup' => SyrupController::class,
+        ];
+
+        foreach ($ingredientTypes as $type => $controller) {
+            Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
+                Route::get('/', [$controller, 'index'])->name('index');
+                Route::get('/{slug}', [$controller, 'show'])->name('show');
+            });
+        }
+    });
 });
 
 require __DIR__.'/auth.php';
