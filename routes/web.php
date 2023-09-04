@@ -58,7 +58,10 @@ Route::middleware('auth')->group(function () {
         foreach ($ingredientTypes as $type => $controller) {
             Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
                 Route::get('/', [$controller, 'index'])->name('index');
-                Route::get('/{slug}', [$controller, 'show'])->name('show');
+                // Check the controller name to decide whether to add the "show" route
+                if ($controller !== FruitsController::class && $controller !== SyrupController::class) {
+                    Route::get('/{slug}', [$controller, 'show'])->name('show');
+                }
             });
         }
     });
