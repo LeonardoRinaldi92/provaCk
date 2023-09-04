@@ -14,7 +14,9 @@ class AromaticBitterController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = AromaticBitter::all();
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**

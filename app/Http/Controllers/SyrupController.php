@@ -14,7 +14,9 @@ class SyrupController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Syrup::all();
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**

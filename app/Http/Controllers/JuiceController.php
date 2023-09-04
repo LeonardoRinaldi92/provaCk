@@ -14,7 +14,9 @@ class JuiceController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Juice::all();
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**

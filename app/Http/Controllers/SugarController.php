@@ -14,7 +14,9 @@ class SugarController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Sugar::all();
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**
