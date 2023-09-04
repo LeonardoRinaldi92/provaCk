@@ -9,7 +9,7 @@ class Cocktail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'preparation', 'avg_ABV', 'official_IBA','straw', 'glass_id', 'ice_id', 'garnish','image'];
+    protected $fillable = ['name', 'description', 'preparation', 'avg_ABV', 'official_IBA','straw', 'glass_id', 'ice_id', 'garnish','image','variation', 'signature'];
 
 
     public function glass()
@@ -30,5 +30,15 @@ class Cocktail extends Model
     public function ingredients()
     {
         return $this->hasMany(Ingredient::class);
+    }
+
+    public function variations()
+    {
+        return $this->hasMany(Cocktail::class, 'variation');
+    }
+
+    public function originalCocktail()
+    {
+        return $this->belongsTo(Cocktail::class, 'variation');
     }
 }
