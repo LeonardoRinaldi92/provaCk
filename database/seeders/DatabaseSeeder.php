@@ -24,7 +24,7 @@ class DatabaseSeeder extends Seeder
         // ]
         $this->call(AlcoolCategorySeeder::class);
         $this->call(AlcoolsSeeder::class);
-        $this->call(BitterSeeder::class);
+        $this->call(AromaticBitterSeeder::class);
         $this->call(FruitSeeder::class);
         $this->call(JuiceSeeder::class);
         $this->call(SodaSeeder::class);

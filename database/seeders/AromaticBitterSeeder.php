@@ -5,9 +5,9 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-use App\Models\Bitter;
+use App\Models\AromaticBitter;
 use App\Models\Ingredient;
-class BitterSeeder extends Seeder
+class AromaticBitterSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -17,7 +17,7 @@ class BitterSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Angostura = Bitter::create(['name' => 'Angostura','ABV' => '45','description' =>'Bitter speziato', 'image' => 'ciao sono una foto']);
+        $Angostura = AromaticBitter::create(['name' => 'Angostura','ABV' => '45','description' =>'Bitter speziato', 'image' => 'ciao sono una foto']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

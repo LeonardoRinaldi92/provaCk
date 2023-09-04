@@ -5,9 +5,11 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Bitter extends Model
+class AromaticBitter extends Model
 {
     use HasFactory;
+
+    protected $table = 'aromatic_bitters';
 
     protected $fillable = ['name', 'ABV','description','image'];
 
