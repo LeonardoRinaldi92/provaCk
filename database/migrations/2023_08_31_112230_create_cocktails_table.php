@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('cocktails', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->text('description');
+            $table->string('description');
             $table->text('preparation');
-            $table->text('avg_ABV');
-            $table->boolean('official_IBA');
+            $table->decimal('avg_ABV', 3, 1);
+            $table->boolean('official_IBA')->nullable();
             $table->unsignedBigInteger('glass_id');
             $table->foreign('glass_id')->references('id')->on('glasses');
             $table->unsignedBigInteger('ice_id');

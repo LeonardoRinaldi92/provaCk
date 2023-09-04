@@ -17,7 +17,7 @@ class AromaticBitterSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Angostura = AromaticBitter::create(['name' => 'Angostura','ABV' => '45','description' =>'Bitter speziato', 'image' => 'ciao sono una foto']);
+        $Angostura = AromaticBitter::create(['name' => 'Angostura','ABV' => 30,'description' =>'Bitter speziato', 'image' => 'ciao sono una foto']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients

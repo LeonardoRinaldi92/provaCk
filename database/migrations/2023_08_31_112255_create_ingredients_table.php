@@ -18,7 +18,8 @@ return new class extends Migration
             $table->foreign('cocktail_id')->references('id')->on('cocktails')->onDelete('cascade');
             $table->string('ingredientable_type'); // Aggiungi questa colonna
             $table->unsignedBigInteger('ingredientable_id');
-            $table->float('quantity'); // Aggiungi questa colonna
+            $table->decimal('quantity', 4, 1); // Aggiungi questa colonna
+            $table->enum('quantity_type', ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove'])->nullable();
             $table->timestamps();
         });
     }

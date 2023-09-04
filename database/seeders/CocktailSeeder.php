@@ -15,7 +15,7 @@ class CocktailSeeder extends Seeder
             'name' => 'Negroni',
             'description' => 'Molto forte',
             'preparation' => 'Mischia tutto',
-            'avg_ABV' => '30%', // Cambia questo con il tuo valore reale
+            'avg_ABV' => 30, // Cambia questo con il tuo valore reale
             'official_IBA' => true,
             'glass_id' => 1, // Cambia questo con l'ID corretto del bicchiere
             'ice_id' => 1, // Cambia questo con l'ID corretto del tipo di ghiaccio
@@ -32,17 +32,20 @@ class CocktailSeeder extends Seeder
             [
                 'ingredientable_type' => 'App\Models\Alcool', // Cambia questo con il tuo tipo di ingrediente
                 'ingredientable_id' => 1, // Cambia questo con l'ID corretto dell'ingrediente
-                'quantity' => 3, // Cambia questo con la quantità corretta
+                'quantity' => 30, // Cambia questo con la quantità corretta
+                'quantity_type' => 'ml'
             ],
             [
                 'ingredientable_type' => 'App\Models\Alcool', // Cambia questo con il tuo tipo di ingrediente
                 'ingredientable_id' => 2, // Cambia questo con l'ID corretto dell'ingrediente
-                'quantity' => 3, // Cambia questo con la quantità corretta
+                'quantity' => 30, // Cambia questo con la quantità corretta
+                'quantity_type' => 'ml'
             ],
             [
                 'ingredientable_type' => 'App\Models\Alcool', // Cambia questo con il tuo tipo di ingrediente
                 'ingredientable_id' =>3, // Cambia questo con l'ID corretto dell'ingrediente
-                'quantity' => 3, // Cambia questo con la quantità corretta
+                'quantity' => 30, // Cambia questo con la quantità corretta
+                'quantity_type' => 'ml'
             ],
             // Aggiungi altri ingredienti se necessario
         ];

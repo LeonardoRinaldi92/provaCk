@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('aromatic_bitters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('ABV');
+            $table->decimal('ABV',3 ,1);
             $table->string('description');
             $table->text('image');
             $table->timestamps();

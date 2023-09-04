@@ -18,7 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->unsignedBigInteger('alcool_categories_id');
             $table->foreign('alcool_categories_id')->references('id')->on('alcool_categories');
-            $table->string('ABV');
+            $table->decimal('ABV', 3, 1);
             $table->string('description');
             $table->text('image');
             $table->timestamps();
