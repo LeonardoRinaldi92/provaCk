@@ -16,6 +16,8 @@ return new class extends Migration
         Schema::create('alcools', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->unsignedBigInteger('alcool_categories_id');
+            $table->foreign('alcool_categories_id')->references('id')->on('alcool_categories');
             $table->string('ABV');
             $table->string('description');
             $table->text('image');

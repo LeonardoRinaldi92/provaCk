@@ -15,5 +15,10 @@ class Alcool extends Model
     {
         return $this->morphMany(Ingredient::class, 'ingredientable');
     }
+
+    public function category()
+    {
+        return $this->belongsTo(AlcoolCategory::class, 'alcool_categories_id');
+    }
 	
 }
