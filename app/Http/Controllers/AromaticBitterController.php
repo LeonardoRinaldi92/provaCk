@@ -14,7 +14,7 @@ class AromaticBitterController extends Controller
      */
     public function index()
     {
-        $ingredients = AromaticBitter::all();
+        $ingredients = AromaticBitter::all()->sortBy('name');
 
         return view('ingredients.index', compact('ingredients'));
     }

@@ -37,7 +37,7 @@ class AllIngredientController extends Controller
             $sodas,
             $sugars,
             $syrups,
-        ])->collapse();
+        ])->collapse()->sortBy('name');
     
         return view('ingredients.index', compact('ingredients'));
     }

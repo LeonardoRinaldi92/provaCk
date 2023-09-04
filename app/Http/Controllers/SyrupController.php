@@ -14,7 +14,7 @@ class SyrupController extends Controller
      */
     public function index()
     {
-        $ingredients = Syrup::all();
+        $ingredients = Syrup::all()->sortBy('name');
 
         return view('ingredients.index', compact('ingredients'));
     }

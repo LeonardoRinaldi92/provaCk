@@ -14,7 +14,7 @@ class SodaController extends Controller
      */
     public function index()
     {
-        $ingredients = Soda::all();
+        $ingredients = Soda::all()->sortBy('name');
 
         return view('ingredients.index', compact('ingredients'));
     }

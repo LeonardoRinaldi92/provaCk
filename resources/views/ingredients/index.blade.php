@@ -12,8 +12,8 @@
             <option value="aromatic_bitters"
             @if (Request::path() == 'ingredients/aromatic_bitters') selected @endif
             >Bitter Aromatici</option>
-            <option value="fruit"
-            @if (Request::path() == 'ingredients/fruit') selected @endif
+            <option value="fruits"
+            @if (Request::path() == 'ingredients/fruits') selected @endif
             >Frutta</option>
             <option value="juices"
             @if (Request::path() == 'ingredients/juices') selected @endif
@@ -24,11 +24,11 @@
             <option value="sugars"
             @if (Request::path() == 'ingredients/sugars') selected @endif
             >Zuccheri</option>
-            <option value="syrup"
-            @if (Request::path() == 'ingredients/syrup') selected @endif
+            <option value="syrups"
+            @if (Request::path() == 'ingredients/syrups') selected @endif
             >Sciroppi</option>
-            <option value="other"
-            @if (Request::path() == 'ingredients/other') selected @endif
+            <option value="others"
+            @if (Request::path() == 'ingredients/others') selected @endif
             >Altro</option>
           </select>
     </div>

@@ -14,7 +14,7 @@ class FruitController extends Controller
      */
     public function index()
     {
-        $ingredients = Fruit::all();
+        $ingredients = Fruit::all()->sortBy('name');
 
         return view('ingredients.index', compact('ingredients'));
     }

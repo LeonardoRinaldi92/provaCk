@@ -14,7 +14,7 @@ class AlcoolController extends Controller
      */
     public function index()
     {
-        $ingredients = Alcool::all();
+        $ingredients = Alcool::all()->sortBy('name');
 
         return view('ingredients.index', compact('ingredients'));
     }

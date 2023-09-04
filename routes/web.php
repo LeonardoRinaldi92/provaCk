@@ -57,7 +57,7 @@ Route::middleware('auth')->group(function () {
             'others' => OtherController::class,
             'sodas' => SodaController::class,
             'sugars' => SugarController::class,
-            'syrup' => SyrupController::class,
+            'syrups' => SyrupController::class,
         ];
 
         foreach ($ingredientTypes as $type => $controller) {
