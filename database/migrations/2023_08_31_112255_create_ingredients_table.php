@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('ingredientable_type'); // Aggiungi questa colonna
             $table->unsignedBigInteger('ingredientable_id');
             $table->decimal('quantity', 4, 1); // Aggiungi questa colonna
-            $table->enum('quantity_type', ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove'])->nullable();
+            $table->enum('quantity_type', ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch'])->nullable();
             $table->timestamps();
         });
     }
