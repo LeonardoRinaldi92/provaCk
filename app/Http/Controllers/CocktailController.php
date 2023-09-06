@@ -50,12 +50,13 @@ class CocktailController extends Controller
      */
     public function show($slug)
     {
-        // Esempio: recupera l'ID dalla richiesta
-
-        $cocktail = Cocktail::where('slug', $slug)->first();
-
-        return view('cocktails.show', compact('cocktail'));
+        // Recupera il cocktail basato sullo slug
+        $cocktail = Cocktail::with(['glass', 'ice', 'equipments', 'ingredients'])
+            ->where('slug', $slug)
+            ->firstOrFail();
     
+        // Restituisci la vista "show" con il cocktail
+        return view('cocktails.show', compact('cocktail'));
     }
 
     /**

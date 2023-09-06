@@ -19,7 +19,7 @@
                         <b>
                             UFFICIALE IBA: 
                         </b>
-                        @if($cocktail->IBA)
+                        @if($cocktail->official_IBA)
                         si
                         @else
                         no
