@@ -11,7 +11,7 @@ class Sugar extends Model
 
     protected $table = 'sugars';
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','slug','description'];
 
     public function ingredients()
     {
