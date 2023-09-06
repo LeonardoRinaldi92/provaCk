@@ -48,9 +48,14 @@ class CocktailController extends Controller
      * @param  \App\Models\Cocktail  $cocktail
      * @return \Illuminate\Http\Response
      */
-    public function show(Cocktail $cocktail)
+    public function show($slug)
     {
-        //
+        // Esempio: recupera l'ID dalla richiesta
+
+        $cocktail = Cocktail::where('slug', $slug)->first();
+
+        return view('cocktails.show', compact('cocktail'));
+    
     }
 
     /**
