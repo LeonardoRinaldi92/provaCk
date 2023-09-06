@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\AlcoolCategory;
+use App\Models\Alcool;
 use Illuminate\Http\Request;
 
 class AlcoolCategoryController extends Controller
@@ -12,10 +13,24 @@ class AlcoolCategoryController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public function index($category)
     {
-        //
+        // Trova la categoria di alcool
+        $alcoolCategory = AlcoolCategory::where('name', $category)->first();
+    
+        if (!$alcoolCategory) {
+            // Categoria non trovata, gestisci l'errore o reindirizza
+            return redirect()->route('ingredients.index')->with('error', 'Categoria non trovata');
+        }
+    
+        // Ottieni gli ingredienti associati alla categoria di alcool
+        $ingredients = Alcool::where('alcool_categories_id', $alcoolCategory->id)->get();
+    
+        $categories = AlcoolCategory::all()->sortBy('name');
+    
+        return view('ingredients.index', compact('ingredients', 'categories'));
     }
+    
 
     /**
      * Show the form for creating a new resource.

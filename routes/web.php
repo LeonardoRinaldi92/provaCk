@@ -22,6 +22,9 @@ use App\Http\Controllers\IceController;
 
 use App\Http\Controllers\CocktailController;
 
+use App\Http\Controllers\AlcoolCategoryController;
+
+
 use App\Models\Alcool;
 
 /*
@@ -47,8 +50,10 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    
     Route::prefix('ingredients')->name('ingredients.')->group(function () {
+        Route::get('/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('alcools.category.index');
+        
         Route::get('/', [AllIngredientController::class, 'index'])->name('index');
         
         // Rotte per i tipi di ingredienti specifici
@@ -72,7 +77,10 @@ Route::middleware('auth')->group(function () {
                 }
             });
         }
+
     });
+
+
 
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [AllItemsController::class, 'index'])->name('index');

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Alcool;
+use App\Models\AlcoolCategory;
 use Illuminate\Http\Request;
 
 class AlcoolController extends Controller
@@ -15,8 +16,9 @@ class AlcoolController extends Controller
     public function index()
     {
         $ingredients = Alcool::all()->sortBy('name');
+        $categories = AlcoolCategory::all()->sortBy('name');
 
-        return view('ingredients.index', compact('ingredients'));
+        return view('ingredients.index', compact('ingredients','categories'));
     }
 
     /**

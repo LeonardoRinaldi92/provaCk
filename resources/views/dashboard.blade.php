@@ -43,6 +43,13 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-header">
+                                Aggiungi una Categoria Alcolici
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-6 mt-5">
+                        <div class="card">
+                            <div class="card-header">
                                 Aggiungi un Bitter 
                             </div>
                         </div>

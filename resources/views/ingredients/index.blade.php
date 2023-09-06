@@ -17,13 +17,23 @@
                 <option value="{{ $value }}" @if (Request::is('ingredients/' . $value)) selected @endif>{{ $label }}</option>
             @endforeach
         </select>
-        
     </div>
+
+    @if(Str::contains(Request::url(), 'ingredients/alcools'))
+    <div class="text-center mt-3">
+        <select name="category" id="category">
+            <option value="all">Tutti</option>
+            @foreach ($categories as $category)
+                <option value="{{$category->name}}" @if(Request::is('ingredients/alcools/' . $category->name)) selected 
+                    @endif>{{$category->name}} 
+                    </option>
+            @endforeach
+        </select>
+    </div>  
+    @endif
     <div class="row mt-3">
         @foreach ($ingredients as $ingredient)
         <div class="col-3">
-
-
                 <div class="card">
                     @if (Request::path() == 'ingredients')
                     <div class="card-header">
@@ -60,7 +70,6 @@
                         @endif
                     </div>
                 </div>
-
         </div>
         @endforeach
     </div>
@@ -76,5 +85,15 @@
             window.location.href = '{{ url("ingredients") }}';
         }
     });
+
+    document.getElementById('category').addEventListener('change', function() {
+    let rotta = this.value;
+    if (rotta !== 'all') {
+        window.location.href = '{{ url("ingredients/alcools") }}/' + rotta;
+    } else {
+        window.location.href = '{{ url("ingredients/alcools") }}';
+    }
+});
+
 </script>
 @endsection
