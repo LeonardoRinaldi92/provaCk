@@ -14,7 +14,11 @@ class CocktailController extends Controller
      */
     public function index()
     {
-        //
+        // Recupera tutti i cocktail con le relazioni utilizzando eager loading
+        $cocktails = Cocktail::with(['glass', 'ice', 'equipments', 'ingredients'])->get();
+    
+        // Restituisci la vista con i dati
+        return view('cocktails.index', compact('cocktails'));
     }
 
     /**

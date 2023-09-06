@@ -19,6 +19,9 @@ use App\Http\Controllers\AllItemsController;
 use App\Http\Controllers\EquipementController;
 use App\Http\Controllers\GlassController;
 use App\Http\Controllers\IceController;
+
+use App\Http\Controllers\CocktailController;
+
 use App\Models\Alcool;
 
 /*
@@ -88,6 +91,8 @@ Route::middleware('auth')->group(function () {
         };
 
     });
+
+    Route::resource('cocktails', CocktailController::class)->parameters(['cocktails' => 'slug']);
 
 
 });
