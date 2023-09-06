@@ -14,7 +14,9 @@ class GlassController extends Controller
      */
     public function index()
     {
-        //
+        $items = Glass::all()->sortBy('name');
+
+        return view('items.index', compact('items'));
     }
 
     /**

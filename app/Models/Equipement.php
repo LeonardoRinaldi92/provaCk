@@ -15,4 +15,9 @@ class Equipement extends Model
     {
         return $this->belongsToMany(Cocktail::class, 'cocktail_equipement', 'equipement_id', 'cocktail_id');
     }
+
+    public function tables()
+    {
+        return 'Strumenti';
+    }
 }

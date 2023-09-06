@@ -14,7 +14,9 @@ class IceController extends Controller
      */
     public function index()
     {
-        //
+        $items = Ice::all()->sortBy('name');
+
+        return view('items.index', compact('items'));
     }
 
     /**

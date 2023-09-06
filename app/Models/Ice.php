@@ -15,4 +15,9 @@ class Ice extends Model
     {
         return $this->hasMany(Cocktail::class);
     }
+
+    public function tables()
+    {
+        return 'Tipi di Ghiaccio';
+    }
 }

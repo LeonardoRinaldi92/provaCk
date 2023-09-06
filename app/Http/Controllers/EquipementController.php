@@ -14,7 +14,9 @@ class EquipementController extends Controller
      */
     public function index()
     {
-        //
+        $items = Equipement::all()->sortBy('name');
+
+        return view('items.index', compact('items'));
     }
 
     /**
