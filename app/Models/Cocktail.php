@@ -9,7 +9,7 @@ class Cocktail extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'description', 'preparation', 'avg_ABV', 'official_IBA','straw', 'glass_id', 'ice_id', 'garnish','image','variation', ];
+    protected $fillable = ['name', 'description', 'preparation', 'avg_ABV', 'official_IBA','straw', 'glass_id', 'ice_id', 'garnish','image','variation', 'slug'];
 
 
     public function glass()

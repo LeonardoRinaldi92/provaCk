@@ -23,6 +23,7 @@ class CocktailSeeder extends Seeder
             'garnish' => 'arancia',
             'straw' => false,
             'image' => 'path/to/your/image.jpg',
+            'slug'=> 'negroni'
         ];
 
         // Creazione del cocktail

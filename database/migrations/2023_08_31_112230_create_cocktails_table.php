@@ -30,6 +30,7 @@ return new class extends Migration
             $table->string('garnish');
             $table->boolean('straw');
             $table->text('image');
+            $table->string('slug');
             $table->timestamps();
         });
     }
