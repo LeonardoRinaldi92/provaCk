@@ -15,7 +15,7 @@
                             </b>
                              {{$ingredient->getSingleDigitABV()}}
                         </div>
-                        @if($ingredient->category)
+                            @if($ingredient->category)
                         <div>
 
                             <b>
