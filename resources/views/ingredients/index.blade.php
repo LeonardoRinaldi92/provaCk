@@ -57,7 +57,7 @@
                         @if (isset($ingredient->ABV))
                         <div class="mt-2">
                             <b>
-                                Gradazione alcolica: 
+                                {{ __("ABV") }} 
                             </b>
                             {{$ingredient->getSingleDigitABV()}}
                         </div>
