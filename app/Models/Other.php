@@ -12,8 +12,13 @@ class Other extends Model
 
     protected $fillable = ['name'];
 
-    public function ingredient()
+    public function ingredients()
     {
-        return $this->morphOne(Ingredient::class, 'ingredientable');
+        return $this->morphMany(Ingredient::class, 'ingredientable');
+    }
+
+    public function tables()
+    {
+        return 'Altro';
     }
 }

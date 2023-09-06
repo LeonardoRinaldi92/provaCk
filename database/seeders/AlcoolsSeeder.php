@@ -13,24 +13,24 @@ class AlcoolsSeeder extends Seeder
     public function run()
     {
         // Crea alcuni esempi di alcools
-        $Gin = Alcool::create(['name' => 'Gin','ABV' => '40']);
-        $Campari = Alcool::create(['name' => 'Campari','ABV' => '25']);
-        $Vermouth = Alcool::create(['name' => 'Vermouth Rosso','ABV' => '14']);
+        $Gin = Alcool::create(['name' => 'Gin Secco','ABV' => 30,'description' =>'Qualunque Gin','image' => 'ciao sono una foto', 'alcool_categories_id' => 1, 'slug' =>'gin-secco']);
+        $Campari = Alcool::create(['name' => 'Campari','ABV' => 30, 'description' =>'Famosissimo bitter di casa Campari','image' => 'ciao sono una foto', 'alcool_categories_id' => 3, 'slug' =>'campari']);
+        $Vermouth = Alcool::create(['name' => 'Vermouth Rosso Dolce','ABV' => 30, 'description' =>'Qualunque Vermouth','image' => 'ciao sono una foto', 'alcool_categories_id' => 2, 'slug' =>'vermouth-rosso-dolce']);
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Gin);
-        $this->createIngredient($Campari);
-        $this->createIngredient($Vermouth);
+        // $this->createIngredient($Gin);
+        // $this->createIngredient($Campari);
+        // $this->createIngredient($Vermouth);
     }
 
-    protected function createIngredient($alcool)
-    {
-        $ingredient = new Ingredient([
-            'name' => $alcool->name,
-            'ingredientable_type' => $alcool->getTable(),
-            'ingredientable_id' => $alcool->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($alcool)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'ingredientable_type' => Alcool::class,
+    //         //cambia
+    //         'ingredientable_id' => $alcool->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }

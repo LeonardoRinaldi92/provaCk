@@ -9,10 +9,15 @@ class Soda extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name'];
+    protected $fillable = ['name','slug'];
 
-    public function ingredient()
+    public function ingredients()
     {
-        return $this->morphOne(Ingredient::class, 'ingredientable');
+        return $this->morphMany(Ingredient::class, 'ingredientable');
+    }
+
+    public function tables()
+    {
+        return 'Sodati';
     }
 }

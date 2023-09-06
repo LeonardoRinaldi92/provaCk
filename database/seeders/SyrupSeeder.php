@@ -19,18 +19,18 @@ class SyrupSeeder extends Seeder
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Bianco);
-        $this->createIngredient($Canna);
-        $this->createIngredient($Fragola);
+        // $this->createIngredient($Bianco);
+        // $this->createIngredient($Canna);
+        // $this->createIngredient($Fragola);
     }
 
-    protected function createIngredient($syrup)
-    {
-        $ingredient = new Ingredient([
-            'name' => $syrup->name,
-            'ingredientable_type' => $syrup->getTable(),
-            'ingredientable_id' => $syrup->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($syrup)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'name' => $syrup->name,
+    //         'ingredientable_type' => $syrup->getTable(),
+    //         'ingredientable_id' => $syrup->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }

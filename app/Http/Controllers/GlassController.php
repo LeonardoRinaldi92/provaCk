@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Bitter;
+use App\Models\Glass;
 use Illuminate\Http\Request;
 
-class BitterController extends Controller
+class GlassController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -41,10 +41,10 @@ class BitterController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Bitter  $bitter
+     * @param  \App\Models\Glass  $glass
      * @return \Illuminate\Http\Response
      */
-    public function show(Bitter $bitter)
+    public function show(Glass $glass)
     {
         //
     }
@@ -52,10 +52,10 @@ class BitterController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Bitter  $bitter
+     * @param  \App\Models\Glass  $glass
      * @return \Illuminate\Http\Response
      */
-    public function edit(Bitter $bitter)
+    public function edit(Glass $glass)
     {
         //
     }
@@ -64,10 +64,10 @@ class BitterController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Bitter  $bitter
+     * @param  \App\Models\Glass  $glass
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Bitter $bitter)
+    public function update(Request $request, Glass $glass)
     {
         //
     }
@@ -75,10 +75,10 @@ class BitterController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Bitter  $bitter
+     * @param  \App\Models\Glass  $glass
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Bitter $bitter)
+    public function destroy(Glass $glass)
     {
         //
     }

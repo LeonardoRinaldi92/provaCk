@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\AlcoolCategory;
+use App\Models\Ice;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -20,12 +22,19 @@ class DatabaseSeeder extends Seeder
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',
         // ]
+        $this->call(AlcoolCategorySeeder::class);
         $this->call(AlcoolsSeeder::class);
-        $this->call(BitterSeeder::class);
+        $this->call(AromaticBitterSeeder::class);
         $this->call(FruitSeeder::class);
         $this->call(JuiceSeeder::class);
         $this->call(SodaSeeder::class);
         $this->call(SugarSeeder::class);
         $this->call(SyrupSeeder::class);
+        $this->call(OtherSeeder::class);
+        $this->call(GlassSeeder::class);
+        $this->call(EquipementSeeder::class);
+        $this->call(IceSeeder::class);
+        $this->call(CocktailSeeder::class);
+
     }
 }

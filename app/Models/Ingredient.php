@@ -9,15 +9,15 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'ingredientable_type', 'ingredientable_id'];
-
-    public function recipes()
-    {
-        return $this->hasMany(Recipe::class);
-    }
+    protected $fillable = ['name', 'ingredientable_type', 'ingredientable_id', 'quantity', 'quantity_type'];
 
     public function ingredientable()
     {
         return $this->morphTo();
+    }
+
+    public function cocktail()
+    {
+        return $this->belongsTo(Cocktail::class, 'cocktail_id');
     }
 }

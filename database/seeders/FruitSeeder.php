@@ -19,18 +19,18 @@ class FruitSeeder extends Seeder
         // Aggiungi altri alcools se necessario
         
         // Crea i record corrispondenti nella tabella ingredients
-        $this->createIngredient($Arancia);
-        $this->createIngredient($Limone);
-        $this->createIngredient($Lime);
+        // $this->createIngredient($Arancia);
+        // $this->createIngredient($Limone);
+        // $this->createIngredient($Lime);
     }
 
-    protected function createIngredient($fruit)
-    {
-        $ingredient = new Ingredient([
-            'name' => $fruit->name,
-            'ingredientable_type' => $fruit->getTable(),
-            'ingredientable_id' => $fruit->id,
-        ]);
-        $ingredient->save();
-    }
+    // protected function createIngredient($fruit)
+    // {
+    //     $ingredient = new Ingredient([
+    //         'name' => $fruit->name,
+    //         'ingredientable_type' => $fruit->getTable(),
+    //         'ingredientable_id' => $fruit->id,
+    //     ]);
+    //     $ingredient->save();
+    // }
 }

@@ -14,7 +14,9 @@ class OtherController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Other::all()->sortBy('name');
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**

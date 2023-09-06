@@ -14,10 +14,12 @@ return new class extends Migration
     public function up()
     {
         Schema::create('ingredients', function (Blueprint $table) {
-            $table->id();
-            $table->string('name');
+            $table->unsignedBigInteger('cocktail_id');
+            $table->foreign('cocktail_id')->references('id')->on('cocktails')->onDelete('cascade');
             $table->string('ingredientable_type'); // Aggiungi questa colonna
-            $table->unsignedBigInteger('ingredientable_id'); // Aggiungi questa colonna
+            $table->unsignedBigInteger('ingredientable_id');
+            $table->decimal('quantity', 4, 1); // Aggiungi questa colonna
+            $table->enum('quantity_type', ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch'])->nullable();
             $table->timestamps();
         });
     }

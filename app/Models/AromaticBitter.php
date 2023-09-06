@@ -5,27 +5,24 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Alcool extends Model
+class AromaticBitter extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name','ABV','description','image','alcool_categories_id', 'slug'];
+    protected $table = 'aromatic_bitters';
+
+    protected $fillable = ['name', 'ABV','description','image', 'slug'];
 
     public function ingredients()
     {
         return $this->morphMany(Ingredient::class, 'ingredientable');
     }
 
-    public function category()
-    {
-        return $this->belongsTo(AlcoolCategory::class, 'alcool_categories_id');
-    }
-
     public function tables()
     {
-        return 'Alcolici';
+        return 'Bitter Aromatici';
     }
-	
+
     public function getSingleDigitABV()
     {
         $formattedABV = number_format($this->ABV, 1);
@@ -36,5 +33,4 @@ class Alcool extends Model
     
         return $formattedABV . ' %';
     }
-
 }

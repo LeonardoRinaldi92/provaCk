@@ -13,11 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('sodas', function (Blueprint $table) {
+        Schema::create('aromatic_bitters', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->decimal('ABV',3 ,1);
+            $table->string('description');
+            $table->text('image');
             $table->string('slug')->unique();
             $table->timestamps();
+            
         });
     }
 
@@ -28,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('sodas');
+        Schema::dropIfExists('aromatic_bitters');
     }
 };

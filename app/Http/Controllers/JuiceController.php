@@ -14,7 +14,9 @@ class JuiceController extends Controller
      */
     public function index()
     {
-        //
+        $ingredients = Juice::all()->sortBy('name');
+
+        return view('ingredients.index', compact('ingredients'));
     }
 
     /**
@@ -44,9 +46,15 @@ class JuiceController extends Controller
      * @param  \App\Models\Juice  $juice
      * @return \Illuminate\Http\Response
      */
-    public function show(Juice $juice)
+    public function show($slug)
     {
-        //
+        $ingredient = Juice::where('slug', $slug)->first();
+    
+        if (!$ingredient) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('ingredients.show', compact('ingredient'));
     }
 
     /**
