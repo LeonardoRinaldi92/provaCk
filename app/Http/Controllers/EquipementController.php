@@ -46,9 +46,15 @@ class EquipementController extends Controller
      * @param  \App\Models\Equipement  $equipement
      * @return \Illuminate\Http\Response
      */
-    public function show(Equipement $equipement)
+    public function show($slug)
     {
-        //
+        $item = Equipement::where('slug', $slug)->first();
+    
+        if (!$item) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('items.show', compact('item'));
     }
 
     /**

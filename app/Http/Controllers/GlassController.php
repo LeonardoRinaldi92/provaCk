@@ -46,9 +46,15 @@ class GlassController extends Controller
      * @param  \App\Models\Glass  $glass
      * @return \Illuminate\Http\Response
      */
-    public function show(Glass $glass)
+    public function show($slug)
     {
-        //
+        $item = Glass::where('slug', $slug)->first();
+    
+        if (!$item) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('items.show', compact('item'));
     }
 
     /**

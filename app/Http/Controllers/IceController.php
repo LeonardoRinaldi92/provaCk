@@ -46,9 +46,15 @@ class IceController extends Controller
      * @param  \App\Models\Ice  $ice
      * @return \Illuminate\Http\Response
      */
-    public function show(Ice $ice)
+    public function show($slug)
     {
-        //
+        $item = Ice::where('slug', $slug)->first();
+    
+        if (!$item) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('items.show', compact('item'));
     }
 
     /**
