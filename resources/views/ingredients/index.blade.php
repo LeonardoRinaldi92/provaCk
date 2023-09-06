@@ -23,9 +23,7 @@
         @foreach ($ingredients as $ingredient)
         <div class="col-3">
 
-            @if (isset($ingredient->slug))
-            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
-            @endif
+
                 <div class="card">
                     @if (Request::path() == 'ingredients')
                     <div class="card-header">
@@ -35,11 +33,17 @@
                     </div>
                     @endif
                     <div class="card-body">
-                        <div>
-                            <b>
-                                {{$ingredient->name}}
-                            </b>
-                        </div>
+                        @if (isset($ingredient->slug))
+                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
+                        @endif
+                            <div>
+                                <b>
+                                    {{$ingredient->name}}
+                                </b>
+                            </div>
+                        @if (isset($ingredient->slug))
+                        </a>
+                        @endif
                         @if (isset($ingredient->ABV))
                         <div class="mt-2">
                             <b>
@@ -56,9 +60,7 @@
                         @endif
                     </div>
                 </div>
-            @if (isset($ingredient->slug))
-            </a>
-            @endif
+
         </div>
         @endforeach
     </div>
