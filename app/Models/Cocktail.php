@@ -24,7 +24,7 @@ class Cocktail extends Model
 
     public function equipments()
     {
-        return $this->belongsToMany(Equipment::class, 'cocktail_equipement', 'cocktail_id', 'equipement_id');
+        return $this->belongsToMany(Equipement::class, 'cocktail_equipement', 'cocktail_id', 'equipement_id');
     }
 
     public function ingredients()

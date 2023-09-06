@@ -25,7 +25,7 @@ return new class extends Migration
             $table->unsignedBigInteger('ice_id');
             $table->foreign('ice_id')->references('id')->on('ices');
             $table->unsignedBigInteger('variation')->nullable(); // Aggiungi la colonna "variation" nullable
-            $table->foreign('variation')->references('id')->on('cocktails'); // Chiave esterna per la stessa tabella cocktails
+            $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null'); // Chiave esterna per la stessa tabella cocktailsails
             $table->string('signature')->nullable();
             $table->string('garnish');
             $table->boolean('straw');
@@ -41,6 +41,11 @@ return new class extends Migration
      */
     public function down()
     {
+    
+        // Drop the cocktail_equipement pivot table
+        Schema::dropIfExists('cocktail_equipements');
+    
+        // Now drop the cocktails table
         Schema::dropIfExists('cocktails');
     }
 };
