@@ -17,12 +17,14 @@ class IceSeeder extends Seeder
             [
                 'name' => 'Ghiaccio cubetti',
                 'image' => 'path/to/your/image1.jpg',
-                'description' => 'Cubetti di ghiaccio per raffreddare i cocktail.'
+                'description' => 'Cubetti di ghiaccio per raffreddare i cocktail.',
+                'slug' => 'ghiaccio-cubetti'
             ],
             [
                 'name' => 'Ghiaccio tritato',
                 'image' => 'path/to/your/image2.jpg',
-                'description' => 'Ghiaccio tritato per mescolare con i cocktail.'
+                'description' => 'Ghiaccio tritato per mescolare con i cocktail.',
+                'slug' => 'ghiaccio-tritato'
             ],
             // Aggiungi altri dati se necessario
         ];

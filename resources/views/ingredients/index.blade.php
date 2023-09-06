@@ -25,7 +25,7 @@
 
             @if (isset($ingredient->slug))
             <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
-        @endif
+            @endif
                 <div class="card">
                     @if (Request::path() == 'ingredients')
                     <div class="card-header">

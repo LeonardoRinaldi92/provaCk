@@ -99,9 +99,9 @@
                         Preparazioni:
                     </div>
                     <div class="col-6 text-center">
-                        <div class="btn btn-primary">
+                        <a href="{{ route('items.index') }}" class="btn btn-primary">
                             Visualizza tutti
-                        </div>
+                        </a>
                     </div>
                 </div>
                 <div class="card-body row">

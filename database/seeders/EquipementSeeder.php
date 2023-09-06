@@ -17,12 +17,14 @@ class EquipementSeeder extends Seeder
             [
                 'name' => 'Shaker',
                 'image' => 'path/to/your/image1.jpg',
-                'description' => 'Uno shaker per mescolare e raffreddare i cocktail.'
+                'description' => 'Uno shaker per mescolare e raffreddare i cocktail.',
+                'slug' => 'shaker'
             ],
             [
                 'name' => 'Jigger',
                 'image' => 'path/to/your/image2.jpg',
-                'description' => 'Un jigger per misurare gli ingredienti con precisione.'
+                'description' => 'Un jigger per misurare gli ingredienti con precisione.',
+                'slug' => 'jigger'
             ],
             // Aggiungi altri dati se necessario
         ];
