@@ -9,7 +9,7 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['name', 'ingredientable_type', 'ingredientable_id', 'quantity', 'quantity_type'];
+    protected $fillable = [ 'ingredientable_type', 'ingredientable_id', 'quantity', 'quantity_type'];
 
     public function ingredientable()
     {
@@ -19,5 +19,16 @@ class Ingredient extends Model
     public function cocktail()
     {
         return $this->belongsTo(Cocktail::class, 'cocktail_id');
+    }
+
+    public function getSingleQuantity()
+    {
+        $formattedABV = number_format($this->quantity, 1);
+        
+        if (strpos($formattedABV, '.0') !== false) {
+            return (int)$this->quantity;
+        }
+    
+        return $formattedABV ;
     }
 }
