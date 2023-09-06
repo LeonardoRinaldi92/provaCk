@@ -42,4 +42,15 @@ class Cocktail extends Model
         return $this->belongsTo(Cocktail::class, 'variation');
     }
 
+    public function getAverageABV()
+    {
+        $formattedABV = number_format($this->avg_ABV, 1);
+        
+        if (strpos($formattedABV, '.0') !== false) {
+            return (int)$this->avg_ABV . ' %';
+        }
+    
+        return $formattedABV . ' %';
+    }
+
 }

@@ -37,4 +37,6 @@ class Alcool extends Model
         return $formattedABV . ' %';
     }
 
+    
+
 }

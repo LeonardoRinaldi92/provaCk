@@ -3,13 +3,11 @@
 <div class="container">
     <div class="row mt-3">
         <div class="col-3">
-                    <a href="{{ route('cocktails.show', $cocktail->slug) }}">
                         <div>
                             <b>
                                 {{$cocktail->name}}
                             </b>
                         </div>
-                    </a>
                     <div>
                         <b>
                             UFFICIALE IBA: 
@@ -29,6 +27,14 @@
                         @else
                         no
                         @endif
+
+                    </div>
+                    <div class="mt-2">
+                        <b>
+                            Gradazione Media: 
+                        </b>
+                         {{$cocktail->getAverageABV()}}
+                    
 
                     </div>
                 <div >
