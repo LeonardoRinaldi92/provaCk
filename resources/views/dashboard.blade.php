@@ -42,9 +42,11 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi una Categoria Alcolici
-                            </div>
+                            <a href="{{ route('ingredients.alcoolscategory.create') }}">
+                                <div class="card-header">
+                                    Aggiungi una Categoria Alcolici
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 mt-5">

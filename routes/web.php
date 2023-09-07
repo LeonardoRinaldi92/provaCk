@@ -54,7 +54,8 @@ Route::middleware('auth')->group(function () {
     
 
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
-
+    Route::get('ingredients/alcools/category/create', [AlcoolCategoryController::class, 'create'])->name('ingredients.alcoolscategory.create');
+    Route::post('ingredients/alcools/category/store', [AlcoolCategoryController::class, 'store'])->name('ingredients.alcoolscategory.store');
    
 
     Route::prefix('ingredients')->name('ingredients.')->group(function () {

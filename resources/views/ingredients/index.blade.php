@@ -44,7 +44,7 @@
                     @endif
                     <div class="card-body">
                         @if (isset($ingredient->slug))
-                            @if($ingredient->category->name)
+                            @if($ingredient->category)
                             <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['category' => $ingredient->category->name , 'slug' => $ingredient->slug]) }}">
                             @else
                             <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
