@@ -2,16 +2,20 @@
 
 @section('content')
 <div class="container mt-3">
-    <h2>Crea {{$pagina}}</h2>
-    <form method="POST" action="{{ route($rotta . '.store') }}" id="form">
-        @csrf <!-- Aggiunge il token CSRF -->
+    <h2>Modifica {{$pagina}}</h2>
+    <form method="POST" action="{{ route($rotta . '.update', ['categoryName' => $categoryName->name]) }}" id="form">
+        @csrf
+        @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
             <label for="name">Nome:</label>
-            <input type="text" class="form-control w-25" id="name" name="name" placeholder="Inserisci nome {{$pagina}}" minlength="3" maxlength="50" value="{{ old('name') }}" required>
+            <input type="text" class="form-control w-25 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Inserisci nome {{$pagina}}" minlength="3" maxlength="50" value="{{ old('name', $categoryName->name) }}" required>
+            @error('name')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
             <div class="valid-feedback">Campo valido.</div>
             <div class="invalid-feedback">Nome {{$pagina}} già esistente</div>
         </div>
-        <input type="submit" class="btn btn-primary mt-2" id="submitButton">
+        <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
     </form>
 </div>
 
@@ -68,10 +72,5 @@ document.getElementById('form').addEventListener('submit', function(event) {
 document.getElementById('name').addEventListener('input', () => {
     handleInputValidation();
 });
-
-
-
-
-
 </script>
 @endsection

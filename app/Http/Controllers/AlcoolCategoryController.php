@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use App\Models\AlcoolCategory;
 use App\Models\Alcool;
 use Illuminate\Http\Request;
+use App\Http\Requests\AlcoolCategoryRequest;
+use App\Http\Requests\AlcoolCategoryUpdateRequest;
+
+
 
 class AlcoolCategoryController extends Controller
 {
@@ -51,9 +55,14 @@ class AlcoolCategoryController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AlcoolCategoryRequest $request)
     {
-        //
+        $data = $request->validated();
+        $data['name'] = ucfirst($data['name']); // Capitalize the first letter
+    
+        AlcoolCategory::create($data);
+    
+        return redirect()->route('ingredients.index')->with('success', 'Categoria di alcool creata con successo');
     }
 
     /**
@@ -73,9 +82,11 @@ class AlcoolCategoryController extends Controller
      * @param  \App\Models\AlcoolCategory  $alcoolCategory
      * @return \Illuminate\Http\Response
      */
-    public function edit(AlcoolCategory $alcoolCategory)
+    public function edit(AlcoolCategory $categoryName)
     {
-        //
+        $rotta = 'ingredients.alcoolscategory';
+        $pagina = 'Categoria Alcoolici';
+        return view('ingredients.edit.alcoolCategory', compact('rotta', 'pagina','categoryName'));
     }
 
     /**
@@ -85,9 +96,11 @@ class AlcoolCategoryController extends Controller
      * @param  \App\Models\AlcoolCategory  $alcoolCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AlcoolCategory $alcoolCategory)
+    public function update(AlcoolCategoryUpdateRequest $request, AlcoolCategory $alcoolCategory)
     {
-        //
+        $alcoolCategory->update($request->validated());
+    
+        return redirect()->route('ingredients.index')->with('success', 'Categoria di alcool aggiornata con successo');
     }
 
     /**

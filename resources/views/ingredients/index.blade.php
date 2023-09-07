@@ -25,10 +25,18 @@
             <option value="all">Tutti</option>
             @foreach ($categories as $category)
                 <option value="{{$category->name}}" @if(Request::is('ingredients/alcools/' . $category->name)) selected 
-                    @endif>{{$category->name}} 
-                    </option>
+                    @endif>{{$category->name}}
+ 
+                </option>
             @endforeach
         </select>
+        @foreach ($categories as $category)
+        @if (Request::path() == 'ingredients/alcools/' . str_replace(' ', '%20', $category->name))
+        <div>
+            <a href="{{ route('ingredients.alcoolscategory.edit', ['categoryName' => $category]) }}">Modifica {{ $category->name }}</a>
+        </div>
+        @endif
+    @endforeach
     </div>  
     @endif
     <div class="row mt-3">
