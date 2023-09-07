@@ -42,7 +42,7 @@ class AlcoolCategoryController extends Controller
         $rotta = 'ingredients.alcoolscategory';
         $pagina = 'Categoria Alcoolici';
         $alcoolCategories = AlcoolCategory::pluck('name');
-        return view('ingredients.create', compact('rotta','pagina','alcoolCategories'));
+        return view('ingredients.create.alcoolCategory', compact('rotta','pagina','alcoolCategories'));
     }
 
     /**
