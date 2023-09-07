@@ -24,19 +24,9 @@ use App\Http\Controllers\CocktailController;
 
 use App\Http\Controllers\AlcoolCategoryController;
 
+use App\Http\Controllers\CheckNameController;
 
 use App\Models\Alcool;
-
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
-*/
 
 Route::get('/', function () {
     return view('welcome');
@@ -50,16 +40,14 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-   
-    
+
+    Route::post('/checkname/AlcoolCategory', [CheckNameController::class, 'checkNameAlcoolCategory'])->name('check.AlcoolCategory');
 
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
     Route::get('ingredients/alcools/category/create', [AlcoolCategoryController::class, 'create'])->name('ingredients.alcoolscategory.create');
     Route::post('ingredients/alcools/category/store', [AlcoolCategoryController::class, 'store'])->name('ingredients.alcoolscategory.store');
-   
 
     Route::prefix('ingredients')->name('ingredients.')->group(function () {
-        
         Route::get('/', [AllIngredientController::class, 'index'])->name('index');
         
         // Rotte per i tipi di ingredienti specifici
@@ -78,17 +66,14 @@ Route::middleware('auth')->group(function () {
             Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
                 Route::get('/', [$controller, 'index'])->name('index');
                 // Check the controller name to decide whether to add the "show" route
-                if ($controller !== FruitsController::class && $controller !== SyrupController::class && $controller !== AlcoolController::class) {
+                if ($controller !== FruitController::class && $controller !== SyrupController::class && $controller !== AlcoolController::class) {
                     Route::get('/{slug}', [$controller, 'show'])->name('show');
                 }
             });
         }
-
-        
     });
     
     Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
-
 
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [AllItemsController::class, 'index'])->name('index');
@@ -96,7 +81,7 @@ Route::middleware('auth')->group(function () {
         $itemTypes = [
             'equipements' => EquipementController::class,
             'ices' => IceController::class,
-            'glasses' => GlassController::class
+            'glasses' => GlassController::class,
         ];
 
         foreach ($itemTypes as $type => $controller) {
@@ -104,13 +89,10 @@ Route::middleware('auth')->group(function () {
                 Route::get('/', [$controller, 'index'])->name('index');
                 Route::get('/{slug}', [$controller, 'show'])->name('show');
             });
-        };
-
+        }
     });
 
     Route::resource('cocktails', CocktailController::class)->parameters(['cocktails' => 'slug']);
-
-
 });
 
 require __DIR__.'/auth.php';
