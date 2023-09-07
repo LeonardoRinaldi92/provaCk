@@ -44,7 +44,11 @@
                     @endif
                     <div class="card-body">
                         @if (isset($ingredient->slug))
-                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
+                            @if($ingredient->category->name)
+                            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['category' => $ingredient->category->name , 'slug' => $ingredient->slug]) }}">
+                            @else
+                            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
+                            @endif
                         @endif
                             <div>
                                 <b>

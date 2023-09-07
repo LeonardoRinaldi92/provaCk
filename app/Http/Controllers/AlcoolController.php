@@ -48,7 +48,7 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function show($slug)
+    public function show($category, $slug)
     {
         $ingredient = Alcool::where('slug', $slug)->first();
     

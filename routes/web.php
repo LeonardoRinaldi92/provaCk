@@ -51,7 +51,11 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
    
+    
+
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
+
+   
 
     Route::prefix('ingredients')->name('ingredients.')->group(function () {
         
@@ -73,14 +77,16 @@ Route::middleware('auth')->group(function () {
             Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
                 Route::get('/', [$controller, 'index'])->name('index');
                 // Check the controller name to decide whether to add the "show" route
-                if ($controller !== FruitsController::class && $controller !== SyrupController::class) {
+                if ($controller !== FruitsController::class && $controller !== SyrupController::class && $controller !== AlcoolController::class) {
                     Route::get('/{slug}', [$controller, 'show'])->name('show');
                 }
             });
         }
 
+        
     });
-
+    
+    Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
 
 
     Route::prefix('items')->name('items.')->group(function () {
