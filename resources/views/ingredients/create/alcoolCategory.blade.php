@@ -17,6 +17,8 @@
 </div>
 
 <script>
+document.getElementById('submitButton').setAttribute('disabled', 'disabled');
+
 function handleInputValidation() {
     let nameInput = document.getElementById('name');
     let value = nameInput.value;
