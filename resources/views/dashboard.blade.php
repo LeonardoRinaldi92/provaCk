@@ -53,9 +53,11 @@
                     </div>
                     <div class="col-6 mt-5">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi un Bitter 
-                            </div>
+                            <a href="{{ route('aromatic_bitters.create') }}">
+                                <div class="card-header">
+                                    Aggiungi un Bitter Aromatico
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 mt-5">

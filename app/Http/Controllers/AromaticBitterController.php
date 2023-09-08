@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\AromaticBitter;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+use App\Http\Requests\AromaticBitterStoreRequest;
+
+
 class AromaticBitterController extends Controller
 {
     /**
@@ -26,7 +32,7 @@ class AromaticBitterController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.aromaticBitter_create');
     }
 
     /**
@@ -35,9 +41,27 @@ class AromaticBitterController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(AromaticBitterStoreRequest $request)
     {
-        //
+        
+        $data = $request->validated();
+
+        $slug = Str::slug($request->input('name'));   
+        $data['slug'] = $slug;
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+        
+
+        if ($request->hasFile('image')) {
+            $img_path = $request->file('image')->store('alcoool_img');
+            $data['image'] = $img_path;
+        }
+    
+        $bitter = AromaticBitter::create($data);
+    
+            return redirect()->route('ingredients.aromatic_bitters.show', ['slug' => $bitter->slug])
+        ->with('success', 'Alcolico creato con successo');
     }
 
     /**

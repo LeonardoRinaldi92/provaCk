@@ -45,6 +45,10 @@ Route::middleware('auth')->group(function () {
     //rotta controller per il check in live dei record
     Route::post('/checkname/AlcoolCategory', [CheckNameController::class, 'checkNameAlcoolCategory'])->name('check.AlcoolCategory');
     Route::post('/checkname/Alcools', [CheckNameController::class, 'checkNameAlcools'])->name('check.Alcools');
+    Route::post('/checkname/AromaticBitters', [CheckNameController::class, 'checkNameAromaticBitters'])->name('check.AromaticBitters');
+
+    //rotta ingredienti
+    Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
 
     //rotte di alcools category 
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
@@ -54,48 +58,55 @@ Route::middleware('auth')->group(function () {
     Route::put('ingredients/alcools/category/{categoryName}', [AlcoolCategoryController::class, 'update'])->name('ingredients.alcoolscategory.update');
     Route::delete('ingredients/alcools/category/{categoryName}', [AlcoolCategoryController::class, 'destroy'])->name('ingredients.alcoolscategory.destroy');
 
-
-    Route::prefix('ingredients')->name('ingredients.')->group(function () {
-        Route::get('/', [AllIngredientController::class, 'index'])->name('index');
-        
-        // Rotte per i tipi di ingredienti specifici
-        $ingredientTypes = [
-            'alcools' => AlcoolController::class,
-            'aromatic_bitters' => AromaticBitterController::class,
-            'fruits' => FruitController::class,
-            'juices' => JuiceController::class,
-            'others' => OtherController::class,
-            'sodas' => SodaController::class,
-            'sugars' => SugarController::class,
-            'syrups' => SyrupController::class,
-        ];
-
-        foreach ($ingredientTypes as $type => $controller) {
-            Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
-                Route::get('/', [$controller, 'index'])->name('index');
-                Route::post('/store', [$controller, 'store'])->name('store');
-                // Check the controller name to decide whether to add the "show" route
-                if ($controller !== FruitController::class && $controller !== SyrupController::class && $controller !== AlcoolController::class) {
-                    Route::get('/{slug}', [$controller, 'show'])->name('show');
-                }
-            });
-        }
-    });
-    
     //rotta show speciale per alcools
-    Route::get('alcools/create', [AlcoolController::class, 'create'])->name('alcools.create');
+    Route::get('ingredients/alcools', [AlcoolController::class, 'index'])->name('ingredients.alcools.index');
     Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
+    Route::get('alcools/create', [AlcoolController::class, 'create'])->name('alcools.create');
+    Route::post('ingredients/alcools/store', [AlcoolController::class, 'store'])->name('ingredients.alcools.store');
     Route::get('ingredients/alcools/{category}/{slug}/edit', [AlcoolController::class, 'edit'])->name('ingredients.alcools.edit');
     Route::put('ingredients/alcools/{alcools}', [AlcoolController::class, 'update'])->name('ingredients.alcools.update');
     Route::delete('ingredients/alcools/{alcools}', [AlcoolController::class, 'destroy'])->name('ingredients.alcools.destroy');
-
-    Route::get('aromatic_bitters/create', [AromaticBitter::class, 'create'])->name('aromatic_bitters.create');
+    
+    //rotta show speciale per bitter
+    Route::get('ingredients/aromatic_bitters', [AromaticBitterController::class, 'index'])->name('ingredients.aromatic_bitters.index');
+    Route::get('ingredients/aromatic_bitters/{slug}', [AromaticBitterController::class, 'show'])->name('ingredients.aromatic_bitters.show');
+    Route::post('aromatic_bitters/store', [AromaticBitterController::class, 'store'])->name('aromatic_bitters.store');
+    Route::get('aromatic_bitters/create', [AromaticBitterController::class, 'create'])->name('aromatic_bitters.create');
     Route::get('ingredients/aromatic_bitters/{slug}/edit', [AromaticBitterController::class, 'edit'])->name('ingredients.aromatic_bitters.edit');
     Route::put('ingredients/aromatic_bitters/{aromatic_bitters}', [AromaticBitterController::class, 'update'])->name('ingredients.aromatic_bitters.update');
-    Route::delete('ingredients/aromatic_bitters/{aromatic_bitters}', [AromaticBitterController::class, 'destroy'])->name('ingredients.ingredients.destroy');
+    Route::delete('ingredients/aromatic_bitters/{aromatic_bitters}', [AromaticBitterController::class, 'destroy'])->name('ingredients.aromatic_bitters.destroy');
 
+    // Rotte per i frutti
+    Route::get('ingredients/fruits', [FruitController::class, 'index'])->name('ingredients.fruits.index');
+    Route::post('ingredients/fruits/store', [FruitController::class, 'store'])->name('ingredients.fruits.store');
+    Route::get('ingredients/fruits/{slug}', [FruitController::class, 'show'])->name('ingredients.fruits.show');
 
+    // Rotte per i succhi 
+    Route::get('ingredients/juices', [JuiceController::class, 'index'])->name('ingredients.juices.index');
+    Route::post('ingredients/juices/store', [JuiceController::class, 'store'])->name('ingredients.juices.store');
+    Route::get('ingredients/juices/{slug}', [JuiceController::class, 'show'])->name('ingredients.juices.show');
 
+    // Rotte per gli Altri Ingredienti
+    Route::get('ingredients/others', [OtherController::class, 'index'])->name('ingredients.others.index');
+    Route::post('ingredients/others/store', [OtherController::class, 'store'])->name('ingredients.others.store');
+    Route::get('ingredients/others/{slug}', [OtherController::class, 'show'])->name('ingredients.others.show');
+
+    // Rotte per le Bibite Analcoliche (Sodas)
+    Route::get('ingredients/sodas', [SodaController::class, 'index'])->name('ingredients.sodas.index');
+    Route::post('ingredients/sodas/store', [SodaController::class, 'store'])->name('ingredients.sodas.store');
+    Route::get('ingredients/sodas/{slug}', [SodaController::class, 'show'])->name('ingredients.sodas.show');
+
+    // Rotte per gli Zuccheri
+    Route::get('ingredients/sugars', [SugarController::class, 'index'])->name('ingredients.sugars.index');
+    Route::post('ingredients/sugars/store', [SugarController::class, 'store'])->name('ingredients.sugars.store');
+    Route::get('ingredients/sugars/{slug}', [SugarController::class, 'show'])->name('ingredients.sugars.show');
+    
+    // Rotte per gli Sciroppi
+    Route::get('ingredients/syrups', [SyrupController::class, 'index'])->name('ingredients.syrups.index');
+    Route::post('ingredients/syrups/store', [SyrupController::class, 'store'])->name('ingredients.syrups.store');
+    Route::get('ingredients/syrups/{slug}', [SyrupController::class, 'show'])->name('ingredients.syrups.show');
+    
+    
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [AllItemsController::class, 'index'])->name('index');
 
