@@ -27,6 +27,7 @@ use App\Http\Controllers\AlcoolCategoryController;
 use App\Http\Controllers\CheckNameController;
 
 use App\Models\Alcool;
+use App\Models\AromaticBitter;
 
 Route::get('/', function () {
     return view('welcome');
@@ -87,6 +88,13 @@ Route::middleware('auth')->group(function () {
     Route::get('ingredients/alcools/{category}/{slug}/edit', [AlcoolController::class, 'edit'])->name('ingredients.alcools.edit');
     Route::put('ingredients/alcools/{alcools}', [AlcoolController::class, 'update'])->name('ingredients.alcools.update');
     Route::delete('ingredients/alcools/{alcools}', [AlcoolController::class, 'destroy'])->name('ingredients.alcools.destroy');
+
+    Route::get('aromatic_bitters/create', [AromaticBitter::class, 'create'])->name('aromatic_bitters.create');
+    Route::get('ingredients/aromatic_bitters/{slug}/edit', [AromaticBitterController::class, 'edit'])->name('ingredients.aromatic_bitters.edit');
+    Route::put('ingredients/aromatic_bitters/{aromatic_bitters}', [AromaticBitterController::class, 'update'])->name('ingredients.aromatic_bitters.update');
+    Route::delete('ingredients/aromatic_bitters/{aromatic_bitters}', [AromaticBitterController::class, 'destroy'])->name('ingredients.ingredients.destroy');
+
+
 
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [AllItemsController::class, 'index'])->name('index');

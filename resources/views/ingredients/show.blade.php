@@ -40,9 +40,12 @@
                     @endif
                 </div>
                 <div class="mt-3">
-                    <a href="{{ route('ingredients.alcools.edit', ['category' => $ingredient->category->name,'slug' => $ingredient->slug]) }}" class="btn btn-primary">Modifica</a>
+                    <a href="{{ route('ingredients.'.$ingredient->getTable().'.edit', [
+                        'category' => ($ingredient->category) ? $ingredient->category->name : null,
+                        'slug' => $ingredient->slug
+                    ]) }}" class="btn btn-primary">Modifica</a>
 
-                    <form method="POST" action="{{ route('ingredients.alcools.destroy', ['alcools' => $ingredient]) }}" id="deleteForm">
+                    <form method="POST" action="{{ route('ingredients.'. $ingredient->getTable().'.destroy', [$ingredient->getTable() => $ingredient]) }}" id="deleteForm">
                         @csrf
                         @method('DELETE') <!-- Usa il metodo DELETE -->
                         <button type="submit" class="btn btn-danger">Elimina</button>
