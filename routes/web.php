@@ -71,6 +71,7 @@ Route::middleware('auth')->group(function () {
         foreach ($ingredientTypes as $type => $controller) {
             Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
                 Route::get('/', [$controller, 'index'])->name('index');
+                Route::post('/store', [$controller, 'store'])->name('store');
                 // Check the controller name to decide whether to add the "show" route
                 if ($controller !== FruitController::class && $controller !== SyrupController::class && $controller !== AlcoolController::class) {
                     Route::get('/{slug}', [$controller, 'show'])->name('show');
@@ -80,6 +81,7 @@ Route::middleware('auth')->group(function () {
     });
     
     //rotta show speciale per alcools
+    Route::get('alcools/create', [AlcoolController::class, 'create'])->name('alcools.create');
     Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
 
     Route::prefix('items')->name('items.')->group(function () {

@@ -36,7 +36,9 @@
                     <div class="col-6">
                         <div class="card">
                             <div class="card-header">
-                                Aggiungi un Alcolico
+                                <a href="{{ route('alcools.create') }}" >
+                                    Aggiungi un Alcolico
+                                </a>
                             </div>
                         </div>
                     </div>

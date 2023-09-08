@@ -6,6 +6,11 @@ use App\Models\Alcool;
 use App\Models\AlcoolCategory;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+use App\Http\Requests\AlcoolStoreRequest;
+
 class AlcoolController extends Controller
 {
     /**
@@ -28,7 +33,8 @@ class AlcoolController extends Controller
      */
     public function create()
     {
-        //
+        $categories = AlcoolCategory::all()->sortBy('name');
+        return view('ingredients.create.alcool_create', compact('categories'));
     }
 
     /**
@@ -37,10 +43,23 @@ class AlcoolController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    
+    public function store(AlcoolStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        $slug = Str::slug($request->input('name'));   
+        $data['slug'] = $slug;
+
+        if ($request->hasFile('image')) {
+            $img_path = $request->file('image')->store('alcoool_img');
+            $data['image'] = $img_path;
+        }
+    
+        Alcool::create($data);
+    
+        return redirect()->route('ingredients.index')->with('success', 'Alcolico creato con successo');
     }
+    
 
     /**
      * Display the specified resource.

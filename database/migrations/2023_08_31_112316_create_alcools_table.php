@@ -4,6 +4,8 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
+
+
 return new class extends Migration
 {
     /**
@@ -15,7 +17,7 @@ return new class extends Migration
     {
         Schema::create('alcools', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
+            $table->string('name')->unique();
             $table->unsignedBigInteger('alcool_categories_id');
             $table->foreign('alcool_categories_id')->references('id')->on('alcool_categories');
             $table->decimal('ABV', 3, 1);

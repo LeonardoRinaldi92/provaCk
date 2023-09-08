@@ -7,9 +7,9 @@
         @csrf <!-- Aggiunge il token CSRF -->
         <div class="form-group">
             <label for="name">Nome:</label>
-            <input type="text" class="form-control w-25" id="name" name="name" placeholder="Inserisci nome {{$pagina}}" minlength="3" maxlength="50" value="{{ old('name') }}" required>
+            <input type="text" class="form-control w-25" id="name" name="name" placeholder="Inserisci nome {{$pagina}}" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
             <div class="valid-feedback">Campo valido.</div>
-            <div class="invalid-feedback">Nome {{$pagina}} già esistente</div>
+            <div class="invalid-feedback">Nome {{$pagina}} non idoneo</div>
         </div>
         <input type="submit" class="btn btn-primary mt-2" id="submitButton">
     </form>
