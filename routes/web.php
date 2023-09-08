@@ -84,6 +84,8 @@ Route::middleware('auth')->group(function () {
     //rotta show speciale per alcools
     Route::get('alcools/create', [AlcoolController::class, 'create'])->name('alcools.create');
     Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
+    Route::get('ingredients/alcools/{category}/{slug}/edit', [AlcoolController::class, 'edit'])->name('ingredients.alcools.edit');
+    Route::put('ingredients/alcools/{alcools}', [AlcoolController::class, 'update'])->name('ingredients.alcools.update');
 
     Route::prefix('items')->name('items.')->group(function () {
         Route::get('/', [AllItemsController::class, 'index'])->name('index');

@@ -10,6 +10,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Http\Requests\AlcoolStoreRequest;
+use App\Http\Requests\AlcoolUpdateRequest;
 
 class AlcoolController extends Controller
 {
@@ -90,9 +91,16 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function edit(Alcool $alcool)
+    public function edit($category, $slug)
     {
-        //
+
+        $alcool = Alcool::where('slug', $slug)->first();
+        $categories = AlcoolCategory::all()->sortBy('name');
+        if (!$alcool) {
+            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
+        }
+
+        return view('ingredients.edit.alcool_edit', compact('alcool','categories'));
     }
 
     /**
@@ -102,9 +110,34 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Alcool $alcool)
+    public function update(AlcoolUpdateRequest $request, Alcool $alcool)
     {
-        //
+        $data = $request->validated();
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $alcool->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $slug = Str::slug($request->input('name'));
+            $data['slug'] = $slug;
+        }
+    
+        // Verifica se è stata caricata una nuova immagine
+        if ($request->hasFile('image')) {
+            // Elimina la vecchia immagine se esiste
+            if ($alcool->image) {
+                Storage::delete($alcool->image);
+            }
+    
+            // Carica la nuova immagine e ottieni il percorso
+            $img_path = $request->file('image')->store('alcoool_img');
+            $data['image'] = $img_path;
+        }
+    
+        // Aggiorna i dati dell'alcolico
+        $alcool->update($data);
+    
+        return redirect()->route('ingredients.alcools.show', ['category' => $alcool->category->name, 'slug' => $alcool->slug])
+            ->with('success', 'Alcolico aggiornato con successo');
     }
 
     /**

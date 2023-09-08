@@ -38,6 +38,9 @@
                     @if ($ingredient->image)
                     <img src="{{ asset('storage/'. $ingredient->image) }}" alt="Immagine {{$ingredient->name}}" style="max-height: 400px">
                     @endif
+                </div>
+                <div class="mt-3">
+                    <a href="{{ route('ingredients.alcools.edit', ['category' => $ingredient->category->name,'slug' => $ingredient->slug]) }}" class="btn btn-primary">Modifica</a>
                 </div> 
         </div>
     </div>

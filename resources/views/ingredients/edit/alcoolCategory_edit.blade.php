@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-3">
     <h2>Modifica {{$pagina}}</h2>
-    <form method="POST" action="{{ route($rotta . '.update', ['categoryName' => $categoryName]) }}" id="form">
+    <form method="POST" action="{{ route( 'ingredient.alcools.update', ['alcool'=> $alcool]) }}" id="form">
         @csrf
         @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
