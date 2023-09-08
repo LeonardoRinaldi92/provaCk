@@ -41,14 +41,17 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
+    //rotta controller per il check in live dei record
     Route::post('/checkname/AlcoolCategory', [CheckNameController::class, 'checkNameAlcoolCategory'])->name('check.AlcoolCategory');
 
+    //rotte di alcools category 
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
     Route::get('ingredients/alcools/category/create', [AlcoolCategoryController::class, 'create'])->name('ingredients.alcoolscategory.create');
     Route::post('ingredients/alcools/category/store', [AlcoolCategoryController::class, 'store'])->name('ingredients.alcoolscategory.store');
     Route::get('ingredients/alcools/category/{categoryName}/edit', [AlcoolCategoryController::class, 'edit'])->name('ingredients.alcoolscategory.edit');
     Route::put('ingredients/alcools/category/{categoryName}', [AlcoolCategoryController::class, 'update'])->name('ingredients.alcoolscategory.update');
     Route::delete('ingredients/alcools/category/{categoryName}', [AlcoolCategoryController::class, 'destroy'])->name('ingredients.alcoolscategory.destroy');
+
 
     Route::prefix('ingredients')->name('ingredients.')->group(function () {
         Route::get('/', [AllIngredientController::class, 'index'])->name('index');
@@ -76,6 +79,7 @@ Route::middleware('auth')->group(function () {
         }
     });
     
+    //rotta show speciale per alcools
     Route::get('ingredients/alcools/{category}/{slug}', [AlcoolController::class, 'show'])->name('ingredients.alcools.show');
 
     Route::prefix('items')->name('items.')->group(function () {
