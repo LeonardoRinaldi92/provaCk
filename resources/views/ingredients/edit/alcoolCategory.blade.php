@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-3">
     <h2>Modifica {{$pagina}}</h2>
-    <form method="POST" action="{{ route($rotta . '.update', ['categoryName' => $categoryName->name]) }}" id="form">
+    <form method="POST" action="{{ route($rotta . '.update', ['categoryName' => $categoryName]) }}" id="form">
         @csrf
         @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
@@ -16,6 +16,11 @@
             <div class="invalid-feedback">Nome {{$pagina}} già esistente</div>
         </div>
         <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
+    </form>
+    <form method="POST" action="{{ route('ingredients.alcoolscategory.destroy', ['categoryName' => $categoryName]) }}" id="deleteForm">
+        @csrf
+        @method('DELETE') <!-- Usa il metodo DELETE -->
+        <button type="submit" class="btn btn-danger">Elimina</button>
     </form>
 </div>
 

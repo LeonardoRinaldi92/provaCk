@@ -10,4 +10,10 @@ class AlcoolCategory extends Model
     use HasFactory;
 
     protected $fillable = ['name'];
+    
+    public function alcools()
+    {
+        return $this->hasMany(Alcool::class, 'alcool_categories_id')->onDelete('cascade');
+    }
 }
+

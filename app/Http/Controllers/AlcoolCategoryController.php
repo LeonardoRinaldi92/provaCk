@@ -96,9 +96,12 @@ class AlcoolCategoryController extends Controller
      * @param  \App\Models\AlcoolCategory  $alcoolCategory
      * @return \Illuminate\Http\Response
      */
-    public function update(AlcoolCategoryUpdateRequest $request, AlcoolCategory $alcoolCategory)
+    public function update(AlcoolCategoryUpdateRequest $request, AlcoolCategory $categoryName)
     {
-        $alcoolCategory->update($request->validated());
+        $form_data = $request->validated();
+
+        $categoryName->update($form_data);
+
     
         return redirect()->route('ingredients.index')->with('success', 'Categoria di alcool aggiornata con successo');
     }
@@ -109,8 +112,11 @@ class AlcoolCategoryController extends Controller
      * @param  \App\Models\AlcoolCategory  $alcoolCategory
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AlcoolCategory $alcoolCategory)
+    public function destroy(AlcoolCategory $categoryName)
     {
-        //
+        Alcool::where('alcool_categories_id', $categoryName->id)->delete();
+        $categoryName->delete();
+
+        return redirect()->route('ingredients.index')->with('success', 'Categoria di alcool eliminata con successo');
     }
 }
