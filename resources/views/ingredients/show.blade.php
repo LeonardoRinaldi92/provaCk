@@ -33,6 +33,11 @@
                         </b><br>
                         {{$ingredient->description}}
                     </div>  
+                </div>
+                <div class="col-3">
+                    @if ($ingredient->image)
+                    <img src="{{ asset('storage/'. $ingredient->image) }}" alt="Immagine {{$ingredient->name}}">
+                    @endif
                 </div> 
         </div>
     </div>
