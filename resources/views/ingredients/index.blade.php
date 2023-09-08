@@ -113,6 +113,15 @@
                     @endif
                 </td>
                 <td>
+                    @if ($ingredient->category)
+                        
+                    <form method="POST" action="{{ route('ingredients.alcools.destroy', ['alcools' => $ingredient]) }}" id="deleteForm">
+                        @csrf
+                        @method('DELETE') <!-- Usa il metodo DELETE -->
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                    
+                @endif
                     <!-- Aggiungi qui il pulsante di eliminazione -->
                 </td>
             </tr>

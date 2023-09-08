@@ -41,6 +41,12 @@
                 </div>
                 <div class="mt-3">
                     <a href="{{ route('ingredients.alcools.edit', ['category' => $ingredient->category->name,'slug' => $ingredient->slug]) }}" class="btn btn-primary">Modifica</a>
+
+                    <form method="POST" action="{{ route('ingredients.alcools.destroy', ['alcools' => $ingredient]) }}" id="deleteForm">
+                        @csrf
+                        @method('DELETE') <!-- Usa il metodo DELETE -->
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
                 </div> 
         </div>
     </div>

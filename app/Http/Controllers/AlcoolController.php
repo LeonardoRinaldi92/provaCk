@@ -146,8 +146,17 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Alcool $alcool)
+    public function destroy(Alcool $alcools)
     {
-        //
+        // Elimina l'immagine associata se esiste
+        if ($alcools->image) {
+            Storage::delete($alcools->image);
+        }
+    
+        // Elimina l'alcolico dal database
+        $alcools->delete();
+    
+        return redirect()->route('ingredients.alcools.index')
+            ->with('success', 'Alcolico eliminato con successo');
     }
 }
