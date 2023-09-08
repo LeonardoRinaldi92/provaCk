@@ -39,52 +39,80 @@
     @endforeach
     </div>  
     @endif
-    <div class="row mt-3">
-        @foreach ($ingredients as $ingredient)
-        <div class="col-3">
-                <div class="card">
-                    @if (Request::path() == 'ingredients')
-                    <div class="card-header">
-                        <div>
-                            {{$ingredient->tables()}}
-                        </div>
-                    </div>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                @if (!(Str::contains(Request::url(), 'ingredients/fruits')) && !(Str::contains(Request::url(), 'ingredients/syrups')) && !(Str::contains(Request::url(), 'ingredients/others')) && !(Str::contains(Request::url(), 'ingredients/juices')))
+                <th>Descrizione</th>
+                @endif
+                @if (Str::contains(Request::url(), 'ingredients/alcools'))
+                <th>CATEGORIA</th>
+                @endif
+                @if ((Request::path() == 'ingredients/aromatic_bitters') || (Request::path() == 'ingredients') || Str::contains(Request::url(), 'ingredients/alcools'))
+                <th>ABV</th>     
+                @endif
+                @if (Request::path() == 'ingredients')
+                <th>CATEGORIA</th>
+                @endif
+                <th>Modifica</th>
+                <th>Elimina</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($ingredients as $ingredient)
+            <tr>
+                <td>
+                    @if (isset($ingredient->slug))
+                        @if($ingredient->category)
+                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['category' => $ingredient->category->name , 'slug' => $ingredient->slug]) }}">
+                        @else
+                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
+                        @endif
                     @endif
-                    <div class="card-body">
-                        @if (isset($ingredient->slug))
-                            @if($ingredient->category)
-                            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['category' => $ingredient->category->name , 'slug' => $ingredient->slug]) }}">
-                            @else
-                            <a href="{{ route('ingredients.' . $ingredient->getTable() . '.show', ['slug' => $ingredient->slug]) }}">
-                            @endif
-                        @endif
-                            <div>
-                                <b>
-                                    {{$ingredient->name}}
-                                </b>
-                            </div>
-                        @if (isset($ingredient->slug))
-                        </a>
-                        @endif
-                        @if (isset($ingredient->ABV))
-                        <div class="mt-2">
-                            <b>
-                                {{ __("ABV") }} 
-                            </b>
-                            {{$ingredient->getSingleDigitABV()}}
-                        </div>
-                        @endif
-                        @if (isset($ingredient->description))
-                        <div class="mt-2">
-                            {{$ingredient->description}}
-    
-                        </div>
-                        @endif
-                    </div>
-                </div>
-        </div>
-        @endforeach
-    </div>
+                    {{$ingredient->name}}
+                    @if (isset($ingredient->slug))
+                    </a>
+                    @endif
+                </td>
+                @if (!(Str::contains(Request::url(), 'ingredients/fruits')) && !(Str::contains(Request::url(), 'ingredients/syrups')) && !(Str::contains(Request::url(), 'ingredients/others')) && !(Str::contains(Request::url(), 'ingredients/juices')))
+                <td>
+                    @if (isset($ingredient->description))
+                    {{$ingredient->description}}
+                    @else
+                    N/A
+                    @endif
+                </td>
+                @endif
+                @if (Str::contains(Request::url(), 'ingredients/alcools'))
+                <td>
+                    <a href="{{ route('ingredients.alcools.category.index', ['category' => $ingredient->category->name]) }}">{{$ingredient->category->name}}</a>
+                </td>
+                @endif
+                @if ((Request::path() == 'ingredients/aromatic_bitters') || (Request::path() == 'ingredients') || Str::contains(Request::url(), 'ingredients/alcools'))
+                <td>
+                    @if (isset($ingredient->ABV))
+                    {{$ingredient->getSingleDigitABV()}}
+                    @else
+                    N/A
+                    @endif
+                </td>
+                @endif
+                @if ((Request::path() == 'ingredients'))
+                <td>
+                    <a href="{{ route('ingredients.'. $ingredient->getTable() . '.index')}}">{{$ingredient->tables()}}</a>
+                </td>
+                @endif
+                <td>
+                    <!-- Aggiungi qui il pulsante di modifica -->
+                </td>
+                <td>
+                    <!-- Aggiungi qui il pulsante di eliminazione -->
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 </div>
 <script>
