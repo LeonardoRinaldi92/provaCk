@@ -47,17 +47,23 @@ class AlcoolController extends Controller
     public function store(AlcoolStoreRequest $request)
     {
         $data = $request->validated();
+
         $slug = Str::slug($request->input('name'));   
         $data['slug'] = $slug;
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+        
 
         if ($request->hasFile('image')) {
             $img_path = $request->file('image')->store('alcoool_img');
             $data['image'] = $img_path;
         }
     
-        Alcool::create($data);
+        $alcool = Alcool::create($data);
     
-        return redirect()->route('ingredients.index')->with('success', 'Alcolico creato con successo');
+            return redirect()->route('ingredients.alcools.show', ['category' => $alcool->category->name, 'slug' => $alcool->slug])
+        ->with('success', 'Alcolico creato con successo');
     }
     
 

@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
     //rotta controller per il check in live dei record
     Route::post('/checkname/AlcoolCategory', [CheckNameController::class, 'checkNameAlcoolCategory'])->name('check.AlcoolCategory');
+    Route::post('/checkname/Alcools', [CheckNameController::class, 'checkNameAlcools'])->name('check.Alcools');
 
     //rotte di alcools category 
     Route::get('ingredients/alcools/{category}', [AlcoolCategoryController::class, 'index'])->name('ingredients.alcools.category.index');
