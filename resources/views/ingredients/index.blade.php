@@ -104,12 +104,14 @@
                 </td>
                 @endif
                 <td>
-                    @if ($ingredient->category)
-                        
+                    @if ($ingredient->category)           
                         <button class="btn btn-warning">
                             <a href="{{ route('ingredients.' . $ingredient->getTable() . '.edit', ['category'=> $ingredient->category->name, 'slug' => $ingredient->slug]) }}">Modifica</a>
                         </button>
-                        
+                    @elseif ($ingredient->slug && ($ingredient->getTable() !== 'sodas' && $ingredient->getTable() !== 'sugars'))
+                    <button class="btn btn-warning">
+                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.edit', ['slug'=> $ingredient->slug]) }}">Modifica</a>
+                    </button>
                     @endif
                 </td>
                 <td>
@@ -122,7 +124,6 @@
                     </form>
                     
                 @endif
-                    <!-- Aggiungi qui il pulsante di eliminazione -->
                 </td>
             </tr>
             @endforeach

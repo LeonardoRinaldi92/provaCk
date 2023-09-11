@@ -87,9 +87,10 @@ class AromaticBitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function edit(AromaticBitter $bitter)
+    public function edit($slug)
     {
-        //
+        $bitter = AromaticBitter::where('slug', $slug)->first();
+        return view('ingredients.edit.aromaticBitter_edit', compact('bitter'));
     }
 
     /**
