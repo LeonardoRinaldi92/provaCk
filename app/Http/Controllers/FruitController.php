@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Fruit;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\FruitStoreRequest;
+use App\Http\Requests\FruitUpdateRequest;
+
 class FruitController extends Controller
 {
     /**
@@ -26,7 +29,7 @@ class FruitController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.fruit_create');
     }
 
     /**
@@ -35,21 +38,20 @@ class FruitController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(FruitStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+
+        Fruit::create($data);
+
+        return redirect()->route('ingredients.fruits.index')
+        ->with('success', 'Succo creato con successo');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Fruit  $fruit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Fruit $fruit)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,9 +59,10 @@ class FruitController extends Controller
      * @param  \App\Models\Fruit  $fruit
      * @return \Illuminate\Http\Response
      */
-    public function edit(Fruit $fruit)
+    public function edit(Fruit $fruits)
     {
-        //
+        $fruit = $fruits;
+        return view('ingredients.edit.fruit_edit', compact('fruit'));
     }
 
     /**
@@ -69,9 +72,22 @@ class FruitController extends Controller
      * @param  \App\Models\Fruit  $fruit
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Fruit $fruit)
+    public function update(FruitUpdateRequest $request, Fruit $fruits)
     {
-        //
+        $data = $request->validated();
+
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $fruits->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
+        }
+        
+        $fruits->update($data);
+
+        return redirect()->route('ingredients.fruits.index');
+    
     }
 
     /**
@@ -80,8 +96,11 @@ class FruitController extends Controller
      * @param  \App\Models\Fruit  $fruit
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Fruit $fruit)
+    public function destroy(Fruit $fruits)
     {
-        //
+        $fruits->delete();
+    
+        return redirect()->route('ingredients.fruits.index')
+            ->with('success', 'Succo eliminato eliminato con successo');
     }
 }

@@ -48,6 +48,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/AromaticBitters', [CheckNameController::class, 'checkNameAromaticBitters'])->name('check.AromaticBitters');
     Route::post('/checkname/Sodas', [CheckNameController::class, 'checkNameSodas'])->name('check.Sodas');
     Route::post('/checkname/juices', [CheckNameController::class, 'checkNameJuices'])->name('check.Juices');
+    Route::post('/checkname/fruits', [CheckNameController::class, 'checkNameFruits'])->name('check.Fruits');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
@@ -80,7 +81,11 @@ Route::middleware('auth')->group(function () {
 
     // Rotte per i frutti
     Route::get('ingredients/fruits', [FruitController::class, 'index'])->name('ingredients.fruits.index');
-    Route::post('ingredients/fruits/store', [FruitController::class, 'store'])->name('ingredients.fruits.store');
+    Route::get('fruits/create', [FruitController::class, 'create'])->name('fruits.create');
+    Route::post('fruits/store', [FruitController::class, 'store'])->name('fruits.store');
+    Route::get('ingredients/fruits/{fruits}/edit', [FruitController::class, 'edit'])->name('ingredients.fruits.edit');
+    Route::put('ingredients/fruits/{fruits}', [FruitController::class, 'update'])->name('ingredients.fruits.update');
+    Route::delete('ingredients/fruits/{fruits}', [FruitController::class, 'destroy'])->name('ingredients.fruits.destroy');
 
     // Rotte per i succhi 
     Route::get('ingredients/juices', [JuiceController::class, 'index'])->name('ingredients.juices.index');

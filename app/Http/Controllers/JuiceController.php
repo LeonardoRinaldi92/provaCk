@@ -55,22 +55,6 @@ class JuiceController extends Controller
         ->with('success', 'Succo creato con successo');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Juice  $juice
-     * @return \Illuminate\Http\Response
-     */
-    public function show($slug)
-    {
-        $ingredient = Juice::where('slug', $slug)->first();
-    
-        if (!$ingredient) {
-            abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
-        }
-
-        return view('ingredients.juices.index', compact('ingredient'));
-    }
 
     /**
      * Show the form for editing the specified resource.
