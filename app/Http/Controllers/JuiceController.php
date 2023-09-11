@@ -5,6 +5,12 @@ namespace App\Http\Controllers;
 use App\Models\Juice;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
+use App\Http\Requests\JuiceStoreRequest;
+use App\Http\Requests\JuiceUpdateRequest;
+
+
 class JuiceController extends Controller
 {
     /**
@@ -26,7 +32,7 @@ class JuiceController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.juice_create');
     }
 
     /**
@@ -35,9 +41,18 @@ class JuiceController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(JuiceStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+
+        Juice::create($data);
+
+        return redirect()->route('ingredients.juices.index')
+        ->with('success', 'Succo creato con successo');
     }
 
     /**
@@ -54,7 +69,7 @@ class JuiceController extends Controller
             abort(404); // Puoi personalizzare la pagina di errore 404 a tuo piacimento
         }
 
-        return view('ingredients.show', compact('ingredient'));
+        return view('ingredients.juices.index', compact('ingredient'));
     }
 
     /**
@@ -63,9 +78,10 @@ class JuiceController extends Controller
      * @param  \App\Models\Juice  $juice
      * @return \Illuminate\Http\Response
      */
-    public function edit(Juice $juice)
+    public function edit(Juice $juices)
     {
-        //
+        $juice = $juices;
+        return view('ingredients.edit.juice_edite', compact('juice'));
     }
 
     /**
@@ -75,10 +91,24 @@ class JuiceController extends Controller
      * @param  \App\Models\Juice  $juice
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Juice $juice)
+    public function update(JuiceUpdateRequest $request, Juice $juices)
     {
-        //
+        $data = $request->validated();
+
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $juices->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
+        }
+        
+        $juices->update($data);
+
+        return redirect()->route('ingredients.juices.index');
+    
     }
+      
 
     /**
      * Remove the specified resource from storage.
@@ -86,8 +116,11 @@ class JuiceController extends Controller
      * @param  \App\Models\Juice  $juice
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Juice $juice)
+    public function destroy(Juice $juices)
     {
-        //
+        $juices->delete();
+    
+        return redirect()->route('ingredients.juices.index')
+            ->with('success', 'Succo eliminato eliminato con successo');
     }
 }

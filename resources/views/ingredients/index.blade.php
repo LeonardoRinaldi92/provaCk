@@ -112,6 +112,10 @@
                     <button class="btn btn-warning">
                         <a href="{{ route('ingredients.' . $ingredient->getTable() . '.edit', ['slug'=> $ingredient->slug]) }}">Modifica</a>
                     </button>
+                    @else
+                    <button class="btn btn-warning">
+                        <a href="{{ route('ingredients.' . $ingredient->getTable() . '.edit', [$ingredient->getTable() => $ingredient]) }}">Modifica</a>
+                    </button>
                     @endif
                 </td>
                 <td>
@@ -122,7 +126,7 @@
                         @method('DELETE') <!-- Usa il metodo DELETE -->
                         <button type="submit" class="btn btn-danger">Elimina</button>
                     </form>
-                    @elseif ($ingredient->slug && ($ingredient->getTable() !== 'sugars'))
+                    @elseif (($ingredient->getTable() !== 'sugars'))
                     <form method="POST" action="{{ route('ingredients.' . $ingredient->getTable() . '.destroy', [$ingredient->getTable() => $ingredient]) }}" id="deleteForm">
                         @csrf
                         @method('DELETE') <!-- Usa il metodo DELETE -->
