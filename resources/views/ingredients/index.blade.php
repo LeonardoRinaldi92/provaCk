@@ -122,8 +122,13 @@
                         @method('DELETE') <!-- Usa il metodo DELETE -->
                         <button type="submit" class="btn btn-danger">Elimina</button>
                     </form>
-                    
-                @endif
+                    @elseif ($ingredient->slug && ($ingredient->getTable() !== 'sodas' && $ingredient->getTable() !== 'sugars'))
+                    <form method="POST" action="{{ route('ingredients.' . $ingredient->getTable() . '.destroy', [$ingredient->getTable() => $ingredient]) }}" id="deleteForm">
+                        @csrf
+                        @method('DELETE') <!-- Usa il metodo DELETE -->
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form>
+                    @endif
                 </td>
             </tr>
             @endforeach

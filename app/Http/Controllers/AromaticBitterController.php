@@ -136,8 +136,15 @@ class AromaticBitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function destroy(AromaticBitter $bitter)
+    public function destroy(AromaticBitter $aromatic_bitters)
     {
-        //
+        if ($aromatic_bitters->image) {
+            Storage::delete($aromatic_bitters->image);
+        }
+
+        $aromatic_bitters->delete();
+
+        return redirect()->route('ingredients.aromatic_bitters.index')
+        ->with('success', 'bitter eliminato con successo');
     }
 }
