@@ -110,12 +110,12 @@ class AlcoolController extends Controller
      * @param  \App\Models\Alcool  $alcool
      * @return \Illuminate\Http\Response
      */
-    public function update(AlcoolUpdateRequest $request, Alcool $alcool)
+    public function update(AlcoolUpdateRequest $request, Alcool $alcools)
     {
         $data = $request->validated();
     
         // Verifica se il nome è stato modificato
-        if ($request->has('name') && $request->input('name') !== $alcool->name) {
+        if ($request->has('name') && $request->input('name') !== $alcools->name) {
             // Aggiorna lo slug se il nome è cambiato
             $slug = Str::slug($request->input('name'));
             $data['slug'] = $slug;
@@ -124,8 +124,8 @@ class AlcoolController extends Controller
         // Verifica se è stata caricata una nuova immagine
         if ($request->hasFile('image')) {
             // Elimina la vecchia immagine se esiste
-            if ($alcool->image) {
-                Storage::delete($alcool->image);
+            if ($alcools->image) {
+                Storage::delete($alcools->image);
             }
     
             // Carica la nuova immagine e ottieni il percorso
@@ -134,9 +134,9 @@ class AlcoolController extends Controller
         }
     
         // Aggiorna i dati dell'alcolico
-        $alcool->update($data);
+        $alcools->update($data);
     
-        return redirect()->route('ingredients.alcools.show', ['category' => $alcool->category->name, 'slug' => $alcool->slug])
+        return redirect()->route('ingredients.alcools.show', ['category' => $alcools->category->name, 'slug' => $alcools->slug])
             ->with('success', 'Alcolico aggiornato con successo');
     }
 

@@ -9,6 +9,7 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 
 use App\Http\Requests\AromaticBitterStoreRequest;
+use App\Http\Requests\AromaticBitterUpdateRequest;
 
 
 class AromaticBitterController extends Controller
@@ -54,7 +55,7 @@ class AromaticBitterController extends Controller
         
 
         if ($request->hasFile('image')) {
-            $img_path = $request->file('image')->store('alcoool_img');
+            $img_path = $request->file('image')->store('aromatic_bitters_img');
             $data['image'] = $img_path;
         }
     
@@ -100,9 +101,33 @@ class AromaticBitterController extends Controller
      * @param  \App\Models\Bitter  $bitter
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, AromaticBitter $bitter)
+    public function update(AromaticBitterUpdateRequest $request, AromaticBitter $aromatic_bitters)
     {
-        //
+        $data = $request->validated();
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $aromatic_bitters->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $slug = Str::slug($request->input('name'));
+            $data['slug'] = $slug;
+        }
+    
+        // Verifica se è stata caricata una nuova immagine
+        if ($request->hasFile('image')) {
+            // Elimina la vecchia immagine se esiste
+            if ($aromatic_bitters->image) {
+                Storage::delete($aromatic_bitters->image);
+            }
+    
+            // Carica la nuova immagine e ottieni il percorso
+            $img_path = $request->file('image')->store('aromatic_bitters_img');
+            $data['image'] = $img_path;
+        }
+    
+        // Aggiorna i dati dell'alcolico
+        $aromatic_bitters->update($data);
+    
+        return redirect()->route('ingredients.aromatic_bitters.show', ['slug' => $aromatic_bitters->slug])
+            ->with('success', 'Alcolico aggiornato con successo');
     }
 
     /**

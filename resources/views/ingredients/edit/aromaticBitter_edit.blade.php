@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mt-3">
     <h2>Modifica {{$bitter->name}}</h2>
-    <form method="POST" action="{{ route('ingredients.aromatic_bitters.edit', ['slug' => $bitter->slug]) }}" id="form">
+    <form method="POST" action="{{ route('ingredients.aromatic_bitters.update', ['aromatic_bitters' => $bitter]) }}" id="form" enctype="multipart/form-data">
         @csrf
         @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
@@ -74,7 +74,7 @@ console.log(nomeOriginale, value)
 if(nomeOriginale !== value){
     if (value.length > 2) {
         return fetch("{{ route('check.Alcools') }}", {
-            method: 'POST',
+            method: 'POST',e
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"
