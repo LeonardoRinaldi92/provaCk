@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Soda;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
+use App\Http\Requests\SodaStoreRequest;
+use App\Http\Requests\SodaUpdateRequest;
+
 class SodaController extends Controller
 {
     /**
@@ -26,7 +31,7 @@ class SodaController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.soda_create');
     }
 
     /**
@@ -35,9 +40,20 @@ class SodaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SodaStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $slug = Str::slug($request->input('name'));   
+        $data['slug'] = $slug;
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+
+        $soda = Soda::create($data);
+
+        return redirect()->route('ingredients.sodas.show', ['slug' => $soda->slug])
+        ->with('success', 'Soda creato con successo');
     }
 
     /**
@@ -62,9 +78,10 @@ class SodaController extends Controller
      * @param  \App\Models\Soda  $soda
      * @return \Illuminate\Http\Response
      */
-    public function edit(Soda $soda)
+    public function edit($slug)
     {
-        //
+        $soda = Soda::where('slug', $slug)->first();
+        return view('ingredients.edit.soda_edit', compact('soda'));
     }
 
     /**
@@ -74,9 +91,24 @@ class SodaController extends Controller
      * @param  \App\Models\Soda  $soda
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Soda $soda)
+    public function update(SodaUpdateRequest $request, Soda $sodas)
     {
-        //
+        $data = $request->validated();
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $sodas->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $slug = Str::slug($request->input('name'));
+            $data['slug'] = $slug;
+
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
+        }
+        
+        $sodas->update($data);
+
+        return redirect()->route('ingredients.sodas.show', ['slug' => $sodas->slug])
+        ->with('success', 'Soda modificato con successo');
     }
 
     /**
@@ -85,8 +117,11 @@ class SodaController extends Controller
      * @param  \App\Models\Soda  $soda
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Soda $soda)
+    public function destroy(Soda $sodas)
     {
-        //
+        $sodas->delete();
+    
+        return redirect()->route('ingredients.sodas.index')
+            ->with('success', 'Alcolico eliminato con successo');
     }
 }

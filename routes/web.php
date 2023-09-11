@@ -46,6 +46,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/AlcoolCategory', [CheckNameController::class, 'checkNameAlcoolCategory'])->name('check.AlcoolCategory');
     Route::post('/checkname/Alcools', [CheckNameController::class, 'checkNameAlcools'])->name('check.Alcools');
     Route::post('/checkname/AromaticBitters', [CheckNameController::class, 'checkNameAromaticBitters'])->name('check.AromaticBitters');
+    Route::post('/checkname/Sodas', [CheckNameController::class, 'checkNameSodas'])->name('check.Sodas');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
@@ -79,7 +80,6 @@ Route::middleware('auth')->group(function () {
     // Rotte per i frutti
     Route::get('ingredients/fruits', [FruitController::class, 'index'])->name('ingredients.fruits.index');
     Route::post('ingredients/fruits/store', [FruitController::class, 'store'])->name('ingredients.fruits.store');
-    Route::get('ingredients/fruits/{slug}', [FruitController::class, 'show'])->name('ingredients.fruits.show');
 
     // Rotte per i succhi 
     Route::get('ingredients/juices', [JuiceController::class, 'index'])->name('ingredients.juices.index');
@@ -93,8 +93,12 @@ Route::middleware('auth')->group(function () {
 
     // Rotte per le Bibite Analcoliche (Sodas)
     Route::get('ingredients/sodas', [SodaController::class, 'index'])->name('ingredients.sodas.index');
-    Route::post('ingredients/sodas/store', [SodaController::class, 'store'])->name('ingredients.sodas.store');
+    Route::get('sodas/create', [SodaController::class, 'create'])->name('sodas.create');
+    Route::post('sodas/store', [SodaController::class, 'store'])->name('sodas.store');
     Route::get('ingredients/sodas/{slug}', [SodaController::class, 'show'])->name('ingredients.sodas.show');
+    Route::get('ingredients/sodas/{slug}/edit', [SodaController::class, 'edit'])->name('ingredients.sodas.edit');
+    Route::put('ingredients/sodas/{sodas}', [SodaController::class, 'update'])->name('ingredients.sodas.update');
+    Route::delete('ingredients/sodas/{sodas}', [SodaController::class, 'destroy'])->name('ingredients.sodas.destroy');
 
     // Rotte per gli Zuccheri
     Route::get('ingredients/sugars', [SugarController::class, 'index'])->name('ingredients.sugars.index');

@@ -69,9 +69,11 @@
                     </div>
                     <div class="col-6 mt-5">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi una Soda 
-                            </div>
+                            <a href="{{ route('sodas.create') }}" >
+                                <div class="card-header">
+                                    Aggiungi una Soda
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 mt-5">

@@ -109,6 +109,9 @@ class AromaticBitterController extends Controller
             // Aggiorna lo slug se il nome è cambiato
             $slug = Str::slug($request->input('name'));
             $data['slug'] = $slug;
+
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
         }
     
         // Verifica se è stata caricata una nuova immagine
