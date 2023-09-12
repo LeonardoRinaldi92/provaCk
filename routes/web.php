@@ -50,6 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/juices', [CheckNameController::class, 'checkNameJuices'])->name('check.Juices');
     Route::post('/checkname/fruits', [CheckNameController::class, 'checkNameFruits'])->name('check.Fruits');
     Route::post('/checkname/others', [CheckNameController::class, 'checkNameOthers'])->name('check.Others');
+    Route::post('/checkname/syrups', [CheckNameController::class, 'checkNameSyrups'])->name('check.Syrups');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
@@ -120,8 +121,11 @@ Route::middleware('auth')->group(function () {
     
     // Rotte per gli Sciroppi
     Route::get('ingredients/syrups', [SyrupController::class, 'index'])->name('ingredients.syrups.index');
-    Route::post('ingredients/syrups/store', [SyrupController::class, 'store'])->name('ingredients.syrups.store');
-    Route::get('ingredients/syrups/{slug}', [SyrupController::class, 'show'])->name('ingredients.syrups.show');
+    Route::get('syrups/create', [SyrupController::class, 'create'])->name('syrups.create');
+    Route::post('syrups/store', [SyrupController::class, 'store'])->name('syrups.store');
+    Route::get('ingredients/syrups/{syrups}/edit', [SyrupController::class, 'edit'])->name('ingredients.syrups.edit');
+    Route::put('ingredients/syrups/{syrups}', [SyrupController::class, 'update'])->name('ingredients.syrups.update');
+    Route::delete('ingredients/syrups/{syrups}', [SyrupController::class, 'destroy'])->name('ingredients.syrups.destroy');
     
     
     Route::prefix('items')->name('items.')->group(function () {
