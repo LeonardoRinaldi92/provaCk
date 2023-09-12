@@ -13,7 +13,7 @@
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
             <div class="valid-feedback">Campo valido.</div>
-            <div class="invalid-feedback">Nome Bitter Aromatico già esistente</div>
+            <div class="invalid-feedback">Nome non valido</div>
         </div>
         <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
     </form>
@@ -35,7 +35,7 @@ console.log(nomeOriginale, value)
 if(nomeOriginale !== value){
     if (value.length > 2) {
         return fetch("{{ route('check.Fruits') }}", {
-            method: 'POST',e
+            method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
                 'X-CSRF-TOKEN': "{{ csrf_token() }}"

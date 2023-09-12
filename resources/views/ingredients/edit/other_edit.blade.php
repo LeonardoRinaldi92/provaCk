@@ -1,29 +1,40 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <h2>Creazione Nuova Frutta</h2>
-    <form method="POST" action="{{ route('fruits.store') }}"  id="form">
+<div class="container mt-3">
+    <h2>Modifica {{$other->name}}</h2>
+    <form method="POST" action="{{ route('ingredients.others.update', ['others' => $other]) }}" id="form">
         @csrf
+        @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
             <label for="name">Nome:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
+            <input type="text" class="form-control w-25 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Inserisci nome" minlength="3" maxlength="50" value="{{ old('name', $other->name) }}" required pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$">
+            @error('name')
+            <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
             <div class="valid-feedback">Campo valido.</div>
-            <div class="invalid-feedback">Nome non idoneo</div>
+            <div class="invalid-feedback">Nome Bitter Aromatico già esistente</div>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitButton" >Crea Succo</button>
+        <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
+    </form>
+    <form method="POST" action="{{ route('ingredients.others.destroy', ['others' => $other]) }}" id="deleteForm">
+        @csrf
+        @method('DELETE') <!-- Usa il metodo DELETE -->
+        <button type="submit" class="btn btn-danger">Elimina</button>
     </form>
 </div>
+
 <script>
 
-document.getElementById('submitButton').setAttribute('disabled', 'disabled');
+let nomeOriginale = document.getElementById('name').value;
 
 function handleInputValidation() {
-    let nameInput = document.getElementById('name');
-    let value = nameInput.value;
-
+let nameInput = document.getElementById('name');
+let value = nameInput.value;
+console.log(nomeOriginale, value)
+if(nomeOriginale !== value){
     if (value.length > 2) {
-        return fetch("{{ route('check.Fruits') }}", {
+        return fetch("{{ route('check.Others') }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -54,17 +65,18 @@ function handleInputValidation() {
         document.getElementById('submitButton').setAttribute('disabled', 'disabled'); // Disabilita il pulsante
         return false; // Restituisci false se la validazione non è stata avviata
     }
+}
 };
 
 document.getElementById('form').addEventListener('submit', function(event) {
-    if (!handleInputValidation()) {
-        event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
-        return false;
-    }
+if (!handleInputValidation()) {
+    event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
+    return false;
+}
 });
 
 document.getElementById('name').addEventListener('input', () => {
-    handleInputValidation();
+handleInputValidation();
 });
 </script>
 @endsection

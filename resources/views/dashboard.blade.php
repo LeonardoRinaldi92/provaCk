@@ -103,9 +103,11 @@
                     </div>
                     <div class="col-6 mt-5">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi "Altro" 
-                            </div>
+                            <a href="{{ route('others.create') }}">
+                                <div class="card-header">
+                                    Aggiungi "Altro" 
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>

@@ -49,6 +49,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/Sodas', [CheckNameController::class, 'checkNameSodas'])->name('check.Sodas');
     Route::post('/checkname/juices', [CheckNameController::class, 'checkNameJuices'])->name('check.Juices');
     Route::post('/checkname/fruits', [CheckNameController::class, 'checkNameFruits'])->name('check.Fruits');
+    Route::post('/checkname/others', [CheckNameController::class, 'checkNameOthers'])->name('check.Others');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
@@ -97,8 +98,11 @@ Route::middleware('auth')->group(function () {
 
     // Rotte per gli Altri Ingredienti
     Route::get('ingredients/others', [OtherController::class, 'index'])->name('ingredients.others.index');
-    Route::post('ingredients/others/store', [OtherController::class, 'store'])->name('ingredients.others.store');
-    Route::get('ingredients/others/{slug}', [OtherController::class, 'show'])->name('ingredients.others.show');
+    Route::get('others/create', [OtherController::class, 'create'])->name('others.create');
+    Route::post('others/store', [OtherController::class, 'store'])->name('others.store');
+    Route::get('ingredients/others/{others}/edit', [OtherController::class, 'edit'])->name('ingredients.others.edit');
+    Route::put('ingredients/others/{others}', [OtherController::class, 'update'])->name('ingredients.others.update');
+    Route::delete('ingredients/others/{others}', [OtherController::class, 'destroy'])->name('ingredients.others.destroy');
 
     // Rotte per le Bibite Analcoliche (Sodas)
     Route::get('ingredients/sodas', [SodaController::class, 'index'])->name('ingredients.sodas.index');

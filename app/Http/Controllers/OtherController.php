@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\Other;
 use Illuminate\Http\Request;
 
+use App\Http\Requests\OtherStoreRequest;
+use App\Http\Requests\OtherUpdateRequest;
+
 class OtherController extends Controller
 {
     /**
@@ -26,7 +29,7 @@ class OtherController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.other_create');
     }
 
     /**
@@ -35,21 +38,20 @@ class OtherController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(OtherStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+        
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+
+        Other::create($data);
+
+        return redirect()->route('ingredients.others.index')
+        ->with('success', 'Altro creato con successo');
     }
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Other  $other
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Other $other)
-    {
-        //
-    }
 
     /**
      * Show the form for editing the specified resource.
@@ -57,9 +59,10 @@ class OtherController extends Controller
      * @param  \App\Models\Other  $other
      * @return \Illuminate\Http\Response
      */
-    public function edit(Other $other)
+    public function edit(Other $others)
     {
-        //
+        $other = $others;
+        return view('ingredients.edit.other_edit', compact('other'));
     }
 
     /**
@@ -69,9 +72,22 @@ class OtherController extends Controller
      * @param  \App\Models\Other  $other
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Other $other)
+    public function update(OtherUpdateRequest $request, Other $others)
     {
-        //
+        $data = $request->validated();
+
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $others->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
+        }
+        
+        $others->update($data);
+
+        return redirect()->route('ingredients.others.index');
+    
     }
 
     /**
@@ -80,8 +96,11 @@ class OtherController extends Controller
      * @param  \App\Models\Other  $other
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Other $other)
+    public function destroy(Other $others)
     {
-        //
+        $others->delete();
+    
+        return redirect()->route('ingredients.others.index')
+            ->with('success', 'Altro eliminato eliminato con successo');
     }
 }

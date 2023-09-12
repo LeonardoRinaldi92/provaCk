@@ -2,8 +2,8 @@
 
 @section('content')
 <div class="container">
-    <h2>Creazione Nuova Frutta</h2>
-    <form method="POST" action="{{ route('fruits.store') }}"  id="form">
+    <h2>Creazione Altro</h2>
+    <form method="POST" action="{{ route('others.store') }}"  id="form">
         @csrf
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -11,7 +11,7 @@
             <div class="valid-feedback">Campo valido.</div>
             <div class="invalid-feedback">Nome non idoneo</div>
         </div>
-        <button type="submit" class="btn btn-primary" id="submitButton" >Crea Succo</button>
+        <button type="submit" class="btn btn-primary" id="submitButton" >Crea Altro</button>
     </form>
 </div>
 <script>
@@ -23,7 +23,7 @@ function handleInputValidation() {
     let value = nameInput.value;
 
     if (value.length > 2) {
-        return fetch("{{ route('check.Fruits') }}", {
+        return fetch("{{ route('check.Others') }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
