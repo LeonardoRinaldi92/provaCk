@@ -89,9 +89,11 @@
                     </div>
                     <div class="col-6 mt-5">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi uno Zucchero 
-                            </div>
+                            <a href="{{ route('sugars.create') }}" >
+                                <div class="card-header">
+                                    Aggiungi uno Zucchero 
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 mt-5">

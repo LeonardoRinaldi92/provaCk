@@ -51,6 +51,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/fruits', [CheckNameController::class, 'checkNameFruits'])->name('check.Fruits');
     Route::post('/checkname/others', [CheckNameController::class, 'checkNameOthers'])->name('check.Others');
     Route::post('/checkname/syrups', [CheckNameController::class, 'checkNameSyrups'])->name('check.Syrups');
+    Route::post('/checkname/sugars', [CheckNameController::class, 'checkNameSugars'])->name('check.Sugars');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
@@ -116,9 +117,13 @@ Route::middleware('auth')->group(function () {
 
     // Rotte per gli Zuccheri
     Route::get('ingredients/sugars', [SugarController::class, 'index'])->name('ingredients.sugars.index');
-    Route::post('ingredients/sugars/store', [SugarController::class, 'store'])->name('ingredients.sugars.store');
+    Route::get('sugars/create', [SugarController::class, 'create'])->name('sugars.create');
+    Route::post('sugars/store', [SugarController::class, 'store'])->name('sugars.store');
     Route::get('ingredients/sugars/{slug}', [SugarController::class, 'show'])->name('ingredients.sugars.show');
-    
+    Route::get('ingredients/sugars/{slug}/edit', [SugarController::class, 'edit'])->name('ingredients.sugars.edit');
+    Route::put('ingredients/sugars/{sugars}', [SugarController::class, 'update'])->name('ingredients.sugars.update');
+    Route::delete('ingredients/sugars/{sugars}', [SugarController::class, 'destroy'])->name('ingredients.sugars.destroy');
+
     // Rotte per gli Sciroppi
     Route::get('ingredients/syrups', [SyrupController::class, 'index'])->name('ingredients.syrups.index');
     Route::get('syrups/create', [SyrupController::class, 'create'])->name('syrups.create');

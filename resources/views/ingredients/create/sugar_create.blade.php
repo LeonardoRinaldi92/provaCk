@@ -1,44 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mt-3">
-    <h2>Modifica {{$soda->name}}</h2>
-    <form method="POST" action="{{ route('ingredients.sodas.update', ['sodas' => $soda]) }}" id="form">
+<div class="container">
+    <h2>Creazione Nuovo Zucchero</h2>
+    <form method="POST" action="{{ route('sugars.store') }}"  id="form">
         @csrf
-        @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
             <label for="name">Nome:</label>
-            <input type="text" class="form-control w-25 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Inserisci nome" minlength="3" maxlength="50" value="{{ old('name', $soda->name) }}" required pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$">
-            @error('name')
-            <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
+            <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
             <div class="valid-feedback">Campo valido.</div>
-            <div class="invalid-feedback">Nome Bitter Aromatico già esistente</div>
+            <div class="invalid-feedback">Nome non idoneo</div>
         </div>
         <div class="form-group">
             <label for="description">Descrizione:</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione">{{ old('description', $soda->description) }}</textarea>
+            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione" required></textarea>
         </div>
-        <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
-    </form>
-    <form method="POST" action="{{ route('ingredients.sodas.destroy', ['sodas' => $soda]) }}" id="deleteForm">
-        @csrf
-        @method('DELETE') <!-- Usa il metodo DELETE -->
-        <button type="submit" class="btn btn-danger">Elimina</button>
+        <button type="submit" class="btn btn-primary" id="submitButton" >Crea Zucchero</button>
     </form>
 </div>
-
 <script>
 
-let nomeOriginale = document.getElementById('name').value;
+document.getElementById('submitButton').setAttribute('disabled', 'disabled');
 
 function handleInputValidation() {
-let nameInput = document.getElementById('name');
-let value = nameInput.value;
-console.log(nomeOriginale, value)
-if(nomeOriginale !== value){
+    let nameInput = document.getElementById('name');
+    let value = nameInput.value;
+
     if (value.length > 2) {
-        return fetch("{{ route('check.Sodas') }}", {
+        return fetch("{{ route('check.Sugars') }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -69,18 +58,17 @@ if(nomeOriginale !== value){
         document.getElementById('submitButton').setAttribute('disabled', 'disabled'); // Disabilita il pulsante
         return false; // Restituisci false se la validazione non è stata avviata
     }
-}
 };
 
 document.getElementById('form').addEventListener('submit', function(event) {
-if (!handleInputValidation()) {
-    event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
-    return false;
-}
+    if (!handleInputValidation()) {
+        event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
+        return false;
+    }
 });
 
 document.getElementById('name').addEventListener('input', () => {
-handleInputValidation();
+    handleInputValidation();
 });
 </script>
 @endsection

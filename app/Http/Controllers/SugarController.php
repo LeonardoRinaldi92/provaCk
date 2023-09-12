@@ -5,6 +5,11 @@ namespace App\Http\Controllers;
 use App\Models\Sugar;
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
+use App\Http\Requests\SugarStoreRequest;
+use App\Http\Requests\SugarUpdateRequest;
+
 class SugarController extends Controller
 {
     /**
@@ -26,7 +31,7 @@ class SugarController extends Controller
      */
     public function create()
     {
-        //
+        return view('ingredients.create.sugar_create');
     }
 
     /**
@@ -35,9 +40,20 @@ class SugarController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(SugarStoreRequest $request)
     {
-        //
+        $data = $request->validated();
+
+        $slug = Str::slug($request->input('name'));   
+        $data['slug'] = $slug;
+
+        $name = ucwords($request->input('name'));
+        $data['name'] = $name;
+
+        $sugar = Sugar::create($data);
+
+        return redirect()->route('ingredients.sugars.show', ['slug' => $sugar->slug])
+        ->with('success', 'Zucchero creato con successo');
     }
 
     /**
@@ -63,9 +79,10 @@ class SugarController extends Controller
      * @param  \App\Models\Sugar  $sugar
      * @return \Illuminate\Http\Response
      */
-    public function edit(Sugar $sugar)
+    public function edit( $slug)
     {
-        //
+        $sugar = Sugar::where('slug', $slug)->first();
+        return view('ingredients.edit.sugar_edit', compact('sugar'));
     }
 
     /**
@@ -75,19 +92,36 @@ class SugarController extends Controller
      * @param  \App\Models\Sugar  $sugar
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Sugar $sugar)
+    public function update(SugarUpdateRequest $request, Sugar $sugars)
     {
-        //
-    }
+        $data = $request->validated();
+    
+        // Verifica se il nome è stato modificato
+        if ($request->has('name') && $request->input('name') !== $sugars->name) {
+            // Aggiorna lo slug se il nome è cambiato
+            $slug = Str::slug($request->input('name'));
+            $data['slug'] = $slug;
 
+            $name = ucwords($request->input('name'));
+            $data['name'] = $name;
+        }
+        
+        $sugars->update($data);
+
+        return redirect()->route('ingredients.sugars.show', ['slug' => $sugars->slug])
+        ->with('success', 'Zucchero modificato con successo');
+    }
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Sugar  $sugar
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Sugar $sugar)
+    public function destroy(Sugar $sugars)
     {
-        //
+        $sugars->delete();
+    
+        return redirect()->route('ingredients.sugars.index')
+            ->with('success', 'Alcolico eliminato con successo');
     }
 }
