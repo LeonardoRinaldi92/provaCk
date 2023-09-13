@@ -132,16 +132,31 @@ Route::middleware('auth')->group(function () {
     Route::put('ingredients/syrups/{syrups}', [SyrupController::class, 'update'])->name('ingredients.syrups.update');
     Route::delete('ingredients/syrups/{syrups}', [SyrupController::class, 'destroy'])->name('ingredients.syrups.destroy');
     
-    Route::get('/items', [AllItemsController::class, 'index'])->name('items.index');
+    Route::get('items', [AllItemsController::class, 'index'])->name('items.index');
 
-    Route::get('/items/equipements', [EquipementController::class, 'index'])->name('items.equipements.index');
-    Route::get('/items/equipements/{slug}', [EquipementController::class, 'show'])->name('items.equipements.show');
+    Route::get('items/equipements', [EquipementController::class, 'index'])->name('items.equipements.index');
+    Route::get('equipements/create', [EquipementController::class, 'create'])->name('equipements.create');
+    Route::post('equipements/store', [EquipementController::class, 'store'])->name('equipements.store');
+    Route::get('items/equipements/{slug}', [EquipementController::class, 'show'])->name('items.equipements.show');
+    Route::get('items/equipements/{slug}/edit', [EquipementController::class, 'edit'])->name('items.equipements.edit');
+    Route::put('items/equipements/{equipements}', [EquipementController::class, 'update'])->name('items.equipements.update');
+    Route::delete('items/equipements/{equipements}', [EquipementController::class, 'destroy'])->name('items.equipements.destroy');
     
-    Route::get('/items/ices', [IceController::class, 'index'])->name('items.ices.index');
-    Route::get('/items/ices/{slug}', [IceController::class, 'show'])->name('items.ices.show');
+    Route::get('items/ices', [IceController::class, 'index'])->name('items.ices.index');
+    Route::get('ices/create', [IceController::class, 'create'])->name('ices.create');
+    Route::post('ices/store', [IceController::class, 'store'])->name('ices.store');
+    Route::get('items/ices/{slug}', [IceController::class, 'show'])->name('items.ices.show');
+    Route::get('items/ices/{slug}/edit', [IceController::class, 'edit'])->name('items.ices.edit');
+    Route::put('items/ices/{ices}', [IceController::class, 'update'])->name('items.ices.update');
+    Route::delete('items/ices/{ices}', [IceController::class, 'destroy'])->name('items.ices.destroy');
     
     Route::get('/items/glasses', [GlassController::class, 'index'])->name('items.glasses.index');
-    Route::get('/items/glasses/{slug}', [GlassController::class, 'show'])->name('items.glasses.show');
+    Route::get('glasses/create', [GlassController::class, 'create'])->name('glasses.create');
+    Route::post('glasses/store', [GlassController::class, 'store'])->name('glasses.store');
+    Route::get('items/glasses/{slug}', [GlassController::class, 'show'])->name('items.glasses.show');
+    Route::get('items/glasses/{slug}/edit', [GlassController::class, 'edit'])->name('items.glasses.edit');
+    Route::put('items/glasses/{glasses}', [GlassController::class, 'update'])->name('items.glasses.update');
+    Route::delete('items/glasses/{glasses}', [GlassController::class, 'destroy'])->name('items.glasses.destroy');
     
     
     // Route::prefix('items')->name('items.')->group(function () {

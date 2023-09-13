@@ -18,7 +18,9 @@
             <tr>
                 <th>Nome</th>
                 <th>Descrizione</th>
+                @if (Request::path() == 'items')
                 <th>CATEGORIA</th>
+                @endif
                 <th>Modifica</th>
                 <th>Elimina</th>
             </tr>
@@ -34,9 +36,11 @@
                 <td>
                     {{$item->description}}
                 </td>
+                @if (Request::path() == 'items')
                 <td>
                     <a href="{{ route('items.'. $item->getTable() . '.index')}}">{{$item->tables()}}</a>
                 </td>
+                @endif
                 <td>
                     {{-- <button class="btn btn-warning">
                         <a href="{{ route('items.' . $item->getTable() . '.edit', [$item->getTable() => $item]) }}">Modifica</a>
