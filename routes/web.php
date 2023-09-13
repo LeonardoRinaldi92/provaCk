@@ -132,23 +132,34 @@ Route::middleware('auth')->group(function () {
     Route::put('ingredients/syrups/{syrups}', [SyrupController::class, 'update'])->name('ingredients.syrups.update');
     Route::delete('ingredients/syrups/{syrups}', [SyrupController::class, 'destroy'])->name('ingredients.syrups.destroy');
     
+    Route::get('/items', [AllItemsController::class, 'index'])->name('items.index');
+
+    Route::get('/items/equipements', [EquipementController::class, 'index'])->name('items.equipements.index');
+    Route::get('/items/equipements/{slug}', [EquipementController::class, 'show'])->name('items.equipements.show');
     
-    Route::prefix('items')->name('items.')->group(function () {
-        Route::get('/', [AllItemsController::class, 'index'])->name('index');
+    Route::get('/items/ices', [IceController::class, 'index'])->name('items.ices.index');
+    Route::get('/items/ices/{slug}', [IceController::class, 'show'])->name('items.ices.show');
+    
+    Route::get('/items/glasses', [GlassController::class, 'index'])->name('items.glasses.index');
+    Route::get('/items/glasses/{slug}', [GlassController::class, 'show'])->name('items.glasses.show');
+    
+    
+    // Route::prefix('items')->name('items.')->group(function () {
+    //     Route::get('/', [AllItemsController::class, 'index'])->name('index');
 
-        $itemTypes = [
-            'equipements' => EquipementController::class,
-            'ices' => IceController::class,
-            'glasses' => GlassController::class,
-        ];
+    //     $itemTypes = [
+    //         'equipements' => EquipementController::class,
+    //         'ices' => IceController::class,
+    //         'glasses' => GlassController::class,
+    //     ];
 
-        foreach ($itemTypes as $type => $controller) {
-            Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
-                Route::get('/', [$controller, 'index'])->name('index');
-                Route::get('/{slug}', [$controller, 'show'])->name('show');
-            });
-        }
-    });
+    //     foreach ($itemTypes as $type => $controller) {
+    //         Route::prefix($type)->name($type . '.')->group(function () use ($controller) {
+    //             Route::get('/', [$controller, 'index'])->name('index');
+    //             Route::get('/{slug}', [$controller, 'show'])->name('show');
+    //         });
+    //     }
+    // });
 
     Route::resource('cocktails', CocktailController::class)->parameters(['cocktails' => 'slug']);
 });

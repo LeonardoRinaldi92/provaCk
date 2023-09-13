@@ -13,41 +13,46 @@
             @endforeach
         </select>
     </div>
-    <div class="row mt-3">
-        @foreach ($items as $item)
-        <div class="col-3">
-                <div class="card">
-                    @if (Request::path() == 'items')
-                    <div class="card-header">
-                        <div>
-                            {{$item->tables()}}
-                        </div>
-                    </div>
-                    @endif
-                    <div class="card-body">
-                        @if (isset($item->slug))
-                        <a href="{{ route('items.' . $item->getTable() . '.show', ['slug' => $item->slug]) }}">
-                        @endif
-                            <div>
-                                <b>
-                                    {{$item->name}}
-                                </b>
-                            </div>
-                        @if (isset($item->slug))
-                        </a>
-                        @endif
-                        @if (isset($item->description))
-                        <div class="mt-2">
-                            {{$item->description}}
-    
-                        </div>
-                        @endif
-                    </div>
-                </div>
-
-        </div>
-        @endforeach
-    </div>
+    <table class="table mt-3">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Descrizione</th>
+                <th>CATEGORIA</th>
+                <th>Modifica</th>
+                <th>Elimina</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach ($items as $item)
+            <tr>
+                <td>
+                    <a href="{{ route('items.' . $item->getTable() . '.show', ['slug' => $item->slug]) }}">
+                    {{$item->name}}
+                    </a>
+                </td>
+                <td>
+                    {{$item->description}}
+                </td>
+                <td>
+                    <a href="{{ route('items.'. $item->getTable() . '.index')}}">{{$item->tables()}}</a>
+                </td>
+                <td>
+                    {{-- <button class="btn btn-warning">
+                        <a href="{{ route('items.' . $item->getTable() . '.edit', [$item->getTable() => $item]) }}">Modifica</a>
+                    </button> --}}
+                </td>
+                <td>
+                    {{-- <form method="POST" action="{{ route('items.' . $item->getTable() . '.destroy', [$item->getTable() => $item]) }}" id="deleteForm">
+                        @csrf
+                        @method('DELETE') <!-- Usa il metodo DELETE -->
+                        <button type="submit" class="btn btn-danger">Elimina</button>
+                    </form> --}}
+                </td>
+            </tr>
+            @endforeach
+        </tbody>
+    </table>
 
 </div>
 <script>

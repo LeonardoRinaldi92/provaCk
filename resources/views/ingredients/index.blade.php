@@ -31,12 +31,12 @@
             @endforeach
         </select>
         @foreach ($categories as $category)
-        @if (Request::path() == 'ingredients/alcools/' . str_replace(' ', '%20', $category->name))
+            @if (Request::path() == 'ingredients/alcools/' . str_replace(' ', '%20', $category->name))
         <div>
             <a href="{{ route('ingredients.alcoolscategory.edit', ['categoryName' => $category]) }}">Modifica {{ $category->name }}</a>
         </div>
-        @endif
-    @endforeach
+            @endif
+        @endforeach
     </div>  
     @endif
     <table class="table mt-3">
