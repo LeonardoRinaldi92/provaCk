@@ -53,4 +53,19 @@ class Cocktail extends Model
         return $formattedABV . ' %';
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($cocktail) {
+            // Ottieni tutti gli ingredienti collegati a questo cocktail
+            $ingredients = $cocktail->ingredients;
+
+            // Elimina tutti gli ingredienti collegati a questo cocktail
+            $ingredients->each(function ($ingredient) {
+                $ingredient->delete();
+            });
+        });
+    }
+
 }

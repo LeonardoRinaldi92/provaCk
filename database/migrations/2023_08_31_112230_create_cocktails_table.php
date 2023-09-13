@@ -21,9 +21,9 @@ return new class extends Migration
             $table->decimal('avg_ABV', 3, 1);
             $table->boolean('official_IBA')->nullable();
             $table->unsignedBigInteger('glass_id');
-            $table->foreign('glass_id')->references('id')->on('glasses');
+            $table->foreign('glass_id')->references('id')->on('glasses')->onDelete('cascade');
             $table->unsignedBigInteger('ice_id');
-            $table->foreign('ice_id')->references('id')->on('ices');
+            $table->foreign('ice_id')->references('id')->on('ices')->onDelete('cascade');
             $table->unsignedBigInteger('variation')->nullable(); // Aggiungi la colonna "variation" nullable
             $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null'); // Chiave esterna per la stessa tabella cocktailsails
             $table->string('signature')->nullable();

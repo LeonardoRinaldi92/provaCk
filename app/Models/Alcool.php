@@ -16,6 +16,25 @@ class Alcool extends Model
         return $this->morphMany(Ingredient::class, 'ingredientable');
     }
 
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($model) {
+            // Ottieni tutti gli ingredienti associati a questo modello
+            $ingredients = $model->ingredients;
+
+            // Itera sugli ingredienti e elimina i cocktail associati
+            foreach ($ingredients as $ingredient) {
+                $cocktail = $ingredient->cocktail;
+                if ($cocktail) {
+                    $cocktail->delete();
+                }
+            }
+        });
+    } 
+
+
     public function category()
     {
         return $this->belongsTo(AlcoolCategory::class, 'alcool_categories_id');

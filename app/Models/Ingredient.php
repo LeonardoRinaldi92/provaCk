@@ -9,7 +9,9 @@ class Ingredient extends Model
 {
     use HasFactory;
 
-    protected $fillable = [ 'ingredientable_type', 'ingredientable_id', 'quantity', 'quantity_type'];
+    protected $primaryKey = 'cocktail_id'; // Specifica la chiave primaria personalizzata
+
+    protected $fillable = ['cocktail_id', 'ingredientable_type', 'ingredientable_id', 'quantity', 'quantity_type'];
 
     public function ingredientable()
     {
