@@ -42,16 +42,16 @@
                 </td>
                 @endif
                 <td>
-                    {{-- <button class="btn btn-warning">
-                        <a href="{{ route('items.' . $item->getTable() . '.edit', [$item->getTable() => $item]) }}">Modifica</a>
-                    </button> --}}
+                    <button class="btn btn-warning">
+                        <a href="{{ route('items.' . $item->getTable() . '.edit', ['slug' => $item->slug]) }}">Modifica</a>
+                    </button>
                 </td>
                 <td>
-                    {{-- <form method="POST" action="{{ route('items.' . $item->getTable() . '.destroy', [$item->getTable() => $item]) }}" id="deleteForm">
+                    <form method="POST" action="{{ route('items.' . $item->getTable() . '.destroy', [$item->getTable() => $item]) }}" id="deleteForm">
                         @csrf
                         @method('DELETE') <!-- Usa il metodo DELETE -->
                         <button type="submit" class="btn btn-danger">Elimina</button>
-                    </form> --}}
+                    </form>
                 </td>
             </tr>
             @endforeach

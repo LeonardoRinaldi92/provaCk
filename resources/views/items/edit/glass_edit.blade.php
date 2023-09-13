@@ -2,13 +2,13 @@
 
 @section('content')
 <div class="container mt-3">
-    <h2>Modifica {{$bitter->name}}</h2>
-    <form method="POST" action="{{ route('ingredients.aromatic_bitters.update', ['aromatic_bitters' => $bitter]) }}" id="form" enctype="multipart/form-data">
+    <h2>Modifica {{$glass->name}}</h2>
+    <form method="POST" action="{{ route('items.glasses.update', ['glasses' => $glass]) }}" id="form" enctype="multipart/form-data">
         @csrf
         @method('PUT') <!-- Aggiungi il metodo PUT per l'aggiornamento -->
         <div class="form-group">
             <label for="name">Nome:</label>
-            <input type="text" class="form-control w-25 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Inserisci nome" minlength="3" maxlength="50" value="{{ old('name', $bitter->name) }}" required pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$">
+            <input type="text" class="form-control w-25 @error('name') is-invalid @enderror" id="name" name="name" placeholder="Inserisci nome" minlength="3" maxlength="50" value="{{ old('name', $glass->name) }}" required pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$">
             @error('name')
             <div class="invalid-feedback">{{ $message }}</div>
             @enderror
@@ -16,28 +16,19 @@
             <div class="invalid-feedback">Nome Bitter Aromatico già esistente</div>
         </div>
         <div class="form-group">
-            <label for="ABV">Grado Alcolico (ABV%):</label>
-            <input type="number" step="0.1" class="form-control" id="ABV" name="ABV" placeholder="Inserisci il grado alcolico" required value="{{ old('ABV', $bitter->ABV) }}">
-        </div>
-        <div class="form-group">
             <label for="description">Descrizione:</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione">{{ old('description', $bitter->description) }}</textarea>
+            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione">{{ old('description', $glass->description) }}</textarea>
         </div>
         <div class="form-group">
             <label for="image">Immagine:</label>
             <input type="file" class="form-control-file" id="image" name="image">
-            @if ($bitter->image)
+            @if ($glass->image)
             <div class="mt-2">
-                <img src="{{ asset('storage/'. $bitter->image) }}" alt="Immagine {{ $bitter->name }}" style="max-height: 200px" id="image-preview">
+                <img src="{{ asset('storage/'. $glass->image) }}" alt="Immagine {{ $glass->name }}" style="max-height: 200px" id="image-preview">
             </div>
             @endif
         </div>
         <input type="submit" class="btn btn-primary mt-2" id="submitButton" value="Aggiorna">
-    </form>
-    <form method="POST" action="{{ route('ingredients.aromatic_bitters.destroy', ['aromatic_bitters' => $bitter]) }}" id="deleteForm">
-        @csrf
-        @method('DELETE') <!-- Usa il metodo DELETE -->
-        <button type="submit" class="btn btn-danger">Elimina</button>
     </form>
 </div>
 
@@ -73,7 +64,7 @@ let value = nameInput.value;
 console.log(nomeOriginale, value)
 if(nomeOriginale !== value){
     if (value.length > 2) {
-        return fetch("{{ route('check.AromaticBitters') }}", {
+        return fetch("{{ route('check.Glass') }}", {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

@@ -146,9 +146,11 @@
                     </div>
                     <div class="col-6 mt-5">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi un tipo di Bicchiere 
-                            </div>
+                            <a href="{{ route('glasses.create') }}">
+                                <div class="card-header">
+                                    Aggiungi un tipo di Bicchiere 
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
