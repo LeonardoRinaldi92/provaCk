@@ -35,7 +35,7 @@
                         <p>
                             {{ $ingredient->getSingleQuantity() }} {{$ingredient->quantity_type}}
                             @if ($ingredient->ingredientable->slug)
-                            <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable()  .'.show', ['slug' => $ingredient->ingredientable->slug]) }}">
+                            <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable()  .'.show', ['slug' => $ingredient->ingredientable->slug, 'category'=> $ingredient->ingredientable->category->name]) }}">
                             @endif
                             {{ $ingredient->ingredientable->name }}
                             @if ($ingredient->ingredientable->slug)
