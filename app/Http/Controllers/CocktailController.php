@@ -2,7 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use Illuminate\Support\Collection;
+
 use App\Models\Cocktail;
+use App\Models\Alcool;
+use App\Models\AromaticBitter;
+use App\Models\Soda;
+use App\Models\Juice;
+use App\Models\Syrup;
+use App\Models\Sugar;
+use App\Models\Fruit;
+use App\Models\Other;
+use App\Models\Equipement;
+use App\Models\Ice;
+use App\Models\Glass;
+
 use Illuminate\Http\Request;
 
 class CocktailController extends Controller
@@ -28,7 +42,31 @@ class CocktailController extends Controller
      */
     public function create()
     {
-        //
+        $alcools = Alcool::all();
+        $aromaticBitters = AromaticBitter::all();
+        $fruits = Fruit::all();
+        $juices = Juice::all();
+        $others = Other::all();
+        $sodas = Soda::all();
+        $sugars = Sugar::all();
+        $syrups = Syrup::all();
+
+        $ingredients = Collection::make([
+            $alcools,
+            $aromaticBitters,
+            $fruits,
+            $juices,
+            $others,
+            $sodas,
+            $sugars,
+            $syrups,
+        ])->collapse()->sortBy('name');
+
+        $equipements = Equipement::all()->sortBy('name');
+        $ices = Ice::all()->sortBy('name');
+        $glasses = Glass::all()->sortBy('name');
+
+        return view('cocktails.create.cocktail_create', compact('ingredients', 'equipements', 'ices', 'glasses'));
     }
 
     /**

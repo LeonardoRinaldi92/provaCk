@@ -173,9 +173,11 @@
                 <div class="card-body row">
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-header">
-                                Crea un Cocktail
-                            </div>
+                            <a href="{{ route('cocktails.create') }}">
+                                <div class="card-header">
+                                    Crea un Cocktail
+                                </div>
+                            </a>
                         </div>
                     </div>
                 </div>
