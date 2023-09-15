@@ -141,9 +141,11 @@
                     </div>
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi un tipo di Ghiaccio 
-                            </div>
+                            <a href="{{ route('ices.create') }}">
+                                <div class="card-header">
+                                    Aggiungi un tipo di Ghiaccio 
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6 mt-5">
