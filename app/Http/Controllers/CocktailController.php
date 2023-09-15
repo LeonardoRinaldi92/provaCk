@@ -78,7 +78,7 @@ class CocktailController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        dd($request);
     }
 
     /**
@@ -118,7 +118,6 @@ class CocktailController extends Controller
      */
     public function update(Request $request, Cocktail $cocktail)
     {
-        //
     }
 
     /**

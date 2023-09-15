@@ -19,7 +19,7 @@
 @section('content')
 <div class="container">
     <h2>Creazione Nuovo Cocktail</h2>
-    <form method="POST" action="{{ route('ingredients.alcools.store') }}" enctype="multipart/form-data" id="form">
+    <form method="POST" action="{{ route('cocktails.store') }}" enctype="multipart/form-data" id="form">
         @csrf
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -31,6 +31,35 @@
             <label for="description">Descrizione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
         </div>
+                    @php
+                    $ingredientsNumber = 1;
+                    // Rimuovi duplicati basati sul nome della tabella
+                    $uniqueIngredients = collect($ingredients)->unique(function ($item) {
+                        return $item->Tables();
+                    });
+    
+                    // Ordina gli ingredienti per nome
+                    $sortedIngredients = $uniqueIngredients->sortBy(function ($item) {
+                        return $item->Tables();
+                    });
+                @endphp
+        <div class="form-group" id="ingredients-container">
+            @for ($i = 1; $i <= $ingredientsNumber; $i++)
+                <div class="ingredient">
+                    <span>Ingrediente numero {{ $i }}</span>
+                    <select name="ingredients[]" class="ingredient-select">
+                        <option value="" selected disabled>Scegli categoria</option>
+                        @foreach ($sortedIngredients as $ingredient)
+                            <option value="{{ $ingredient->id }}">{{ $ingredient->Tables() }}</option>
+                        @endforeach
+                    </select>
+                </div>
+            @endfor
+        </div>
+        <div class="form-group">
+            <button type="button" class="btn btn-primary" id="add-ingredient-btn">Aggiungi un altro ingrediente</button>
+        </div>
+    
         <div class="form-group">
             <label for="preparation">Preparazione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
@@ -49,8 +78,7 @@
                 <input type="radio" name="ice_option" id="ice_yes" value="yes">
                 <label for="ice_yes">Sì</label>
             </div>
-        </div>
-        
+        </div>    
         <div id="ice_select" style="display: none;">
             <label for="ice_id">Seleziona il tipo di ghiaccio</label>
             <select name="ice_id" id="ice_id" required>
@@ -158,6 +186,8 @@
     </form>
 </div>
 <script>
+    let ingredientNumber = 1;
+
     document.getElementById('image').addEventListener('change', function (e) {
         const imagePreview = document.getElementById('image-preview');
 

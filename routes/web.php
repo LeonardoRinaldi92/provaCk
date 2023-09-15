@@ -179,7 +179,13 @@ Route::middleware('auth')->group(function () {
     //     }
     // });
 
-    Route::resource('cocktails', CocktailController::class)->parameters(['cocktails' => 'slug']);
+    Route::get('cocktails', [CocktailController::class, 'index'])->name('cocktails.index');
+    Route::get('cocktails/create', [CocktailController::class, 'create'])->name('cocktails.create');
+    Route::post('cocktails', [CocktailController::class, 'store'])->name('cocktails.store');
+    Route::get('cocktails/{slug}', [CocktailController::class, 'show'])->name('cocktails.show');
+    Route::get('cocktails/{slug}/edit', [CocktailController::class, 'edit'])->name('cocktails.edit');
+    Route::put('slug/{slug}', [CocktailController::class, 'update'])->name('cocktails.update');
+    Route::delete('cocktails/{slug}', [CocktailController::class, 'destroy'])->name('cocktails.destroy');
 });
 
 require __DIR__.'/auth.php';
