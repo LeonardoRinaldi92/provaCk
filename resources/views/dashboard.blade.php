@@ -132,9 +132,11 @@
                 <div class="card-body row">
                     <div class="col-6">
                         <div class="card">
-                            <div class="card-header">
-                                Aggiungi uno Strumento 
-                            </div>
+                            <a href="{{ route('equipements.create') }}">
+                                <div class="card-header">
+                                    Aggiungi uno Strumento 
+                                </div>
+                            </a>
                         </div>
                     </div>
                     <div class="col-6">

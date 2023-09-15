@@ -53,6 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::post('/checkname/syrups', [CheckNameController::class, 'checkNameSyrups'])->name('check.Syrups');
     Route::post('/checkname/sugars', [CheckNameController::class, 'checkNameSugars'])->name('check.Sugars');
     Route::post('/checkname/glass', [CheckNameController::class, 'checkNameGlass'])->name('check.Glass');
+    Route::post('/checkname/equipement', [CheckNameController::class, 'checkNameEquipement'])->name('check.Equipement');
 
     //rotta ingredienti
     Route::get('ingredients', [AllIngredientController::class, 'index'])->name('ingredients.index');
