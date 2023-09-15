@@ -50,6 +50,7 @@ class CocktailController extends Controller
         $sodas = Soda::all();
         $sugars = Sugar::all();
         $syrups = Syrup::all();
+        $cocktails = Cocktail::all(); 
 
         $ingredients = Collection::make([
             $alcools,
@@ -66,7 +67,7 @@ class CocktailController extends Controller
         $ices = Ice::all()->sortBy('name');
         $glasses = Glass::all()->sortBy('name');
 
-        return view('cocktails.create.cocktail_create', compact('ingredients', 'equipements', 'ices', 'glasses'));
+        return view('cocktails.create.cocktail_create', compact('ingredients', 'equipements', 'ices', 'glasses', 'cocktails'));
     }
 
     /**
