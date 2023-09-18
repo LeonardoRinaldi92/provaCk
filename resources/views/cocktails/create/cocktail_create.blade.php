@@ -32,7 +32,7 @@
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
         </div>
         <div class="form-group" id="ingredientsLane1">
-            <select name="ingredients" id="ingredients1" onchange="AddIngredients(this)">
+            <select id="ingredients1" onchange="AddIngredients(this)">
                 <option value="0" selected>Scegli la categoria</option>
                 <option value="alcools">Alcoolici</option>
                 <option value="aromaticBitters">Bitter Aromatici</option>
@@ -319,6 +319,16 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleVariationSelect();
     });
 
+    //funzione creazione select
+    function createSelect(name){
+        //crea un select
+        newSelect = document.createElement("select")
+        newSelect.name = name + "[]"
+        newSelect.id = name + ingredientNumber
+    }
+
+    let quantityType = ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch']
+
     //funzione creazione option
     function createOption(text, value) {
     var option = document.createElement("option");
@@ -327,6 +337,13 @@ document.addEventListener('DOMContentLoaded', function() {
     return option;
     }
 
+    function createQuantityType(name){
+        newSelectType = document.createElement("select")
+        newSelectType.name = name + "[]"
+        newSelectType.id = name + ingredientNumber
+    }
+
+    //funzione creazione ingrediente
     function AddIngredients (x) {
         //prendo l'id della slecte che sto usando
         let idSelect = x.id
@@ -336,19 +353,20 @@ document.addEventListener('DOMContentLoaded', function() {
         let SelectedDiv = document.getElementById('ingredientsLane'+ laneNumber ) 
         //cin base all'id id prima prendo il valore
         let categoriesSelected = document.getElementById(idSelect).value
+        //creaiamo un variabile di controllo per vedere se esite gia una select con quel nome
         checkeSelect = document.getElementById("ingredientType" + ingredientNumber)
-        console.log(categoriesSelected)
-        if(checkeSelect){
+        checkQuantitySelect = document.getElementById("quantityType" + ingredientNumber)
+        //se esiste eliminale
+        if(checkeSelect || checkQuantitySelect){
             checkeSelect.remove()
+            checkQuantitySelect.remove()
         }
+        //se esiste un valore a category
         if(categoriesSelected !== '0'){
-
             //categoria scelta
             let category = Object.values(categories[categoriesSelected])
-            //crea un select
-            newSelect = document.createElement("select")
-            newSelect.name = "ingredientType[]"
-            newSelect.id = "ingredientType" + ingredientNumber
+
+            createSelect('ingredientType')
             //per ogni elemento di category cra una option
             category.forEach(function(category) {
             newSelect.appendChild(createOption(category.name, category.id));
@@ -356,7 +374,31 @@ document.addEventListener('DOMContentLoaded', function() {
     
             //attaccala sotto
             SelectedDiv.appendChild(newSelect)
-        } else {
+
+            createQuantityType('quantityType')
+            if (categoriesSelected == 'alcools' || categoriesSelected == 'sodas' || categoriesSelected == 'aromaticbitters' || categoriesSelected == 'juices' || categoriesSelected == 'syrups'){
+            let quantityType =  ['ml', 'oz', 'dash', 'spoon']
+            quantityType.forEach(function(quantityType) {
+                    newSelectType.appendChild(createOption(quantityType, quantityType))
+                })
+            } else if (categoriesSelected == 'fruits') {
+                let quantityType =  ['slice', 'clove']
+                quantityType.forEach(function(quantityType) {
+                    newSelectType.appendChild(createOption(quantityType, quantityType))
+                })
+            }   else if (categoriesSelected == 'sugars') {
+                let quantityType =  ['spoon', 'pcs']
+                quantityType.forEach(function(quantityType) {
+                    newSelectType.appendChild(createOption(quantityType, quantityType))
+                })
+            } else if (categoriesSelected == 'others') {
+                let quantityType =  ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch']
+                quantityType.forEach(function(quantityType) {
+                    newSelectType.appendChild(createOption(quantityType, quantityType))
+                })
+            }
+
+            SelectedDiv.appendChild(newSelectType)
 
         }
     }
