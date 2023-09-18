@@ -31,35 +31,27 @@
             <label for="description">Descrizione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
         </div>
-                    @php
-                    $ingredientsNumber = 1;
-                    // Rimuovi duplicati basati sul nome della tabella
-                    $uniqueIngredients = collect($ingredients)->unique(function ($item) {
-                        return $item->Tables();
-                    });
-    
-                    // Ordina gli ingredienti per nome
-                    $sortedIngredients = $uniqueIngredients->sortBy(function ($item) {
-                        return $item->Tables();
-                    });
-                @endphp
-        <div class="form-group" id="ingredients-container">
-            @for ($i = 1; $i <= $ingredientsNumber; $i++)
-                <div class="ingredient">
-                    <span>Ingrediente numero {{ $i }}</span>
-                    <select name="ingredients[]" class="ingredient-select">
-                        <option value="" selected disabled>Scegli categoria</option>
-                        @foreach ($sortedIngredients as $ingredient)
-                            <option value="{{ $ingredient->id }}">{{ $ingredient->Tables() }}</option>
-                        @endforeach
-                    </select>
-                </div>
-            @endfor
+        <div class="form-group">
+            <select name="ingredients" id="ingredients" onchange="AddIngredients(this)">
+                <option value="" selected>Scegli la categoria</option>
+                <option value="alcools">Alcoolici</option>
+                <option value="aromaticBitters">Bitter Aromatici</option>
+                <option value="fruits">Frutta</option>
+                <option value="juices">Succhi</option>
+                <option value="others">Altro</option>
+                <option value="sodas">Sodati</option>
+                <option value="sugars">Zuccheri</option>
+                <option value="syrups">Sciroppi</option>
+            </select>
+            {{-- <select name="ingredientType[]" id="ingredientType">
+                @foreach ($alcools as $alcool )
+                <option value="{{$alcool->id}}">{{$alcool->name}}</option>            
+                @endforeach
+            </select> --}}
         </div>
         <div class="form-group">
             <button type="button" class="btn btn-primary" id="add-ingredient-btn">Aggiungi un altro ingrediente</button>
         </div>
-    
         <div class="form-group">
             <label for="preparation">Preparazione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
@@ -174,19 +166,22 @@
                 <label for="straw_no">No</label>
             </div>
         </div>
-        {{-- <div class="form-group">
-            <label for="alcool_categories_id">Categoria:</label>
-            <select class="form-control" id="alcool_categories_id" name="alcool_categories_id" required>
-                @foreach ($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->name }}</option>
-                @endforeach
-            </select>
-        </div> --}}
         <button type="submit" class="btn btn-primary" id="submitButton" >Crea Alcolico</button>
     </form>
 </div>
 <script>
     let ingredientNumber = 1;
+
+    let categories = {
+        alcools : {!! $alcools !!},
+        aromaticBitters : {!! $aromaticBitters !!},
+        fruits : {!! $fruits !!},
+        juices : {!! $juices !!},
+        others : {!! $others !!},
+        sodas : {!! $sodas !!},
+        sugars : {!! $sugars !!},
+        syrups : {!! $syrups !!},
+    }
 
     document.getElementById('image').addEventListener('change', function (e) {
         const imagePreview = document.getElementById('image-preview');
@@ -323,6 +318,13 @@ document.addEventListener('DOMContentLoaded', function() {
         // Esegui il toggle iniziale in base alla selezione predefinita
         toggleVariationSelect();
     });
+
+    function AddIngredients (x) {
+        idSelect = x.id
+        category = document.getElementById(idSelect).value
+        console.log(categories[category])
+    }
+
 </script>
 @endsection
 

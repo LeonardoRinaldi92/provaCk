@@ -42,32 +42,31 @@ class CocktailController extends Controller
      */
     public function create()
     {
-        $alcools = Alcool::all();
-        $aromaticBitters = AromaticBitter::all();
-        $fruits = Fruit::all();
-        $juices = Juice::all();
-        $others = Other::all();
-        $sodas = Soda::all();
-        $sugars = Sugar::all();
-        $syrups = Syrup::all();
-        $cocktails = Cocktail::all(); 
+        $alcools = json_encode(Alcool::all()->sortBy('name'));
+        $aromaticBitters = json_encode(AromaticBitter::all()->sortBy('name'));
+        $fruits = json_encode(Fruit::all()->sortBy('name'));
+        $juices = json_encode(Juice::all()->sortBy('name'));
+        $others = json_encode(Other::all()->sortBy('name'));
+        $sodas = json_encode(Soda::all()->sortBy('name'));
+        $sugars = json_encode(Sugar::all()->sortBy('name'));
+        $syrups = json_encode(Syrup::all()->sortBy('name'));
 
-        $ingredients = Collection::make([
-            $alcools,
-            $aromaticBitters,
-            $fruits,
-            $juices,
-            $others,
-            $sodas,
-            $sugars,
-            $syrups,
-        ])->collapse()->sortBy('name');
+        $cocktails = Cocktail::all()->sortBy('name'); 
+
+
 
         $equipements = Equipement::all()->sortBy('name');
         $ices = Ice::all()->sortBy('name');
         $glasses = Glass::all()->sortBy('name');
 
-        return view('cocktails.create.cocktail_create', compact('ingredients', 'equipements', 'ices', 'glasses', 'cocktails'));
+        return view('cocktails.create.cocktail_create', compact('alcools',
+            'aromaticBitters',
+            'fruits',
+            'juices',
+            'others',
+            'sodas',
+            'sugars',
+            'syrups', 'equipements', 'ices', 'glasses', 'cocktails'));
     }
 
     /**
