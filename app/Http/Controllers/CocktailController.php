@@ -42,20 +42,23 @@ class CocktailController extends Controller
      */
     public function create()
     {
-        $alcoolsData = Alcool::all()->sortBy('name');
-        foreach ($alcoolsData as $alcool) {
-            $alcool['model'] = $alcool->getMorphClass();
+        function getModelData($model) {
+            $data = $model::all()->sortBy('name');
+            foreach ($data as $item) {
+                $item['model'] = $item->getMorphClass();
+            }
+            return json_encode($data);
         }
         
-        $alcools = json_encode($alcoolsData);
-        $aromaticBitters = json_encode(AromaticBitter::all()->sortBy('name'));
+        $alcools = getModelData(Alcool::class);
+        $aromaticBitters = getModelData(AromaticBitter::class);
+        $fruits = getModelData(Fruit::class);
+        $juices = getModelData(Juice::class);
+        $others = getModelData(Other::class);
+        $sodas = getModelData(Soda::class);
+        $sugars = getModelData(Sugar::class);
+        $syrups = getModelData(Syrup::class);
         
-        $fruits = json_encode(Fruit::all()->sortBy('name'));
-        $juices = json_encode(Juice::all()->sortBy('name'));
-        $others = json_encode(Other::all()->sortBy('name'));
-        $sodas = json_encode(Soda::all()->sortBy('name'));
-        $sugars = json_encode(Sugar::all()->sortBy('name'));
-        $syrups = json_encode(Syrup::all()->sortBy('name'));
 
         $cocktails = Cocktail::all()->sortBy('name'); 
 
