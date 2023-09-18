@@ -330,8 +330,9 @@ document.addEventListener('DOMContentLoaded', function() {
     function createSelect(name, id){
         //crea un select
         newSelect = document.createElement("select")
-        newSelect.name = 'ingredients'+ id + '[]'
+        newSelect.name = "ingredients["+id+"][ciao]"
         newSelect.id = name + id
+
     }
 
     let quantityType = ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch']
@@ -346,19 +347,26 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createQuantityType(name, id){
         newSelectType = document.createElement("select")
-        newSelectType.name = 'ingredients'+ id + '[]'
+        newSelectType.name = "ingredients["+id+"][type]"
         newSelectType.id = name + id
     }
 
     function createQuantity(name, id) {
         newInput = document.createElement("input");
         newInput.type = "number";
-        newInput.name = 'ingredients'+ id + '[]';
+        newInput.name = "ingredients["+id+"][quantityType]"
         newInput.id = name + id;
         newInput.min = 0.1;
         newInput.max = 999.9;
         newInput.step = 0.1;
-    }   
+    } 
+    function createHiddenInput(id, value) {
+        newHiddenInput = document.createElement("input")
+        newHiddenInput.type = "hidden"
+        newHiddenInput.name = "ingredients["+id+"][model]"
+        newHiddenInput.id = 'hidden'+ id
+        newHiddenInput.value = value[0].model
+    } 
 
 
     //funzione creazione ingrediente
@@ -376,11 +384,13 @@ document.addEventListener('DOMContentLoaded', function() {
         console.log(checkeSelect)
         checkQuantitySelect = document.getElementById("quantityType" + laneNumber)
         checkQuantity = document.getElementById("quantity" + laneNumber)
+        checkHidden = document.getElementById("hidden" + laneNumber)
         //se esiste eliminale
-        if(checkeSelect || checkQuantitySelect || checkQuantity){
+        if(checkeSelect || checkQuantitySelect || checkQuantity || checkHidden){
             checkeSelect.remove()
             checkQuantitySelect.remove()
             checkQuantity.remove()
+            checkHidden.remove()
         }
         //se esiste un valore a category
         if(categoriesSelected !== '0'){
@@ -423,9 +433,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
             createQuantity('quantity', laneNumber)
             SelectedDiv.appendChild(newInput)
-
-            
-
+            console.log(category)
+            createHiddenInput(laneNumber, category)
+            SelectedDiv.appendChild(newHiddenInput)
         }
     }
 

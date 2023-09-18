@@ -42,8 +42,14 @@ class CocktailController extends Controller
      */
     public function create()
     {
-        $alcools = json_encode(Alcool::all()->sortBy('name'));
+        $alcoolsData = Alcool::all()->sortBy('name');
+        foreach ($alcoolsData as $alcool) {
+            $alcool['model'] = $alcool->getMorphClass();
+        }
+        
+        $alcools = json_encode($alcoolsData);
         $aromaticBitters = json_encode(AromaticBitter::all()->sortBy('name'));
+        
         $fruits = json_encode(Fruit::all()->sortBy('name'));
         $juices = json_encode(Juice::all()->sortBy('name'));
         $others = json_encode(Other::all()->sortBy('name'));
