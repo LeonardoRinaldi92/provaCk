@@ -33,7 +33,7 @@
         </div>
         <div class="form-group" id="ingredientsLane1">
             <select name="ingredients" id="ingredients1" onchange="AddIngredients(this)">
-                <option value="" selected>Scegli la categoria</option>
+                <option value="0" selected>Scegli la categoria</option>
                 <option value="alcools">Alcoolici</option>
                 <option value="aromaticBitters">Bitter Aromatici</option>
                 <option value="fruits">Frutta</option>
@@ -319,12 +319,13 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleVariationSelect();
     });
 
+    //funzione creazione option
     function createOption(text, value) {
     var option = document.createElement("option");
     option.text = text;
     option.value = value;
     return option;
-}
+    }
 
     function AddIngredients (x) {
         //prendo l'id della slecte che sto usando
@@ -335,17 +336,29 @@ document.addEventListener('DOMContentLoaded', function() {
         let SelectedDiv = document.getElementById('ingredientsLane'+ laneNumber ) 
         //cin base all'id id prima prendo il valore
         let categoriesSelected = document.getElementById(idSelect).value
-        //categoria scelta
-        let category = Object.values(categories[categoriesSelected])
+        checkeSelect = document.getElementById("ingredientType" + ingredientNumber)
+        console.log(categoriesSelected)
+        if(checkeSelect){
+            checkeSelect.remove()
+        }
+        if(categoriesSelected !== '0'){
 
-        newSelect = document.createElement("select")
-        newSelect.name = "ingredientType[]"
-        newSelect.id = "ingredientType" + ingredientNumber
-        category.forEach(function(category) {
-        newSelect.appendChild(createOption(category.name, category.id));
-        });
+            //categoria scelta
+            let category = Object.values(categories[categoriesSelected])
+            //crea un select
+            newSelect = document.createElement("select")
+            newSelect.name = "ingredientType[]"
+            newSelect.id = "ingredientType" + ingredientNumber
+            //per ogni elemento di category cra una option
+            category.forEach(function(category) {
+            newSelect.appendChild(createOption(category.name, category.id));
+            });
+    
+            //attaccala sotto
+            SelectedDiv.appendChild(newSelect)
+        } else {
 
-        SelectedDiv.appendChild(newSelect)
+        }
     }
 
 </script>
