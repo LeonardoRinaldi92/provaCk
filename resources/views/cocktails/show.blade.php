@@ -53,11 +53,11 @@
                         <div class="{{ $key > 0 ? 'mt-2' : '' }}">
                             {{ $ingredient->getSingleQuantity() }} {{$ingredient->quantity_type}}
                             @if ($ingredient->ingredientable->slug)
-                            <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable()  .'.show', ['slug' => $ingredient->ingredientable->slug]) }}">
-                            @endif
-                            {{ $ingredient->ingredientable->name }}
-                            @if ($ingredient->ingredientable->slug)
-                            </a>
+                                @if ($ingredient->ingredientable->category)  
+                            <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable() .'.show', ['slug' => $ingredient->ingredientable->slug, 'category'=> $ingredient->ingredientable->category->name]) }}">
+                                @else
+                            <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable() .'.show', ['slug' => $ingredient->ingredientable->slug]) }}">
+                                @endif
                             @endif 
                             <br>
                             <span class="text-secondary">{{$ingredient->ingredientable->category->name}}</span>

@@ -20,6 +20,7 @@ use App\Models\Glass;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\Storage;
 
 class CocktailController extends Controller
 {
@@ -127,6 +128,11 @@ class CocktailController extends Controller
         }else {
             $cocktailData['garnish'] = null;
         };
+
+        if ($request->hasFile('image')) {
+            $img_path = $request->file('image')->store('cocktails_img');
+            $cocktailData['image'] = $img_path;
+        }
         $cocktail = Cocktail::create($cocktailData);
     }
 
