@@ -61,7 +61,7 @@
         </div>
         <div class="form-group">
             <label for="preparation">Preparazione:</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
+            <textarea class="form-control" id="description" name="preparation" placeholder="Inserisci una descrizione"></textarea>
         </div>
         <div class="form-group">
             <label for="avg_ABV">Grado Alcolico Medio (ABV%):</label>
@@ -165,11 +165,11 @@
         <div class="form-group">
             <label>Con Cannuccia</label>
             <div>
-                <input type="radio" name="straw" id="straw_yes" value="true">
+                <input type="radio" name="straw" id="straw_yes" value=true>
                 <label for="straw_yes">Si</label>
             </div>
             <div>
-                <input type="radio" name="straw" id="straw_no" value="false" checked>
+                <input type="radio" name="straw" id="straw_no" value=false checked>
                 <label for="straw_no">No</label>
             </div>
         </div>

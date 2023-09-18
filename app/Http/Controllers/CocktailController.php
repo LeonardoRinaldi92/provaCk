@@ -19,6 +19,8 @@ use App\Models\Glass;
 
 use Illuminate\Http\Request;
 
+use Illuminate\Support\Str;
+
 class CocktailController extends Controller
 {
     /**
@@ -86,7 +88,46 @@ class CocktailController extends Controller
      */
     public function store(Request $request)
     {
-        dd($request);
+        $cocktailData = [
+            'description' => $request->description ,
+            'preparation' => $request-> preparation,
+            'avg_ABV' => $request->ABV, // Cambia questo con il tuo valore reale
+            'official_IBA' => boolval($request->official_ABV),
+            'glass_id' => $request->glass_id, // Cambia questo con l'ID corretto del bicchiere // Cambia questo con l'ID corretto del tipo di ghiaccio
+            'straw' => boolval($request->straw),
+            'slug'=> 'negroni'
+        ];
+
+        $name = ucwords($request->name);
+        $cocktailData['name'] = $name;
+
+        $slug = Str::slug($request->name);   
+        $cocktailData['slug'] = $slug;
+
+        if($request->ice_option == 'yes') {
+            $cocktailData['ice_id'] = $request->ice_id;
+        }else {
+            $cocktailData['ice_id'] = null;
+        };
+
+        if($request->variation_option == 'yes') {
+            $cocktailData['variation'] = $request->variation;
+        }else {
+            $cocktailData['variation'] = null;
+        };
+
+        if($request->signature_option == 'yes') {
+            $cocktailData['signature'] = $request->signature_text;
+        }else {
+            $cocktailData['signature'] = null;
+        };
+
+        if($request->garnish_option == 'yes') {
+            $cocktailData['garnish'] = $request->garnish;
+        }else {
+            $cocktailData['garnish'] = null;
+        };
+        $cocktail = Cocktail::create($cocktailData);
     }
 
     /**

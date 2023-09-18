@@ -23,11 +23,11 @@ return new class extends Migration
             $table->unsignedBigInteger('glass_id');
             $table->foreign('glass_id')->references('id')->on('glasses')->onDelete('cascade');
             $table->unsignedBigInteger('ice_id');
-            $table->foreign('ice_id')->references('id')->on('ices')->onDelete('cascade');
+            $table->foreign('ice_id')->references('id')->on('ices')->onDelete('cascade')->nullable();
             $table->unsignedBigInteger('variation')->nullable(); // Aggiungi la colonna "variation" nullable
-            $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null'); // Chiave esterna per la stessa tabella cocktailsails
+            $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null')->nullable(); // Chiave esterna per la stessa tabella cocktailsails
             $table->string('signature')->nullable();
-            $table->string('garnish');
+            $table->string('garnish')->nullable();
             $table->boolean('straw');
             $table->text('image');
             $table->string('slug')->unique();
