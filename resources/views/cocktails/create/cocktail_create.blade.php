@@ -53,6 +53,13 @@
             <button type="button" class="btn btn-primary" id="addingredientbtn2" onclick="functionAddLane(this)">Aggiungi un altro ingrediente</button>
         </div>
         <div class="form-group">
+            @foreach ($equipements as $equipement)
+            <input type="checkbox" name="equipements[]" value="{{$equipement->id}}">
+                {{$equipement->name}}
+            @endforeach
+
+        </div>
+        <div class="form-group">
             <label for="preparation">Preparazione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
         </div>
