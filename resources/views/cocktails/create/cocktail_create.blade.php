@@ -49,8 +49,8 @@
                 @endforeach
             </select> --}}
         </div>
-        <div class="form-group">
-            <button type="button" class="btn btn-primary" id="add-ingredient-btn">Aggiungi un altro ingrediente</button>
+        <div class="form-group" id="ingredientsLane2">
+            <button type="button" class="btn btn-primary" id="addingredientbtn2" onclick="functionAddLane(this)">Aggiungi un altro ingrediente</button>
         </div>
         <div class="form-group">
             <label for="preparation">Preparazione:</label>
@@ -323,7 +323,7 @@ document.addEventListener('DOMContentLoaded', function() {
     function createSelect(name){
         //crea un select
         newSelect = document.createElement("select")
-        newSelect.name = name + "[]"
+        newSelect.name = 'ingredients'+ ingredientNumber + '[]'
         newSelect.id = name + ingredientNumber
     }
 
@@ -339,9 +339,20 @@ document.addEventListener('DOMContentLoaded', function() {
 
     function createQuantityType(name){
         newSelectType = document.createElement("select")
-        newSelectType.name = name + "[]"
+        newSelectType.name = 'ingredients'+ ingredientNumber + '[]'
         newSelectType.id = name + ingredientNumber
     }
+
+    function createQuantity(name) {
+        newInput = document.createElement("input");
+        newInput.type = "number";
+        newInput.name = 'ingredients'+ ingredientNumber + '[]';
+        newInput.id = name + ingredientNumber;
+        newInput.min = 0.1;
+        newInput.max = 999.9;
+        newInput.step = 0.1;
+    }   
+
 
     //funzione creazione ingrediente
     function AddIngredients (x) {
@@ -354,12 +365,14 @@ document.addEventListener('DOMContentLoaded', function() {
         //cin base all'id id prima prendo il valore
         let categoriesSelected = document.getElementById(idSelect).value
         //creaiamo un variabile di controllo per vedere se esite gia una select con quel nome
-        checkeSelect = document.getElementById("ingredientType" + ingredientNumber)
-        checkQuantitySelect = document.getElementById("quantityType" + ingredientNumber)
+        checkeSelect = document.getElementById("ingredientType" + laneNumber)
+        checkQuantitySelect = document.getElementById("quantityType" + laneNumber)
+        checkQuantity = document.getElementById("quantity" + laneNumber)
         //se esiste eliminale
-        if(checkeSelect || checkQuantitySelect){
+        if(checkeSelect || checkQuantitySelect || checkQuantity){
             checkeSelect.remove()
             checkQuantitySelect.remove()
+            checkQuantity.remove()
         }
         //se esiste un valore a category
         if(categoriesSelected !== '0'){
@@ -376,7 +389,7 @@ document.addEventListener('DOMContentLoaded', function() {
             SelectedDiv.appendChild(newSelect)
 
             createQuantityType('quantityType')
-            if (categoriesSelected == 'alcools' || categoriesSelected == 'sodas' || categoriesSelected == 'aromaticbitters' || categoriesSelected == 'juices' || categoriesSelected == 'syrups'){
+            if (categoriesSelected == 'alcools' || categoriesSelected == 'sodas' || categoriesSelected == 'aromaticBitters' || categoriesSelected == 'juices' || categoriesSelected == 'syrups'){
             let quantityType =  ['ml', 'oz', 'dash', 'spoon']
             quantityType.forEach(function(quantityType) {
                     newSelectType.appendChild(createOption(quantityType, quantityType))
@@ -397,10 +410,27 @@ document.addEventListener('DOMContentLoaded', function() {
                     newSelectType.appendChild(createOption(quantityType, quantityType))
                 })
             }
-
+            
             SelectedDiv.appendChild(newSelectType)
 
+            createQuantity('quantity')
+            SelectedDiv.appendChild(newInput)
+
+            
+
         }
+    }
+
+    function functionAddLane (x){
+        let idSelect = x.id
+        //tolgo la scritta ingredients in modo che so s quale linea sto lavorando
+        ingredientNumber ++
+        let lane = document.getElementById('ingredientsLane' + ingredientNumber)
+        let input = document.getElementById('ingredients1')
+        let newInput = input.cloneNode(true)
+        newInput.id = 'ingredients'+ ingredientNumber
+        lane.innerHTML = ''
+        lane.appendChild(newInput)
     }
 
 </script>
