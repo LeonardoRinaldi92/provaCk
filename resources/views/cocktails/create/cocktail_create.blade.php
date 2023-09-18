@@ -31,8 +31,8 @@
             <label for="description">Descrizione:</label>
             <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
         </div>
-        <div class="form-group">
-            <select name="ingredients" id="ingredients" onchange="AddIngredients(this)">
+        <div class="form-group" id="ingredientsLane1">
+            <select name="ingredients" id="ingredients1" onchange="AddIngredients(this)">
                 <option value="" selected>Scegli la categoria</option>
                 <option value="alcools">Alcoolici</option>
                 <option value="aromaticBitters">Bitter Aromatici</option>
@@ -319,10 +319,33 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleVariationSelect();
     });
 
+    function createOption(text, value) {
+    var option = document.createElement("option");
+    option.text = text;
+    option.value = value;
+    return option;
+}
+
     function AddIngredients (x) {
-        idSelect = x.id
-        category = document.getElementById(idSelect).value
-        console.log(categories[category])
+        //prendo l'id della slecte che sto usando
+        let idSelect = x.id
+        //tolgo la scritta ingredients in modo che so s quale linea sto lavorando
+        let laneNumber = idSelect.replace("ingredients", "")
+        //sfruttando il numero appena appreso trovo in quale div lavorare
+        let SelectedDiv = document.getElementById('ingredientsLane'+ laneNumber ) 
+        //cin base all'id id prima prendo il valore
+        let categoriesSelected = document.getElementById(idSelect).value
+        //categoria scelta
+        let category = Object.values(categories[categoriesSelected])
+
+        newSelect = document.createElement("select")
+        newSelect.name = "ingredientType[]"
+        newSelect.id = "ingredientType" + ingredientNumber
+        category.forEach(function(category) {
+        newSelect.appendChild(createOption(category.name, category.id));
+        });
+
+        SelectedDiv.appendChild(newSelect)
     }
 
 </script>
