@@ -20,6 +20,18 @@
                     </div>
                     <div class="mt-2">
                         <b>
+                            VARIAZIONE:
+                        </b>
+                        @if ($cocktail->variation)
+                        <a href="{{ route('cocktails.show', $cocktail->originalCocktail->slug) }}">
+                        {{$cocktail->originalCocktail->name}}
+                        </a>
+                        @else
+                        no
+                        @endif
+                    </div>
+                    <div class="mt-2">
+                        <b>
                             SIGNATURE COCKTAIL: 
                         </b>
                         @if ($cocktail->signature)
@@ -51,16 +63,21 @@
                             </b>
                         @foreach ($cocktail->ingredients as  $key => $ingredient)
                         <div class="{{ $key > 0 ? 'mt-2' : '' }}">
-                            {{ $ingredient->getSingleQuantity() }} {{$ingredient->quantity_type}}
+                            {{ $ingredient->getSingleQuantity() }} {{$ingredient->quantity_type}} 
                             @if ($ingredient->ingredientable->slug)
                                 @if ($ingredient->ingredientable->category)  
                             <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable() .'.show', ['slug' => $ingredient->ingredientable->slug, 'category'=> $ingredient->ingredientable->category->name]) }}">
                                 @else
                             <a href="{{ route( 'ingredients.'. $ingredient->ingredientable->getTable() .'.show', ['slug' => $ingredient->ingredientable->slug]) }}">
                                 @endif
-                            @endif 
-                            <br>
+                            @endif
+                            {{$ingredient->ingredientable->name}}   
+                            @if ($ingredient->ingredientable->slug)
+                            </a> 
+                            @endif
+                            @if ($ingredient->ingredientable->category)
                             <span class="text-secondary">{{$ingredient->ingredientable->category->name}}</span>
+                            @endif
                         </div>
                         @endforeach
                         <div class="mt-2">
@@ -109,12 +126,17 @@
                     </div>
                     <div class="mt-2">
                         <p>
+
                             <b>
                                 Tipo di ghiaccio: 
                             </b>
+                            @if ($cocktail->ice_id)
                             <a href="{{ route( 'items.'. $cocktail->ice->getTable()  .'.show', ['slug' => $cocktail->ice->slug]) }}">
                                 {{$cocktail->ice->name}}
                             </a>
+                            @else
+                            no
+                            @endif
                         </p>
                     </div>
                 </div>

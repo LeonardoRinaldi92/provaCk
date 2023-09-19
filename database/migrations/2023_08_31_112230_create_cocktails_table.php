@@ -22,10 +22,10 @@ return new class extends Migration
             $table->boolean('official_IBA')->nullable();
             $table->unsignedBigInteger('glass_id');
             $table->foreign('glass_id')->references('id')->on('glasses')->onDelete('cascade');
-            $table->unsignedBigInteger('ice_id');
-            $table->foreign('ice_id')->references('id')->on('ices')->onDelete('cascade')->nullable();
+            $table->unsignedBigInteger('ice_id')->nullable();
+            $table->foreign('ice_id')->references('id')->on('ices')->onDelete('cascade');
             $table->unsignedBigInteger('variation')->nullable(); // Aggiungi la colonna "variation" nullable
-            $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null')->nullable(); // Chiave esterna per la stessa tabella cocktailsails
+            $table->foreign('variation')->references('id')->on('cocktails')->onDelete('set null'); // Chiave esterna per la stessa tabella cocktailsails
             $table->string('signature')->nullable();
             $table->string('garnish')->nullable();
             $table->boolean('straw');

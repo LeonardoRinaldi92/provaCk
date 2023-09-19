@@ -17,6 +17,9 @@ use App\Models\Equipement;
 use App\Models\Ice;
 use App\Models\Glass;
 
+use App\Models\Ingredient;
+use App\Models\CocktailEquipement;
+
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Str;
@@ -90,51 +93,81 @@ class CocktailController extends Controller
     public function store(Request $request)
     {
         $cocktailData = [
-            'description' => $request->description ,
-            'preparation' => $request-> preparation,
+            'description' => $request->description,
+            'preparation' => $request->preparation,
             'avg_ABV' => $request->ABV, // Cambia questo con il tuo valore reale
             'official_IBA' => boolval($request->official_ABV),
-            'glass_id' => $request->glass_id, // Cambia questo con l'ID corretto del bicchiere // Cambia questo con l'ID corretto del tipo di ghiaccio
+            'glass_id' => $request->glass_id, // Cambia questo con l'ID corretto del bicchiere
             'straw' => boolval($request->straw),
-            'slug'=> 'negroni'
+            'slug' => 'negroni' // Assicurati che questo valore sia impostato correttamente
         ];
-
+    
         $name = ucwords($request->name);
         $cocktailData['name'] = $name;
-
-        $slug = Str::slug($request->name);   
+    
+        $slug = Str::slug($request->name);
         $cocktailData['slug'] = $slug;
-
-        if($request->ice_option == 'yes') {
+    
+        if ($request->ice_option == 'yes') {
             $cocktailData['ice_id'] = $request->ice_id;
-        }else {
+        } else {
             $cocktailData['ice_id'] = null;
-        };
-
-        if($request->variation_option == 'yes') {
+        }
+    
+        if ($request->variation_option == 'yes') {
             $cocktailData['variation'] = $request->variation;
-        }else {
+        } else {
             $cocktailData['variation'] = null;
-        };
-
-        if($request->signature_option == 'yes') {
+        }
+    
+        if ($request->signature_option == 'yes') {
             $cocktailData['signature'] = $request->signature_text;
-        }else {
+        } else {
             $cocktailData['signature'] = null;
-        };
-
-        if($request->garnish_option == 'yes') {
+        }
+    
+        if ($request->garnish_option == 'yes') {
             $cocktailData['garnish'] = $request->garnish;
-        }else {
+        } else {
             $cocktailData['garnish'] = null;
-        };
-
+        }
+    
         if ($request->hasFile('image')) {
             $img_path = $request->file('image')->store('cocktails_img');
             $cocktailData['image'] = $img_path;
         }
+    
         $cocktail = Cocktail::create($cocktailData);
+        $ingredientsData = $request->ingredients;
+    
+        foreach ($ingredientsData as $ingredientData) {
+            $ingredient = new Ingredient($ingredientData);
+            $cocktail->ingredients()->save($ingredient);
+        }
+    
+        $equipmentsData = $request->equipements;
+        $cocktailEquipments = [];
+    
+        foreach ($equipmentsData as $equip) {
+            $cocktailEquipment = [
+                'cocktail_id' => $cocktail->id,
+                'equipement_id' => $equip,
+            ];
+    
+            $cocktailEquipments[] = $cocktailEquipment;
+        }
+    
+        foreach ($cocktailEquipments as $cocktailEquipmentData) {
+            $cocktailEquipment = new CocktailEquipement();
+            $cocktailEquipment->cocktail_id = $cocktailEquipmentData['cocktail_id'];
+            $cocktailEquipment->equipement_id = $cocktailEquipmentData['equipement_id'];
+            $cocktailEquipment->save();
+        }
+    
+        // Reindirizza l'utente alla pagina "show" del cocktail appena creato
+        return redirect()->route('cocktails.show', ['slug' => $slug]);
     }
+    
 
     /**
      * Display the specified resource.

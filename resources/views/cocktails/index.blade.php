@@ -45,8 +45,10 @@
                             @if ($ingredient->ingredientable->slug)
                             </a>
                             @endif 
-                            <br>
+                            @if ($ingredient->ingredientable->category)
                             <span class="text-secondary">{{$ingredient->ingredientable->category->name}}</span>
+                            @endif
+                            <br>
                         </p>
                         @endforeach
                         <p>
@@ -89,9 +91,13 @@
                             <b>
                                 Tipo di ghiaccio: 
                             </b>
+                            @if ($cocktail->ice_id)
                             <a href="{{ route( 'items.'. $cocktail->ice->getTable()  .'.show', ['slug' => $cocktail->ice->slug]) }}">
                                 {{$cocktail->ice->name}}
                             </a>
+                            @else
+                            no
+                            @endif
                         </p>
                     </div>
                 </div>
