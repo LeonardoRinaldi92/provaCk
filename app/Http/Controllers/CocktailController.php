@@ -21,6 +21,9 @@ use App\Models\Ingredient;
 use App\Models\CocktailEquipement;
 
 use Illuminate\Http\Request;
+use App\Http\Requests\CocktailStoreRequest;
+
+
 
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Storage;
@@ -90,83 +93,97 @@ class CocktailController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
-    {
-        $cocktailData = [
-            'description' => $request->description,
-            'preparation' => $request->preparation,
-            'avg_ABV' => $request->ABV, // Cambia questo con il tuo valore reale
-            'official_IBA' => boolval($request->official_ABV),
-            'glass_id' => $request->glass_id, // Cambia questo con l'ID corretto del bicchiere
-            'straw' => boolval($request->straw),
-            'slug' => 'negroni' // Assicurati che questo valore sia impostato correttamente
-        ];
+    public function store(CocktailStoreRequest $request)
+{  
     
-        $name = ucwords($request->name);
-        $cocktailData['name'] = $name;
+
+    $data = $request->validated();
+    $data['official_ABV'] = $data['official_ABV'] ?? null;
+    $data['ice_id'] = $data['ice_id'] ?? null;
+    $data['variation'] = $data['variation'] ?? null;
+    $data['signature_text'] = $data['signature_text'] ?? null;
+    $data['garnish'] = $data['garnish'] ?? null;
+    $data['straw'] = $data['straw'] ?? null;
+
+
     
-        $slug = Str::slug($request->name);
-        $cocktailData['slug'] = $slug;
-    
-        if ($request->ice_option == 'yes') {
-            $cocktailData['ice_id'] = $request->ice_id;
-        } else {
-            $cocktailData['ice_id'] = null;
-        }
-    
-        if ($request->variation_option == 'yes') {
-            $cocktailData['variation'] = $request->variation;
-        } else {
-            $cocktailData['variation'] = null;
-        }
-    
-        if ($request->signature_option == 'yes') {
-            $cocktailData['signature'] = $request->signature_text;
-        } else {
-            $cocktailData['signature'] = null;
-        }
-    
-        if ($request->garnish_option == 'yes') {
-            $cocktailData['garnish'] = $request->garnish;
-        } else {
-            $cocktailData['garnish'] = null;
-        }
-    
-        if ($request->hasFile('image')) {
-            $img_path = $request->file('image')->store('cocktails_img');
-            $cocktailData['image'] = $img_path;
-        }
-    
-        $cocktail = Cocktail::create($cocktailData);
-        $ingredientsData = $request->ingredients;
-    
-        foreach ($ingredientsData as $ingredientData) {
-            $ingredient = new Ingredient($ingredientData);
-            $cocktail->ingredients()->save($ingredient);
-        }
-    
-        $equipmentsData = $request->equipements;
-        $cocktailEquipments = [];
-    
-        foreach ($equipmentsData as $equip) {
-            $cocktailEquipment = [
-                'cocktail_id' => $cocktail->id,
-                'equipement_id' => $equip,
-            ];
-    
-            $cocktailEquipments[] = $cocktailEquipment;
-        }
-    
-        foreach ($cocktailEquipments as $cocktailEquipmentData) {
-            $cocktailEquipment = new CocktailEquipement();
-            $cocktailEquipment->cocktail_id = $cocktailEquipmentData['cocktail_id'];
-            $cocktailEquipment->equipement_id = $cocktailEquipmentData['equipement_id'];
-            $cocktailEquipment->save();
-        }
-    
-        // Reindirizza l'utente alla pagina "show" del cocktail appena creato
-        return redirect()->route('cocktails.show', ['slug' => $slug]);
+
+    $cocktailData = [
+        'description' => $data['description'],
+        'preparation' => $data['preparation'],
+        'avg_ABV' => $data['ABV'], // Cambia questo con il tuo valore reale
+        'official_IBA' => boolval($data['official_ABV']),
+        'glass_id' => $data['glass_id'], // Cambia questo con l'ID corretto del bicchiere
+        'straw' => boolval($data['straw']),
+        'slug' => 'negroni' // Assicurati che questo valore sia impostato correttamente
+    ];
+
+    $name = ucwords($data['name']);
+    $cocktailData['name'] = $name;
+
+    $slug = Str::slug($data['name']);
+    $cocktailData['slug'] = $slug;
+
+    if ($data['ice_option'] == 'yes') {
+        $cocktailData['ice_id'] = $data['ice_id'];
+    } else {
+        $cocktailData['ice_id'] = null;
     }
+
+    if ($data['variation_option'] == 'yes') {
+        $cocktailData['variation'] = $data['variation'];
+    } else {
+        $cocktailData['variation'] = null;
+    }
+
+    if ($data['signature_option'] == 'yes') {
+        $cocktailData['signature'] = $data['signature_text'];
+    } else {
+        $cocktailData['signature'] = null;
+    }
+
+    if ($data['garnish_option'] == 'yes') {
+        $cocktailData['garnish'] = $data['garnish'];
+    } else {
+        $cocktailData['garnish'] = null;
+    }
+
+    if ($request->hasFile('image')) {
+        $img_path = $request->file('image')->store('cocktails_img');
+        $cocktailData['image'] = $img_path;
+    }
+
+    $cocktail = Cocktail::create($cocktailData);
+    $ingredientsData = $data['ingredients'];
+
+    foreach ($ingredientsData as $ingredientData) {
+        $ingredient = new Ingredient($ingredientData);
+        $cocktail->ingredients()->save($ingredient);
+    }
+
+    $equipmentsData = $data['equipements'];
+    $cocktailEquipments = [];
+
+    foreach ($equipmentsData as $equip) {
+        $cocktailEquipment = [
+            'cocktail_id' => $cocktail->id,
+            'equipement_id' => $equip,
+        ];
+
+        $cocktailEquipments[] = $cocktailEquipment;
+    }
+
+    foreach ($cocktailEquipments as $cocktailEquipmentData) {
+        $cocktailEquipment = new CocktailEquipement();
+        $cocktailEquipment->cocktail_id = $cocktailEquipmentData['cocktail_id'];
+        $cocktailEquipment->equipement_id = $cocktailEquipmentData['equipement_id'];
+        $cocktailEquipment->save();
+    }
+
+    // Reindirizza l'utente alla pagina "show" del cocktail appena creato
+    return redirect()->route('cocktails.show', ['slug' => $slug]);
+}
+
     
 
     /**
