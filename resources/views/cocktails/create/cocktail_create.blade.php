@@ -50,27 +50,31 @@
 {{-- lista equipaggiamenti --}}
         <div class="form-group">
             @foreach ($equipements as $equipement)
-            <input type="checkbox" name="equipements[]" value="{{$equipement->id}}">
+            <input type="checkbox" name="equipements[]" value="{{$equipement->id}}" id="equip-{{$equipement->id}}" >
                 {{$equipement->name}}
             @endforeach
-
         </div>
+{{-- preparazione --}}
         <div class="form-group">
             <label for="preparation">Preparazione:</label>
             <textarea class="form-control" id="description" name="preparation" placeholder="Inserisci una descrizione"></textarea>
         </div>
+{{-- grado alcolico medio --}}
         <div class="form-group">
             <label for="avg_ABV">Grado Alcolico Medio (ABV%):</label>
             <input type="number" step="0.1" class="form-control" id="ABV" name="ABV" placeholder="Inserisci il grado alcolico" required>
         </div>
-        <div class="form-group">
+{{-- tipo di ghiaccio --}}
+        <div class="form-group" id="ice_option_group" required>
             <label>Ghiaccio</label>
+    {{-- ghiaccio si --}}
             <div>
-                <input type="radio" name="ice_option" id="ice_no" value="no" checked>
+                <input type="radio" name="ice_option" id="ice_no" value="no" checked onclick="checkIce(this)">
                 <label for="ice_no">No</label>
             </div>
+    {{-- ghiaccio no --}}
             <div>
-                <input type="radio" name="ice_option" id="ice_yes" value="yes">
+                <input type="radio" name="ice_option" id="ice_yes" value="yes" onclick="checkIce(this)">
                 <label for="ice_yes">Sì</label>
             </div>
         </div>    
@@ -186,6 +190,24 @@
         syrups : {!! $syrups !!},
     }
 
+    document.getElementById('submitButton').addEventListener('click', function(event) {
+    let checkbox = document.querySelectorAll('[id^="equip-"]');
+    let selectedValues = [];
+
+    checkbox.forEach((element) => {
+        if (element.checked) {
+            selectedValues.push(element.value);
+        }
+    });
+
+    if (selectedValues.length < 1 ) {
+        event.preventDefault(); // Previeni l'invio del modulo solo se la lunghezza è minore di 1
+        alert('Seleziona almeno un equipaggiamento.');
+    }
+
+    console.log(selectedValues);
+    });
+
     document.getElementById('image').addEventListener('change', function (e) {
         const imagePreview = document.getElementById('image-preview');
 
@@ -246,13 +268,8 @@ function handleInputValidation() {
         return false; // Restituisci false se la validazione non è stata avviata
     }
 };
-handleInputValidation() 
-document.getElementById('form').addEventListener('submit', function(event) {
-    if (!handleInputValidation()) {
-        event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
-        return false;
-    }
-});
+handleInputValidation()
+
 
 document.getElementById('name').addEventListener('input', () => {
     handleInputValidation();
@@ -501,6 +518,22 @@ document.addEventListener('DOMContentLoaded', function() {
             inputquantity.required = true
         }
     }
+
+    function checkIce(x){
+        let chose = x.value
+        let ice =document.getElementById('ice_select')
+
+        if(chose == 'yes'){
+            ice.required = true
+            console.log(ice)
+        }else {
+            ice.required = false
+            console.log(ice)
+        }
+    }
+
+
+
 
 </script>
 @endsection
