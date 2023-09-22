@@ -18,22 +18,58 @@
 {{-- intestazione form --}}
     <form method="POST" action="{{ route('cocktails.store') }}" enctype="multipart/form-data" id="form">
         @csrf
-{{-- nome --}}
-        <div class="form-group">
-            <label for="name">Nome:</label>
-            <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
-            <div class="valid-feedback">Campo valido.</div>
-            <div class="invalid-feedback">Nome non idoneo</div>
+{{-- linea nome variazione e nome variazione --}}
+        <div class="row align-items-center">
+    {{-- nome --}}
+            <div class="form-group col-4">
+                <label for="name">Nome:</label>
+                <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
+                <div class="valid-feedback">Campo valido.</div>
+                <div class="invalid-feedback">Nome non idoneo</div>
+            </div>
+    {{-- variazione --}}
+            <div class="form-group col-2 row">
+                <label>Variazione</label>
+    {{-- variazione si --}}
+                <div class="col-6">
+                    <input type="radio" name="variation_option" id="variation_no" value="no" checked onclick="checkYesOrNot(this, 'variation')" required>
+                    <label for="variation_no">No</label>
+                </div>
+    {{-- variazione no --}}
+                <div class="col-6">
+                    <input type="radio" name="variation_option" id="variation_yes" value="yes" onclick="checkYesOrNot(this, 'variation')">
+                    <label for="variation_yes">Si</label>
+                </div>
+            </div>
+    {{-- cocktail variazione --}}
+            <div id="variation_select" style="display: none;" class="col-4">
+                <label for="variation">Seleziona la variazione</label>
+                <div>
+                    <select name="variation" id="variation" class="px-2" required>
+                        <option disabled selected>Scegli la variazione</option>
+                        @foreach ($cocktails as $cocktail)
+                            <option value="{{$cocktail->id}}">{{$cocktail->name}}</option>
+                        @endforeach
+                    </select>
+                </div>
+            </div>
         </div>
 {{-- decrizione --}}
-        <div class="form-group">
-            <label for="description">Descrizione:</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione" required></textarea>
+        <div class="row">
+            <div class="form-group col-8">
+                <label for="description">Descrizione:</label>
+                <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione" required rows="6"></textarea>
+            </div>
         </div>
 {{-- lista ingredienti --}}
     {{--prima linea compilata --}}
-        <div class="form-group" id="ingredientsLane1">
-            <select id="ingredients1" onchange="AddIngredients(this), checkRequired(this)">
+        <div class="form-group mb-2" id="ingredientsLane1">
+            <div>
+                <label for="ingredients1">
+                    Seleziona ingredienti
+                </label>
+            </div>
+            <select id="ingredients1" onchange="AddIngredients(this), checkRequired(this)" class="me-3 px-2">
                 <option value="0" selected>Scegli la categoria</option>
                 <option value="alcools">Alcoolici</option>
                 <option value="aromaticBitters">Bitter Aromatici</option>
@@ -46,8 +82,8 @@
             </select>
         </div>
     {{-- seconda linea con bottone --}}
-        <div class="form-group" id="ingredientsLane2">
-            <button type="button" class="btn btn-primary" id="addingredientbtn2" onclick="functionAddLane(this)">Aggiungi un altro ingrediente</button>
+        <div class="form-group mb-2" id="ingredientsLane2" >
+            <button type="button" class="btn btn-secondary" id="addingredientbtn2" onclick="functionAddLane(this)">Aggiungi un altro ingrediente</button>
         </div>
 {{-- lista equipaggiamenti --}}
         <div class="form-group">
@@ -83,7 +119,7 @@
 {{-- tipologie ghiaccio     --}}
         <div id="ice_select" style="display: none;">
             <label for="ice_id">Seleziona il tipo di ghiaccio</label>
-            <select name="ice_id" id="ice_id">
+            <select name="ice_id" id="ice_id" class="px-2">
                 @foreach ($ices as $ice)
                     <option value="{{$ice->id}}">{{$ice->name}}</option>
                 @endforeach
@@ -92,8 +128,8 @@
 {{-- bicchieri --}}
         <div class="form-group">
             <label for="glass_id">Tipo di bicchiere</label>
-            <select name="glass_id" id="glass_id" required>
-                <option  disabled selected>Scegli il tipo di ghiaccio</option>
+            <select name="glass_id" id="glass_id" required >
+                <option  disabled selected>Scegli il tipo di bicchiere</option>
                 @foreach ($glasses as $glass)
                     <option value="{{$glass->id}}">{{$glass->name}}</option>          
                 @endforeach
@@ -113,30 +149,7 @@
                 <label for="official_IBA_no">No</label>
             </div>
         </div>
-{{-- variazione --}}
-        <div class="form-group">
-            <label>Variazione</label>
-    {{-- variazione si --}}
-            <div>
-                <input type="radio" name="variation_option" id="variation_no" value="no" checked onclick="checkYesOrNot(this, 'variation')" required>
-                <label for="variation_no">No</label>
-            </div>
-    {{-- variazione no --}}
-            <div>
-                <input type="radio" name="variation_option" id="variation_yes" value="yes" onclick="checkYesOrNot(this, 'variation')">
-                <label for="variation_yes">Si</label>
-            </div>
-        </div>
-{{-- cocktail variazione --}}
-        <div id="variation_select" style="display: none;">
-            <label for="variation">Seleziona la variazione</label>
-            <select name="variation" id="variation" required>
-                <option disabled selected>Scegli la variazione</option>
-                @foreach ($cocktails as $cocktail)
-                    <option value="{{$cocktail->id}}">{{$cocktail->name}}</option>
-                @endforeach
-            </select>
-        </div>
+
 {{-- signature --}}
         <div class="form-group">
             <label for="signature">Cocktail Signature?</label>
@@ -363,31 +376,37 @@ document.addEventListener('DOMContentLoaded', function() {
         toggleVariationSelect();
     });
 
-    //funzione creazione select
+//funzione creazione select nome ingrediente
     function createSelect(name, id){
         //crea un select
         newSelect = document.createElement("select")
         newSelect.name = "ingredients["+id+"][ingredientable_id]"
         newSelect.id = name + id
+        newSelect.classList.add('me-3')
+        newSelect.classList.add('px-2')
 
     }
 
     let quantityType = ['ml', 'oz', 'dash', 'spoon', 'slice', 'cove', 'leaf', 'branch']
 
-    //funzione creazione option
+ //funzione creazione option
     function createOption(text, value) {
-    var option = document.createElement("option");
-    option.text = text;
-    option.value = value;
-    return option;
+        var option = document.createElement("option");
+        option.text = text;
+        option.value = value;
+        return option;
     }
 
+//funzione creazione select tipo quantita ingrediente
     function createQuantityType(name, id){
         newSelectType = document.createElement("select")
         newSelectType.name = "ingredients["+id+"][quantity_type]"
         newSelectType.id = name + id
+        newSelectType.classList.add('me-3')
+        newSelectType.classList.add('px-2')
     }
 
+    //FUNZIONE CREAZIONE INPUT NUMBER QUANTITA
     function createQuantity(name, id) {
         newInput = document.createElement("input");
         newInput.type = "number";
@@ -397,6 +416,8 @@ document.addEventListener('DOMContentLoaded', function() {
         newInput.max = 999.9;
         newInput.step = 0.1;
     } 
+
+    //FUNZIONE CREAZIONE HIDDENINPUT PER MODEL
     function createHiddenInput(id, value) {
         newHiddenInput = document.createElement("input")
         newHiddenInput.type = "hidden"
@@ -477,8 +498,8 @@ document.addEventListener('DOMContentLoaded', function() {
             SelectedDiv.appendChild(newHiddenInput)
         }else {
             SelectedDiv.innerHTML +=               
-            `<div id="ingredientErrorLane`+(laneNumber) +  `">
-                aggoiungi un ingrediente
+            `<div class="mt-2 alert alert-warning p-2 w-50" role="alert"  id="ingredientErrorLane`+(laneNumber) +  `">
+                Prima compila l'ingrediente precedente
             </div>`
         }
     }
@@ -495,6 +516,7 @@ document.addEventListener('DOMContentLoaded', function() {
             let newLane = document.createElement("div")
             newLane.className = "form-group"
             newLane.id = 'ingredientsLane' + (parseInt(idSelect) + 1)
+            newLane.classList.add('mb-2')
             let btn = document.getElementById('addingredientbtn' + idSelect).cloneNode(true)
             btn.id = 'addingredientbtn' + (parseInt(idSelect) + 1)
             newLane.appendChild(btn)
@@ -514,8 +536,8 @@ document.addEventListener('DOMContentLoaded', function() {
             if(!error){
                 
                 document.getElementById("ingredientsLane" + (idSelect - 1)).innerHTML += 
-                `<div id="ingredientErrorLane`+(idSelect-1) +  `">
-                aggoiungi un ingrediente
+                `<div class="alert alert-warning mt-2 p-2 w-50" role="alert" id="ingredientErrorLane`+(idSelect-1) +  `">
+                    Prima compila l'ingrediente precedente
                     </div>`
 
             }
