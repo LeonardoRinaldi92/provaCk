@@ -3,6 +3,7 @@
 
 @section('content')
 <div class="container">
+{{-- lista errori --}}
     @if ($errors->any())
     <div class="alert alert-danger">
         <ul>
@@ -12,10 +13,11 @@
         </ul>
     </div>
     @endif
+{{-- titolo --}}
     <h2>Creazione Nuovo Cocktail</h2>
+{{-- intestazione form --}}
     <form method="POST" action="{{ route('cocktails.store') }}" enctype="multipart/form-data" id="form">
         @csrf
-
 {{-- nome --}}
         <div class="form-group">
             <label for="name">Nome:</label>
@@ -64,28 +66,30 @@
             <label for="avg_ABV">Grado Alcolico Medio (ABV%):</label>
             <input type="number" step="0.1" class="form-control" id="ABV" name="ABV" placeholder="Inserisci il grado alcolico" required>
         </div>
-{{-- tipo di ghiaccio --}}
-        <div class="form-group" id="ice_option_group" required>
+{{-- ghiaccio --}}
+        <div class="form-group" id="ice_option_group">
             <label>Ghiaccio</label>
     {{-- ghiaccio si --}}
             <div>
-                <input type="radio" name="ice_option" id="ice_no" value="no" checked onclick="checkIce(this)">
+                <input type="radio" name="ice_option" id="ice_no" value="no" checked onclick="checkYesOrNot(this, 'ice_id')" required>
                 <label for="ice_no">No</label>
             </div>
     {{-- ghiaccio no --}}
             <div>
-                <input type="radio" name="ice_option" id="ice_yes" value="yes" onclick="checkIce(this)">
+                <input type="radio" name="ice_option" id="ice_yes" value="yes" onclick="checkYesOrNot(this, 'ice_id')">
                 <label for="ice_yes">Sì</label>
             </div>
-        </div>    
+        </div>
+{{-- tipologie ghiaccio     --}}
         <div id="ice_select" style="display: none;">
             <label for="ice_id">Seleziona il tipo di ghiaccio</label>
-            <select name="ice_id" id="ice_id" required>
+            <select name="ice_id" id="ice_id">
                 @foreach ($ices as $ice)
                     <option value="{{$ice->id}}">{{$ice->name}}</option>
                 @endforeach
             </select>
         </div>
+{{-- bicchieri --}}
         <div class="form-group">
             <label for="glass_id">Tipo di bicchiere</label>
             <select name="glass_id" id="glass_id" required>
@@ -95,29 +99,35 @@
                 @endforeach
             </select>
         </div>
+{{-- IBA --}}
         <div class="form-group">
             <label>Cocktail Ufficiale IBA</label>
+    {{-- IBA si --}}
             <div>
-                <input type="radio" name="official_IBA" id="official_IBA_yes" value="true">
+                <input type="radio" name="official_IBA" id="official_IBA_yes" value="true"  >
                 <label for="official_IBA_yes">Si</label>
             </div>
+    {{-- Iba no --}}
             <div>
-                <input type="radio" name="official_IBA" id="official_IBA_no" value="false" checked>
+                <input type="radio" name="official_IBA" id="official_IBA_no" value="false" checked required>
                 <label for="official_IBA_no">No</label>
             </div>
         </div>
+{{-- variazione --}}
         <div class="form-group">
             <label>Variazione</label>
+    {{-- variazione si --}}
             <div>
-                <input type="radio" name="variation_option" id="variation_no" value="no" checked>
+                <input type="radio" name="variation_option" id="variation_no" value="no" checked onclick="checkYesOrNot(this, 'variation')" required>
                 <label for="variation_no">No</label>
             </div>
+    {{-- variazione no --}}
             <div>
-                <input type="radio" name="variation_option" id="variation_yes" value="yes">
+                <input type="radio" name="variation_option" id="variation_yes" value="yes" onclick="checkYesOrNot(this, 'variation')">
                 <label for="variation_yes">Si</label>
             </div>
         </div>
-        
+{{-- cocktail variazione --}}
         <div id="variation_select" style="display: none;">
             <label for="variation">Seleziona la variazione</label>
             <select name="variation" id="variation" required>
@@ -127,52 +137,67 @@
                 @endforeach
             </select>
         </div>
+{{-- signature --}}
         <div class="form-group">
             <label for="signature">Cocktail Signature?</label>
+    {{-- signature no --}}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="signature_option" id="signature_no" value="no" checked>
+                <input class="form-check-input" type="radio" name="signature_option" id="signature_no" value="no" checked onclick="checkYesOrNot(this, 'signature_text')">
                 <label class="form-check-label" for="signature_no">No</label>
             </div>
+    {{-- signature si --}}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="signature_option" id="signature_yes" value="yes">
+                <input class="form-check-input" type="radio" name="signature_option" id="signature_yes" value="yes" onclick="checkYesOrNot(this, 'signature_text')" required>
                 <label class="form-check-label" for="signature_yes">Yes</label>
             </div>
+    {{-- signature input text --}}
             <div class="form-group" id="signature_text_input" style="display: none;">
                 <label for="signature_text">Enter Signature Text:</label>
                 <input type="text" class="form-control" id="signature_text" name="signature_text">
             </div>
         </div>
+{{-- garnish --}}
         <div class="form-group">
             <label for="garnish_option">Guarnizione</label>
+    {{-- garnish yes --}}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="garnish_option" id="garnish_no" value="no" checked>
+                <input class="form-check-input" type="radio" name="garnish_option" id="garnish_no" value="no" checked onclick="checkYesOrNot(this, 'garnish_text')" required>
                 <label class="form-check-label" for="garnish_no">No</label>
             </div>
+    {{-- garnish no --}}
             <div class="form-check">
-                <input class="form-check-input" type="radio" name="garnish_option" id="garnish_yes" value="yes">
+                <input class="form-check-input" type="radio" name="garnish_option" id="garnish_yes" value="yes" onclick="checkYesOrNot(this, 'garnish_text')">
                 <label class="form-check-label" for="garnish_yes">Yes</label>
             </div>
+    {{-- garnish input text --}}
             <div class="form-group" id="garnish_text_input" style="display: none;">
                 <label for="garnish_text">Enter Garnish Text:</label>
                 <input type="text" class="form-control" id="garnish_text" name="garnish_text">
             </div>
         </div>
+{{-- immagine --}}
         <div class="form-group">
             <label for="image">Immagine:</label>
-            <input type="file" class="form-control-file" id="image" name="image">
+    {{-- input immagine --}}
+            <input type="file" class="form-control-file" id="image" name="image" required>
+    {{-- preview immagine --}}
             <img id="image-preview" src="" alt="Preview dell'immagine" style="max-width: 400px; max-height: 400px; display: none;">
         </div>
+{{-- cannuccia --}}
         <div class="form-group">
             <label>Con Cannuccia</label>
+    {{-- cannuccia si --}}
             <div>
-                <input type="radio" name="straw" id="straw_yes" value=true>
+                <input type="radio" name="straw" id="straw_yes" value=true required>
                 <label for="straw_yes">Si</label>
             </div>
+    {{-- cannuccia no --}}
             <div>
                 <input type="radio" name="straw" id="straw_no" value=false checked>
                 <label for="straw_no">No</label>
             </div>
         </div>
+{{-- bottone submit --}}
         <button type="submit" class="btn btn-primary" id="submitButton" >Crea Alcolico</button>
     </form>
 </div>
@@ -519,16 +544,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
-    function checkIce(x){
+    function checkYesOrNot(x, id){
         let chose = x.value
-        let ice =document.getElementById('ice_select')
+        let elem =document.getElementById(id)
+
 
         if(chose == 'yes'){
-            ice.required = true
-            console.log(ice)
+            elem.required = true
+            console.log(elem)
         }else {
-            ice.required = false
-            console.log(ice)
+            elem.required = false
+            console.log(elem)
         }
     }
 
