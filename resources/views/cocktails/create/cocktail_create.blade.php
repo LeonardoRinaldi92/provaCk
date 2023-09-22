@@ -378,6 +378,10 @@ document.addEventListener('DOMContentLoaded', function() {
         //creaiamo un variabile di controllo per vedere se esite gia una select con quel nome
         checkeSelect = document.getElementById("ingredientType" + laneNumber)
         console.log(checkeSelect)
+        let error = document.getElementById('ingredientErrorLane' + laneNumber)
+        if(error){
+            error.remove()
+        }
         checkQuantitySelect = document.getElementById("quantityType" + laneNumber)
         checkQuantity = document.getElementById("quantity" + laneNumber)
         checkHidden = document.getElementById("hidden" + laneNumber)
@@ -432,30 +436,51 @@ document.addEventListener('DOMContentLoaded', function() {
             console.log(category)
             createHiddenInput(laneNumber, category)
             SelectedDiv.appendChild(newHiddenInput)
+        }else {
+            SelectedDiv.innerHTML +=               
+            `<div id="ingredientErrorLane`+(laneNumber) +  `">
+                aggoiungi un ingrediente
+            </div>`
         }
     }
 
     function functionAddLane (x){
         let idSelect = x.id.replace("addingredientbtn", "")
-        console.log(idSelect)
-        let originalLane = document.getElementById('ingredientsLane' + idSelect)
-        let newLane = document.createElement("div")
-        newLane.className = "form-group"
-        newLane.id = 'ingredientsLane' + (parseInt(idSelect) + 1)
-        let btn = document.getElementById('addingredientbtn' + idSelect).cloneNode(true)
-        btn.id = 'addingredientbtn' + (parseInt(idSelect) + 1)
-        newLane.appendChild(btn)
-        originalLane.parentNode.insertBefore(newLane, originalLane.nextSibling)
-        //tolgo la scritta ingredients in modo che so s quale linea sto lavorando
-        ingredientNumber ++
-        document.getElementById('ingredredintsLane' + idSelect)
-        let lane = document.getElementById('ingredientsLane' + ingredientNumber)
-        let input = document.getElementById('ingredients1')
-        let newInput = input.cloneNode(true)
-        newInput.id = 'ingredients'+ ingredientNumber
-        lane.innerHTML = ''
-        lane.appendChild(newInput)
-    }
+        let ingredient = document.getElementById("ingredients" + (idSelect - 1)).value 
+        if(ingredient !== '0'){
+            document.getElementById('ingredientErrorLane' + (idSelect-1)).remove()
+            let originalLane = document.getElementById('ingredientsLane' + idSelect)
+            let newLane = document.createElement("div")
+            newLane.className = "form-group"
+            newLane.id = 'ingredientsLane' + (parseInt(idSelect) + 1)
+            let btn = document.getElementById('addingredientbtn' + idSelect).cloneNode(true)
+            btn.id = 'addingredientbtn' + (parseInt(idSelect) + 1)
+            newLane.appendChild(btn)
+            originalLane.parentNode.insertBefore(newLane, originalLane.nextSibling)
+            //tolgo la scritta ingredients in modo che so s quale linea sto lavorando
+            ingredientNumber ++
+            document.getElementById('ingredredintsLane' + idSelect)
+            let lane = document.getElementById('ingredientsLane' + ingredientNumber)
+            let input = document.getElementById('ingredients1')
+            let newInput = input.cloneNode(true)
+            newInput.id = 'ingredients'+ ingredientNumber
+            lane.innerHTML = ''
+            lane.appendChild(newInput)
+
+        }else{
+            let error = document.getElementById('ingredientErrorLane' + (idSelect-1))
+            if(!error){
+                
+                document.getElementById("ingredientsLane" + (idSelect - 1)).innerHTML += 
+                `<div id="ingredientErrorLane`+(idSelect-1) +  `">
+                aggoiungi un ingrediente
+                    </div>`
+
+            }
+        }
+        }
+    
+    functionAddLane()
 
 </script>
 @endsection
