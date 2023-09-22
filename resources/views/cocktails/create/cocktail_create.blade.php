@@ -23,7 +23,7 @@
     {{-- nome --}}
             <div class="form-group col-4">
                 <label for="name">Nome:</label>
-                <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
+                <input type="text" class="form-control  border-top-0 border-start-0 border-end-0 rounded-0" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
                 <div class="valid-feedback">Campo valido.</div>
                 <div class="invalid-feedback">Nome non idoneo</div>
             </div>
@@ -45,7 +45,7 @@
             <div id="variation_select" style="display: none;" class="col-4">
                 <label for="variation">Seleziona la variazione</label>
                 <div>
-                    <select name="variation" id="variation" class="px-2" required>
+                    <select name="variation" id="variation" class="px-2 border-top-0 border-start-0 border-end-0 rounded-0 border-light text-secondary" required>
                         <option disabled selected>Scegli la variazione</option>
                         @foreach ($cocktails as $cocktail)
                             <option value="{{$cocktail->id}}">{{$cocktail->name}}</option>
