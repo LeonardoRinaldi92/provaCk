@@ -1,38 +1,37 @@
 
-{{-- @php
-    // Rimuovi duplicati basati sul nome della tabella
-    $uniqueIngredients = collect($ingredients)->unique(function ($item) {
-        return $item->Tables();
-    });
-
-    // Ordina gli ingredienti per nome
-    $sortedIngredients = $uniqueIngredients->sortBy(function ($item) {
-        return $item->Tables();
-    });
-
-    foreach ($sortedIngredients as $ingredient) {
-        echo $ingredient->Tables() . '<br>';
-    }
-@endphp --}}
 @extends('layouts.app')
 
 @section('content')
 <div class="container">
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <h2>Creazione Nuovo Cocktail</h2>
     <form method="POST" action="{{ route('cocktails.store') }}" enctype="multipart/form-data" id="form">
         @csrf
+
+{{-- nome --}}
         <div class="form-group">
             <label for="name">Nome:</label>
             <input type="text" class="form-control" id="name" name="name" placeholder="Inserisci il nome" minlength="3" maxlength="50" value="{{ old('name') }} " pattern="^[A-Za-z0-9À-Åà-åÈ-Ëè-ëÌ-Ïì-ïÒ-Öò-öÙ-Üù-üéèà&\-\s]+$" required>
             <div class="valid-feedback">Campo valido.</div>
             <div class="invalid-feedback">Nome non idoneo</div>
         </div>
+{{-- decrizione --}}
         <div class="form-group">
             <label for="description">Descrizione:</label>
-            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione"></textarea>
+            <textarea class="form-control" id="description" name="description" placeholder="Inserisci una descrizione" required></textarea>
         </div>
+{{-- lista ingredienti --}}
+    {{--prima linea compilata --}}
         <div class="form-group" id="ingredientsLane1">
-            <select id="ingredients1" onchange="AddIngredients(this)">
+            <select id="ingredients1" onchange="AddIngredients(this), checkRequired(this)">
                 <option value="0" selected>Scegli la categoria</option>
                 <option value="alcools">Alcoolici</option>
                 <option value="aromaticBitters">Bitter Aromatici</option>
@@ -43,11 +42,12 @@
                 <option value="sugars">Zuccheri</option>
                 <option value="syrups">Sciroppi</option>
             </select>
-
         </div>
+    {{-- seconda linea con bottone --}}
         <div class="form-group" id="ingredientsLane2">
             <button type="button" class="btn btn-primary" id="addingredientbtn2" onclick="functionAddLane(this)">Aggiungi un altro ingrediente</button>
         </div>
+{{-- lista equipaggiamenti --}}
         <div class="form-group">
             @foreach ($equipements as $equipement)
             <input type="checkbox" name="equipements[]" value="{{$equipement->id}}">
@@ -229,7 +229,6 @@ function handleInputValidation() {
                 // Il nome è valido
                 nameInput.classList.remove('is-invalid');
                 nameInput.classList.add('is-valid');
-                console.log('true');
                 document.getElementById('submitButton').removeAttribute('disabled'); // Abilita il pulsante
                 return true; // Restituisci true se la validazione è positiva
             } else {
@@ -247,7 +246,7 @@ function handleInputValidation() {
         return false; // Restituisci false se la validazione non è stata avviata
     }
 };
-
+handleInputValidation() 
 document.getElementById('form').addEventListener('submit', function(event) {
     if (!handleInputValidation()) {
         event.preventDefault(); // Previeni l'invio del modulo se l'input non è valido
@@ -377,7 +376,6 @@ document.addEventListener('DOMContentLoaded', function() {
         let categoriesSelected = document.getElementById(idSelect).value
         //creaiamo un variabile di controllo per vedere se esite gia una select con quel nome
         checkeSelect = document.getElementById("ingredientType" + laneNumber)
-        console.log(checkeSelect)
         let error = document.getElementById('ingredientErrorLane' + laneNumber)
         if(error){
             error.remove()
@@ -433,7 +431,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
             createQuantity('quantity', laneNumber)
             SelectedDiv.appendChild(newInput)
-            console.log(category)
             createHiddenInput(laneNumber, category)
             SelectedDiv.appendChild(newHiddenInput)
         }else {
@@ -484,6 +481,26 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     
     functionAddLane()
+
+    function checkRequired(x){
+        let idSelect = x.id
+        let idSelected = idSelect.replace("ingredients", "")
+        console.log(idSelected)
+        let ingredient = document.getElementById("ingredients" + (idSelected)).value
+        let inputingredientType = document.getElementById('ingredientType' + idSelected) 
+        let inputquantityType = document.getElementById('quantityType' + idSelected)
+        let inputquantity = document.getElementById('quantity' + idSelected)
+
+        if(ingredient == '0'){
+            inputingredientType.required = false
+            inputquantityType.required = false
+            inputquantity.required = false
+        }else {
+            inputingredientType.required = true
+            inputquantityType.required = true
+            inputquantity.required = true
+        }
+    }
 
 </script>
 @endsection
