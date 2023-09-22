@@ -448,7 +448,10 @@ document.addEventListener('DOMContentLoaded', function() {
         let idSelect = x.id.replace("addingredientbtn", "")
         let ingredient = document.getElementById("ingredients" + (idSelect - 1)).value 
         if(ingredient !== '0'){
-            document.getElementById('ingredientErrorLane' + (idSelect-1)).remove()
+            let errornow =  document.getElementById('ingredientErrorLane' + (idSelect-1))
+           if(errornow){
+            errornow.remove()
+           }
             let originalLane = document.getElementById('ingredientsLane' + idSelect)
             let newLane = document.createElement("div")
             newLane.className = "form-group"
