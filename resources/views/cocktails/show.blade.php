@@ -8,6 +8,11 @@
                                 {{$cocktail->name}}
                             </b>
                         </div>
+                            <div class="col-3">
+                                @if ($cocktail->image)
+                                <img src="{{ asset('storage/'. $cocktail->image) }}" alt="Immagine {{$cocktail->name}}" style="max-height: 400px">
+                                @endif
+                            </div>
                     <div>
                         <b>
                             UFFICIALE IBA: 
